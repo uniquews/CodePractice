@@ -25,7 +25,7 @@ public class MinimumPathSum {
 
         for (int i = 1; i < m; i++)
         {
-            f[i][0] = f[i - 1][0] + grid[i - 1][0];
+            f[i][0] = f[i - 1][0] + grid[i][0];
         }
 
         for (int i = 1; i < m; i++)
