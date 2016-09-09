@@ -6,6 +6,23 @@ import java.util.ArrayList;
  * Created by shuaiwang on 9/8/16.
  */
 public class MinimumAdjustmentCost {
+
+     /*
+        version 1: memory search
+        M[index][value] means the if we assign value to index th number,
+        the min conversion starting from the index th number to the end
+
+        Noted the memory search way could reduce the duplicate search
+        like M[2][0] will be used firstly by M[1][0] and be used by
+        M[1][1]. We can store the value of M[2][0] when we get it first
+        time. So next time when we calculate M[1][0], we can directly look
+        up value of M[2][0]
+
+        The minimum value will happen at any search path. Thus we need to compare
+        from M[0][0] to M[0][99] to see which one is smallest.
+      */
+
+
     public int MinAdjustmentCost(ArrayList<Integer> A, int target) {
         // write your code here
         if (A == null || A.size() == 0) {
@@ -13,51 +30,45 @@ public class MinimumAdjustmentCost {
         }
 
         int[][] M = new int[A.size()][100];
+
         for (int i = 0; i < A.size(); i++) {
             for (int j = 0; j < 100; j++) {
                 M[i][j] = Integer.MAX_VALUE;
             }
         }
 
-        // 首个数字可以取1-100
-        int min = Integer.MAX_VALUE;
-        for (int i = 1; i <= 100; i++) {
-            min = Math.min(min, rec3(A, target, 0, i, M));
+        int result = Integer.MAX_VALUE;
+        for (int i = 1; i <= 100; i ++) {
+            result = Math.min(result, helper(A, target, 0, i, M));
         }
+        return result;
 
-        return min;
     }
 
-    private int rec3(ArrayList<Integer> A, int target, int index, int x,
-                     int[][] M) {
-        int len = A.size();
-        if (index >= len) {
-            // The index is out of range.
+    private int helper(ArrayList<Integer> A, int target, int index, int value, int[][] M) {
+        if (index == A.size()) {
             return 0;
         }
 
-        if (M[index][x - 1] != Integer.MAX_VALUE) {
-            return M[index][x - 1];
+        if (M[index][value - 1] != Integer.MAX_VALUE) {
+            return M[index][value - 1];
         }
 
-        int bas = Math.abs(x - A.get(index));
-        int min = Integer.MAX_VALUE;
+        int diff = Math.abs(value - A.get(index));
 
-        // 对下一个值尝试取1-100
         for (int i = 1; i <= 100; i++) {
-            // 下一个值的取值不可以超过abs
-            if (index != len - 1 && Math.abs(i - x) > target) {
+            if (Math.abs(i - value) > target) {
                 continue;
             }
 
-            // 计算dif
-            int dif = bas + rec3(A, target, index + 1, i, M);
-            min = Math.min(min, dif);
+            int tmp = helper(A, target, index + 1, i, M);
+            M[index][value - 1] = Math.min(M[index][value - 1], diff + tmp);
         }
 
-        // Record the result.
-        M[index][x - 1] = min;
-        return min;
+        return M[index][value - 1];
+
     }
+
+
 
 }
