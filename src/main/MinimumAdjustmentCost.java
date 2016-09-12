@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by shuaiwang on 9/8/16.
@@ -23,52 +24,94 @@ public class MinimumAdjustmentCost {
       */
 
 
+//    public int MinAdjustmentCost(ArrayList<Integer> A, int target) {
+//        // write your code here
+//        if (A == null || A.size() == 0) {
+//            return 0;
+//        }
+//
+//        int[][] M = new int[A.size()][100];
+//
+//        for (int i = 0; i < A.size(); i++) {
+//            for (int j = 0; j < 100; j++) {
+//                M[i][j] = Integer.MAX_VALUE;
+//            }
+//        }
+//
+//        int result = Integer.MAX_VALUE;
+//        for (int i = 1; i <= 100; i ++) {
+//            result = Math.min(result, helper(A, target, 0, i, M));
+//        }
+//        return result;
+//
+//    }
+//
+//    private int helper(ArrayList<Integer> A, int target, int index, int value, int[][] M) {
+//        if (index == A.size()) {
+//            return 0;
+//        }
+//
+//        if (M[index][value - 1] != Integer.MAX_VALUE) {
+//            return M[index][value - 1];
+//        }
+//
+//        int diff = Math.abs(value - A.get(index));
+//
+//        for (int i = 1; i <= 100; i++) {
+//            if (Math.abs(i - value) > target) {
+//                continue;
+//            }
+//
+//            int tmp = helper(A, target, index + 1, i, M);
+//            M[index][value - 1] = Math.min(M[index][value - 1], diff + tmp);
+//        }
+//
+//        return M[index][value - 1];
+//
+//    }
+
+
+
+    /*
+    * f[i][v] the minimun diff for 0 - i - 1 number while the (i - 1)th num is v
+    *
+    * */
     public int MinAdjustmentCost(ArrayList<Integer> A, int target) {
         // write your code here
         if (A == null || A.size() == 0) {
             return 0;
         }
 
-        int[][] M = new int[A.size()][100];
+        int[][] M = new int[A.size()][101];
+
+        for (int[] row : M) {
+            Arrays.fill(row, Integer.MAX_VALUE);
+        }
 
         for (int i = 0; i < A.size(); i++) {
-            for (int j = 0; j < 100; j++) {
-                M[i][j] = Integer.MAX_VALUE;
+            for (int j = 1; j <= 100; j++) {
+                if (i == 0) {
+                    M[i][j] = Math.abs(j - A.get(i));
+                } else {
+                    for (int k = 1; k <= 100; k++) {
+                        if (Math.abs(j - k) > target) {
+                            continue;
+                        } else {
+                            int tmp = M[i - 1][k] + Math.abs(j - A.get(i));
+                            M[i][j] = Math.min(M[i][j], tmp);
+                        }
+                    }
+                }
             }
         }
 
+
         int result = Integer.MAX_VALUE;
-        for (int i = 1; i <= 100; i ++) {
-            result = Math.min(result, helper(A, target, 0, i, M));
+        for (int i = 1; i <= 100; i++) {
+            result = Math.min(result, M[A.size() - 1][i]);
         }
         return result;
 
     }
-
-    private int helper(ArrayList<Integer> A, int target, int index, int value, int[][] M) {
-        if (index == A.size()) {
-            return 0;
-        }
-
-        if (M[index][value - 1] != Integer.MAX_VALUE) {
-            return M[index][value - 1];
-        }
-
-        int diff = Math.abs(value - A.get(index));
-
-        for (int i = 1; i <= 100; i++) {
-            if (Math.abs(i - value) > target) {
-                continue;
-            }
-
-            int tmp = helper(A, target, index + 1, i, M);
-            M[index][value - 1] = Math.min(M[index][value - 1], diff + tmp);
-        }
-
-        return M[index][value - 1];
-
-    }
-
-
 
 }
