@@ -77,27 +77,31 @@ public class MergekSortedLists {
 //            return left.val - right.val;
 //        }
 //    };
-    private Comparator<ListNode> ListNodeComparator = new Comparator<ListNode>() {
-        public int compare(ListNode left, ListNode right) {
-            if (left == null) {
-                return 1;
-            } else if (right == null) {
-                return -1;
-            }
-            return left.val - right.val;
-        }
-    };
+//    private Comparator<ListNode> ListNodeComparator = new Comparator<ListNode>() {
+//        public int compare(ListNode left, ListNode right) {
+//            if (left == null) {
+//                return 1;
+//            } else if (right == null) {
+//                return -1;
+//            }
+//            return left.val - right.val;
+//        }
+//    };
 
-    public ListNode mergeKLists(List<ListNode> lists) {
+    // leetcode
+    public ListNode mergeKLists(ListNode[] lists) {
         // write your code here
-        if (lists == null || lists.size() == 0) {
+        if (lists == null || lists.length == 0) {
             return null;
         }
 
-        Queue<ListNode> heap = new PriorityQueue<ListNode>(lists.size(), ListNodeComparator);
+        Queue<ListNode> heap = new PriorityQueue<ListNode>(lists.length, (list1, list2) -> {
+            return list1.val - list2.val;
+        });
 
-        for (int i = 0; i < lists.size(); i++) {
-            heap.add(lists.get(i));
+        for (int i = 0; i < lists.length; i++) {
+            if (lists[i] != null)
+                heap.add(lists[i]);
         }
 
         ListNode dummy = new ListNode(-1);
@@ -109,7 +113,7 @@ public class MergekSortedLists {
             p = p.next;
 
             if (cur.next != null) {
-                heap.add(cur);
+                heap.add(cur.next);
             }
         }
         return dummy.next;
