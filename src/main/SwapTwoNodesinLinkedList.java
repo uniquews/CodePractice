@@ -13,45 +13,46 @@ public class SwapTwoNodesinLinkedList {
 
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
-        ListNode p = dummy;
-        ListNode q = null;
-        ListNode k = null;
+        ListNode cur = dummy;
+        ListNode node1 = null;
+        ListNode node2 = null;
 
-
-        while (p.next != null) {
-            if (p.next.val == v1 || p.next.val == v2) {
-                if (q == null) {
-                    q = p;
-                    p = p.next;
+        while (cur.next != null) {
+            if (cur.next.val == v1 || cur.next.val == v2) {
+                if (node1 == null) {
+                    node1 = cur;
+                    cur = cur.next;
                     continue;
                 } else {
-                    k = p;
+                    node2 = cur;
                 }
             }
-
-            p = p.next;
+            cur = cur.next;
         }
 
-        if (q == null || k == null) {
+        if (node1 == null || node2 == null) {
             return head;
         }
 
-        if (q.next.next == k.next) {
-            ListNode tmp = q.next;
-            ListNode tmp2 = k.next;
-            q.next = k.next;
-            tmp.next = k.next.next;
-            tmp2.next = tmp;
-        } else {
-            ListNode a = q.next.next;
-            ListNode b = k.next.next;
-            ListNode tmp = k.next;
-
-            q.next.next = b;
-            k.next.next = a;
-            k.next = q.next;
-            q.next = tmp;
-        }
+        swapHelper(node1, node2);
         return dummy.next;
+    }
+
+    private void swapHelper(ListNode node1, ListNode node2) {
+        ListNode cur1 = node1.next;
+        ListNode cur2 = node2.next;
+        ListNode next1 = node1.next.next;
+        ListNode next2 = node2.next.next;
+        if (node1.next.next == node2.next) {
+            cur1.next = next2;
+            cur2.next = cur1;
+            node1.next = cur2;
+        } else {
+            cur1.next = next2;
+            cur2.next = next1;
+            node1.next = cur2;
+            node2.next = cur1;
+        }
+        return;
     }
 }
