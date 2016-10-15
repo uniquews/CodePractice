@@ -19,7 +19,7 @@ public class FourSum {
         while (first < numbers.length - 3) {
             ArrayList<Integer> eachResult = new ArrayList<>();
             eachResult.add(numbers[first]);
-            int minusFirst = target - first;
+            int minusFirst = target - numbers[first];
             int second = first + 1;
             while (second < numbers.length - 2) {
                 eachResult.add(numbers[second]);
