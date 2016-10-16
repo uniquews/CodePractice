@@ -1,9 +1,7 @@
 package main;
 
 import main.utils.TreeNode;
-import test.DoublyListNode;
-
-import java.util.Stack;
+import main.utils.DoublyListNode;
 
 /**
  * Created by shuaiwang on 9/28/16.
