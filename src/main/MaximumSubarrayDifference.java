@@ -34,11 +34,6 @@ public class MaximumSubarrayDifference {
         int[] leftMin = new int[nums.length];
         int[] rightMin = new int[nums.length];
 
-        int[] copy = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            copy[i] = -1 * nums[i];
-        }
-
         int max = Integer.MIN_VALUE;
         int minSum = 0;
         int sum = 0;
@@ -59,24 +54,24 @@ public class MaximumSubarrayDifference {
             rightMax[i] = max;
         }
 
-        max = Integer.MIN_VALUE;
-        minSum = 0;
+        int min = Integer.MAX_VALUE;
+        int maxSum = 0;
         sum = 0;
         for (int i = 0; i < nums.length; i++) {
-            sum += copy[i];
-            max = Math.max(max, sum - minSum);
-            minSum = Math.min(minSum, sum);
-            leftMin[i] = -1 * max;
+            sum += nums[i];
+            min = Math.min(min, sum - maxSum);
+            maxSum = Math.max(maxSum, sum);
+            leftMin[i] = min;
         }
 
-        max = Integer.MIN_VALUE;
-        minSum = 0;
+        min = Integer.MAX_VALUE;
+        maxSum = 0;
         sum = 0;
         for (int i = nums.length - 1; i >= 0; i--) {
-            sum += copy[i];
-            max = Math.max(max, sum - minSum);
-            minSum = Math.min(minSum, sum);
-            rightMin[i] = -1 * max;
+            sum += nums[i];
+            min = Math.min(min, sum - maxSum);
+            maxSum = Math.max(maxSum, sum);
+            rightMin[i] = min;
         }
 
         int result = 0;
