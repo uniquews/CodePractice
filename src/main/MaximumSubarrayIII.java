@@ -2,6 +2,26 @@ package main;
 
 /**
  * Created by shuaiwang on 10/17/16.
+ *
+ * f[i][j]: the maximum value of jth subarray ending at ith number. In this case, the ith number would be
+ *
+ * i. the starting of the jth subarray, which only has one number
+ * OR
+ * ii. the end of the jth subarray
+ *
+ * i. f[m][j - 1] + nums[i - 1] where j - 1 <= m <= i - 1  (j - 1)th subarray could be ending at mth number
+ * ii. f[i - 1][j] + nums[i - 1] add nums[i - 1] to the end of the jth subarray
+ *
+ * However, you can't write something like:
+ *
+ * f[i][j] = Math.max(f[m][j - 1] + nums[i - 1], f[i - 1][j] + nums[i - 1])
+ *
+ * because for instance,
+ * [-1, Integer.MIN_VALUE], 1
+ * f[2][1] = Math.max(f[1][0] + nums[1], f[1][1] + nums[1])
+ *
+ * f[1][1] + nums[1] will be overflow
+ *
  */
 public class MaximumSubarrayIII {
     public int maxSubArray(int[] nums, int k) {
