@@ -10,7 +10,7 @@ public class UglyNumber {
             return false;
         }
 
-        while (num >= 1 && num % 2 == 0) {
+        while (num >= 1 && num % 2 == 0) { // change the while loop order is ok
             num /= 2;
         }
         while (num >= 1 &&  num % 3 == 0) {
