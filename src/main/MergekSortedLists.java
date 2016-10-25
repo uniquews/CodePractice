@@ -95,9 +95,7 @@ public class MergekSortedLists {
             return null;
         }
 
-        Queue<ListNode> heap = new PriorityQueue<ListNode>(lists.length, (list1, list2) -> {
-            return list1.val - list2.val;
-        });
+        Queue<ListNode> heap = new PriorityQueue<>(lists.length, (list1, list2) -> list1.val - list2.val);
 
         for (int i = 0; i < lists.length; i++) {
             if (lists[i] != null)
