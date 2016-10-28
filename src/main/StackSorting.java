@@ -24,13 +24,15 @@ public class StackSorting {
                 helper.add(stack.pop());
             }
 
-            if (!stack.isEmpty()) { // stack = {}; helper = {4,3,2,1}
-                int value = stack.pop();
-                while (!helper.isEmpty() && helper.peek() < value) {
-                    stack.add(helper.pop());
-                }
-                stack.add(value);
+            if (stack.isEmpty()) { // stack = {}; helper = {4,3,2,1}
+                continue;
             }
+
+            int value = stack.pop();
+            while (!helper.isEmpty() && helper.peek() < value) {
+                stack.add(helper.pop());
+            }
+            stack.add(value);
         }
 
         while (!helper.isEmpty()) {
