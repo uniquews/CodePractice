@@ -1,6 +1,8 @@
 package main;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by shuaiwang on 10/31/16.
@@ -15,7 +17,6 @@ public class LongestConsecutiveSequence {
 
         int longest = 0;
         for (int i = 0; i < num.length; i++) {
-            int current = num[i];
             int prev = num[i] - 1;
 
             int currentLen= 1;
@@ -34,6 +35,7 @@ public class LongestConsecutiveSequence {
             }
             longest = Math.max(longest, currentLen);
         }
+
         return longest;
     }
 }
