@@ -21,8 +21,10 @@ public class LowestCommonAncestorIII {
         if (root == null) {
             return null;
         }
+
         TreeNode leftResult = helper(root.left, A, B);
         TreeNode rightResult = helper(root.right, A, B);
+
         if (root == A && root == B) {
             foundLeft = true;
             foundRight = true;
