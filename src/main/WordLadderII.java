@@ -16,11 +16,13 @@ public class WordLadderII {
 
         Queue<String> q = new LinkedList<>();
         Map<String, Set<String>> path = new HashMap<>();
+        Set<String> previousLevel = new HashSet<>();
 
         q.offer(start);
 
         while (!q.isEmpty()) {
             int currentQueueSize = q.size();
+            previousLevel.addAll(q);
             while (currentQueueSize > 0) {
                 String current = q.poll();
                 for (int i = 0; i < current.length(); i++) {
@@ -33,8 +35,9 @@ public class WordLadderII {
                             found = true;
                             updateMapping(path, current, updateStr);
                         }
-                        if (dict.contains(updateStr)) {
-                            q.offer(updateStr);
+                        if (dict.contains(updateStr) && !previousLevel.contains(updateStr)) {
+                            if (!q.contains(updateStr))
+                                q.offer(updateStr);
                             updateMapping(path, current, updateStr);
                         }
                     }
@@ -88,13 +91,13 @@ public class WordLadderII {
 
     public static void main(String[] args) {
         WordLadderII test = new WordLadderII();
-//        String start = "qa";
-//        String end = "sq";
-//        Set<String> dict = new HashSet<>(Arrays.asList("si","go","se","cm","so","ph","mt","db","mb","sb","kr","ln","tm","le","av","sm","ar","ci","ca","br","ti","ba","to","ra","fa","yo","ow","sn","ya","cr","po","fe","ho","ma","re","or","rn","au","ur","rh","sr","tc","lt","lo","as","fr","nb","yb","if","pb","ge","th","pm","rb","sh","co","ga","li","ha","hz","no","bi","di","hi","qa","pi","os","uh","wm","an","me","mo","na","la","st","er","sc","ne","mn","mi","am","ex","pt","io","be","fm","ta","tb","ni","mr","pa","he","lr","sq","ye"));
+        String start = "qa";
+        String end = "sq";
+        Set<String> dict = new HashSet<>(Arrays.asList("si","go","se","cm","so","ph","mt","db","mb","sb","kr","ln","tm","le","av","sm","ar","ci","ca","br","ti","ba","to","ra","fa","yo","ow","sn","ya","cr","po","fe","ho","ma","re","or","rn","au","ur","rh","sr","tc","lt","lo","as","fr","nb","yb","if","pb","ge","th","pm","rb","sh","co","ga","li","ha","hz","no","bi","di","hi","qa","pi","os","uh","wm","an","me","mo","na","la","st","er","sc","ne","mn","mi","am","ex","pt","io","be","fm","ta","tb","ni","mr","pa","he","lr","sq","ye"));
 
-        String start = "hot";
-        String end = "dog";
-        Set<String> dict = new HashSet<>(Arrays.asList("hot","cog","dog","tot","hog","hop","pot","dot"));
+//        String start = "hot";
+//        String end = "dog";
+//        Set<String> dict = new HashSet<>(Arrays.asList("hot","cog","dog","tot","hog","hop","pot","dot"));
 
         test.findLadders(start, end, dict);
     }
