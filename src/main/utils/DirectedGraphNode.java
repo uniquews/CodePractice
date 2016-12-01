@@ -19,6 +19,7 @@ public class DirectedGraphNode {
         return label;
     }
 
+    @Override
     public boolean equals(Object obj) {
         return obj instanceof DirectedGraphNode && ((DirectedGraphNode) obj).getLabel() == this.label;
     }
