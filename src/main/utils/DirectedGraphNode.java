@@ -9,23 +9,24 @@ import java.util.Objects;
 public class DirectedGraphNode {
     public int label;
     public ArrayList<DirectedGraphNode> neighbors;
-    public DirectedGraphNode(int x) { label = x; neighbors = new ArrayList<DirectedGraphNode>(); }
-    public int getLabel() {return label;}
 
+    public DirectedGraphNode(int x) {
+        label = x;
+        neighbors = new ArrayList<>();
+    }
+
+    public int getLabel() {
+        return label;
+    }
 
     @Override
-    public boolean equals(Objects obj) {
-        if ((obj instanceof  DirectedGraphNode) && ((DirectedGraphNode) obj).getLabel() == this.label) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean equals(Object obj) {
+        return obj instanceof DirectedGraphNode && ((DirectedGraphNode) obj).getLabel() == this.label;
     }
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = (int) (label / 333);
-        return result;
+        return label / 333;
     }
 }
+
