@@ -29,3 +29,4 @@ public class DirectedGraphNode {
         return label / 333;
     }
 }
+
