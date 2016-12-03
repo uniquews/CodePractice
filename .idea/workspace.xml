@@ -1,0 +1,899 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="eddeda87-5d5d-49e1-9082-6b97bcc890b2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_all_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/AddTwoNumbers.java" afterPath="$PROJECT_DIR$/src/main/java/AddTwoNumbers.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/AddTwoNumbersII.java" afterPath="$PROJECT_DIR$/src/main/java/AddTwoNumbersII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/AnimalShelter.java" afterPath="$PROJECT_DIR$/src/main/java/AnimalShelter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BSTIterator.java" afterPath="$PROJECT_DIR$/src/main/java/BSTIterator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Backpack.java" afterPath="$PROJECT_DIR$/src/main/java/Backpack.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BackpackII.java" afterPath="$PROJECT_DIR$/src/main/java/BackpackII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BalancedBinaryTree.java" afterPath="$PROJECT_DIR$/src/main/java/BalancedBinaryTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BestTimetoBuyandSellStock.java" afterPath="$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStock.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BestTimetoBuyandSellStockII.java" afterPath="$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStockII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BestTimetoBuyandSellStockIII.java" afterPath="$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStockIII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeInorderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeInorderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeLevelOrderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeLevelOrderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeLevelOrderTraversalII.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeLevelOrderTraversalII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeMaximumPathSum.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeMaximumPathSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeMaximumPathSum2.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeMaximumPathSum2.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreePathSum.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreePathSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreePostorderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreePostorderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreePreorderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreePreorderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeSerialization.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeSerialization.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/BinaryTreeZigzagLevelOrderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/BinaryTreeZigzagLevelOrderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ClimbingStairs.java" afterPath="$PROJECT_DIR$/src/main/java/ClimbingStairs.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ClimbingStairsII.java" afterPath="$PROJECT_DIR$/src/main/java/ClimbingStairsII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/CloneGraph.java" afterPath="$PROJECT_DIR$/src/main/java/CloneGraph.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/CombinationSum.java" afterPath="$PROJECT_DIR$/src/main/java/CombinationSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/CompleteBinaryTree.java" afterPath="$PROJECT_DIR$/src/main/java/CompleteBinaryTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConnectingGraph.java" afterPath="$PROJECT_DIR$/src/main/java/ConnectingGraph.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConnectingGraphII.java" afterPath="$PROJECT_DIR$/src/main/java/ConnectingGraphII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConnectingGraphIII.java" afterPath="$PROJECT_DIR$/src/main/java/ConnectingGraphIII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConstructBinaryTreefromInorderandPostorderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/ConstructBinaryTreefromInorderandPostorderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConstructBinaryTreefromPreorderandInorderTraversal.java" afterPath="$PROJECT_DIR$/src/main/java/ConstructBinaryTreefromPreorderandInorderTraversal.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConvertBinarySearchTreetoDoublyLinkedList.java" afterPath="$PROJECT_DIR$/src/main/java/ConvertBinarySearchTreetoDoublyLinkedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ConvertSortedListtoBalancedBST.java" afterPath="$PROJECT_DIR$/src/main/java/ConvertSortedListtoBalancedBST.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/CopyListwithRandomPointer.java" afterPath="$PROJECT_DIR$/src/main/java/CopyListwithRandomPointer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/DecodeWays.java" afterPath="$PROJECT_DIR$/src/main/java/DecodeWays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/DeleteNodeintheMiddleofSinglyLinkedList.java" afterPath="$PROJECT_DIR$/src/main/java/DeleteNodeintheMiddleofSinglyLinkedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/DistinctSubsequences.java" afterPath="$PROJECT_DIR$/src/main/java/DistinctSubsequences.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/EditDistance.java" afterPath="$PROJECT_DIR$/src/main/java/EditDistance.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/FindtheConnectedComponentintheUndirectedGraph.java" afterPath="$PROJECT_DIR$/src/main/java/FindtheConnectedComponentintheUndirectedGraph.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/FindtheMissingNumberII.java" afterPath="$PROJECT_DIR$/src/main/java/FindtheMissingNumberII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/FindtheWeakConnectedComponentintheDirectedGraph.java" afterPath="$PROJECT_DIR$/src/main/java/FindtheWeakConnectedComponentintheDirectedGraph.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/FourSum.java" afterPath="$PROJECT_DIR$/src/main/java/FourSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/HashFunction.java" afterPath="$PROJECT_DIR$/src/main/java/HashFunction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Heapify.java" afterPath="$PROJECT_DIR$/src/main/java/Heapify.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/IdenticalBinaryTree.java" afterPath="$PROJECT_DIR$/src/main/java/IdenticalBinaryTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ImplementQueuebyTwoStacks.java" afterPath="$PROJECT_DIR$/src/main/java/ImplementQueuebyTwoStacks.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ImplementStack.java" afterPath="$PROJECT_DIR$/src/main/java/ImplementStack.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ImplementStackbyTwoQueues.java" afterPath="$PROJECT_DIR$/src/main/java/ImplementStackbyTwoQueues.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/InorderSuccessorInBinarySearchTree.java" afterPath="$PROJECT_DIR$/src/main/java/InorderSuccessorInBinarySearchTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/InsertionSortList.java" afterPath="$PROJECT_DIR$/src/main/java/InsertionSortList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/InterleavingString.java" afterPath="$PROJECT_DIR$/src/main/java/InterleavingString.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/IntersectionofTwoArrays.java" afterPath="$PROJECT_DIR$/src/main/java/IntersectionofTwoArrays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/JumpGame.java" afterPath="$PROJECT_DIR$/src/main/java/JumpGame.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/JumpGameII.java" afterPath="$PROJECT_DIR$/src/main/java/JumpGameII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/KClosestNumberInSortedArray.java" afterPath="$PROJECT_DIR$/src/main/java/KClosestNumberInSortedArray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/KthLargestElement.java" afterPath="$PROJECT_DIR$/src/main/java/KthLargestElement.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/KthLargestinNArrays.java" afterPath="$PROJECT_DIR$/src/main/java/KthLargestinNArrays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/KthSmallestNumberinSortedMatrix.java" afterPath="$PROJECT_DIR$/src/main/java/KthSmallestNumberinSortedMatrix.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/KthSmallestNumbersinUnsortedArray.java" afterPath="$PROJECT_DIR$/src/main/java/KthSmallestNumbersinUnsortedArray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/KthSmallestSumInTwoSortedArrays.java" afterPath="$PROJECT_DIR$/src/main/java/KthSmallestSumInTwoSortedArrays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LRUCache.java" afterPath="$PROJECT_DIR$/src/main/java/LRUCache.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LargestRectangleinHistogram.java" afterPath="$PROJECT_DIR$/src/main/java/LargestRectangleinHistogram.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LinkedListCycle.java" afterPath="$PROJECT_DIR$/src/main/java/LinkedListCycle.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LinkedListCycleII.java" afterPath="$PROJECT_DIR$/src/main/java/LinkedListCycleII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LongestCommonSubsequence.java" afterPath="$PROJECT_DIR$/src/main/java/LongestCommonSubsequence.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LongestCommonSubstring.java" afterPath="$PROJECT_DIR$/src/main/java/LongestCommonSubstring.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LongestConsecutiveSequence.java" afterPath="$PROJECT_DIR$/src/main/java/LongestConsecutiveSequence.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LongestIncreasingSubsequence.java" afterPath="$PROJECT_DIR$/src/main/java/LongestIncreasingSubsequence.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LowestCommonAncestor.java" afterPath="$PROJECT_DIR$/src/main/java/LowestCommonAncestor.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LowestCommonAncestorII.java" afterPath="$PROJECT_DIR$/src/main/java/LowestCommonAncestorII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/LowestCommonAncestorIII.java" afterPath="$PROJECT_DIR$/src/main/java/LowestCommonAncestorIII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaxTree.java" afterPath="$PROJECT_DIR$/src/main/java/MaxTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaximumDepthofBinaryTree.java" afterPath="$PROJECT_DIR$/src/main/java/MaximumDepthofBinaryTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaximumProductSubarray.java" afterPath="$PROJECT_DIR$/src/main/java/MaximumProductSubarray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaximumSubarray.java" afterPath="$PROJECT_DIR$/src/main/java/MaximumSubarray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaximumSubarrayDifference.java" afterPath="$PROJECT_DIR$/src/main/java/MaximumSubarrayDifference.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaximumSubarrayII.java" afterPath="$PROJECT_DIR$/src/main/java/MaximumSubarrayII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MaximumSubarrayIII.java" afterPath="$PROJECT_DIR$/src/main/java/MaximumSubarrayIII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MedianoftwoSortedArrays.java" afterPath="$PROJECT_DIR$/src/main/java/MedianoftwoSortedArrays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MergeSortedArray.java" afterPath="$PROJECT_DIR$/src/main/java/MergeSortedArray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MergeTwoSortedArrays.java" afterPath="$PROJECT_DIR$/src/main/java/MergeTwoSortedArrays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MergeTwoSortedLists.java" afterPath="$PROJECT_DIR$/src/main/java/MergeTwoSortedLists.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MergekSortedArrays.java" afterPath="$PROJECT_DIR$/src/main/java/MergekSortedArrays.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MergekSortedLists.java" afterPath="$PROJECT_DIR$/src/main/java/MergekSortedLists.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MiddleofLinkedList.java" afterPath="$PROJECT_DIR$/src/main/java/MiddleofLinkedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MinStack.java" afterPath="$PROJECT_DIR$/src/main/java/MinStack.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MinimumAdjustmentCost.java" afterPath="$PROJECT_DIR$/src/main/java/MinimumAdjustmentCost.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MinimumDepthofBinaryTree.java" afterPath="$PROJECT_DIR$/src/main/java/MinimumDepthofBinaryTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MinimumPathSum.java" afterPath="$PROJECT_DIR$/src/main/java/MinimumPathSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/MinimumSubarray.java" afterPath="$PROJECT_DIR$/src/main/java/MinimumSubarray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/NQueens.java" afterPath="$PROJECT_DIR$/src/main/java/NQueens.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/NQueensII.java" afterPath="$PROJECT_DIR$/src/main/java/NQueensII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/NthtoLastNodeinList.java" afterPath="$PROJECT_DIR$/src/main/java/NthtoLastNodeinList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/NumberofIslands.java" afterPath="$PROJECT_DIR$/src/main/java/NumberofIslands.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/NumberofWaystoRepresentNCents.java" afterPath="$PROJECT_DIR$/src/main/java/NumberofWaystoRepresentNCents.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/PalindromeLinkedList.java" afterPath="$PROJECT_DIR$/src/main/java/PalindromeLinkedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/PalindromePartitioning.java" afterPath="$PROJECT_DIR$/src/main/java/PalindromePartitioning.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/PalindromePartitioningII.java" afterPath="$PROJECT_DIR$/src/main/java/PalindromePartitioningII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/PartitionArray.java" afterPath="$PROJECT_DIR$/src/main/java/PartitionArray.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/PartitionList.java" afterPath="$PROJECT_DIR$/src/main/java/PartitionList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Permutation.java" afterPath="$PROJECT_DIR$/src/main/java/Permutation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Rehashing.java" afterPath="$PROJECT_DIR$/src/main/java/Rehashing.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/RemoveDuplicatesfromSortedList.java" afterPath="$PROJECT_DIR$/src/main/java/RemoveDuplicatesfromSortedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/RemoveDuplicatesfromSortedListII.java" afterPath="$PROJECT_DIR$/src/main/java/RemoveDuplicatesfromSortedListII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/RemoveDuplicatesfromUnsortedList.java" afterPath="$PROJECT_DIR$/src/main/java/RemoveDuplicatesfromUnsortedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/RemoveLinkedListElements.java" afterPath="$PROJECT_DIR$/src/main/java/RemoveLinkedListElements.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/RemoveNthNodeFromEndofList.java" afterPath="$PROJECT_DIR$/src/main/java/RemoveNthNodeFromEndofList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ReorderList.java" afterPath="$PROJECT_DIR$/src/main/java/ReorderList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ReverseLinkedList.java" afterPath="$PROJECT_DIR$/src/main/java/ReverseLinkedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ReverseLinkedListII.java" afterPath="$PROJECT_DIR$/src/main/java/ReverseLinkedListII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ReverseNodesinkGroup.java" afterPath="$PROJECT_DIR$/src/main/java/ReverseNodesinkGroup.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/RotateList.java" afterPath="$PROJECT_DIR$/src/main/java/RotateList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Search2DMatrix.java" afterPath="$PROJECT_DIR$/src/main/java/Search2DMatrix.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SearchRangeinBinarySearchTree.java" afterPath="$PROJECT_DIR$/src/main/java/SearchRangeinBinarySearchTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SixDegrees.java" afterPath="$PROJECT_DIR$/src/main/java/SixDegrees.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SortColors.java" afterPath="$PROJECT_DIR$/src/main/java/SortColors.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SortColorsII.java" afterPath="$PROJECT_DIR$/src/main/java/SortColorsII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SortLettersbyCase.java" afterPath="$PROJECT_DIR$/src/main/java/SortLettersbyCase.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SortList.java" afterPath="$PROJECT_DIR$/src/main/java/SortList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/StackSorting.java" afterPath="$PROJECT_DIR$/src/main/java/StackSorting.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/StringPermutationII.java" afterPath="$PROJECT_DIR$/src/main/java/StringPermutationII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SubarraySum.java" afterPath="$PROJECT_DIR$/src/main/java/SubarraySum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SubarraySumClosest.java" afterPath="$PROJECT_DIR$/src/main/java/SubarraySumClosest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SubsetII.java" afterPath="$PROJECT_DIR$/src/main/java/SubsetII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SwapNodesinPairs.java" afterPath="$PROJECT_DIR$/src/main/java/SwapNodesinPairs.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SwapTwoNodesinLinkedList.java" afterPath="$PROJECT_DIR$/src/main/java/SwapTwoNodesinLinkedList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/SymmetricBinaryTree.java" afterPath="$PROJECT_DIR$/src/main/java/SymmetricBinaryTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ThreeSum.java" afterPath="$PROJECT_DIR$/src/main/java/ThreeSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TopKFrequentWords.java" afterPath="$PROJECT_DIR$/src/main/java/TopKFrequentWords.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TopOccurrenceOfTarget.java" afterPath="$PROJECT_DIR$/src/main/java/TopOccurrenceOfTarget.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TopkLargestNumbers.java" afterPath="$PROJECT_DIR$/src/main/java/TopkLargestNumbers.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TopkLargestNumbersII.java" afterPath="$PROJECT_DIR$/src/main/java/TopkLargestNumbersII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TopologicalSorting.java" afterPath="$PROJECT_DIR$/src/main/java/TopologicalSorting.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Triangle.java" afterPath="$PROJECT_DIR$/src/main/java/Triangle.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TriangleCount.java" afterPath="$PROJECT_DIR$/src/main/java/TriangleCount.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TwoSum.java" afterPath="$PROJECT_DIR$/src/main/java/TwoSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TwoSumClosest.java" afterPath="$PROJECT_DIR$/src/main/java/TwoSumClosest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/TwoSumII.java" afterPath="$PROJECT_DIR$/src/main/java/TwoSumII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/UglyNumber.java" afterPath="$PROJECT_DIR$/src/main/java/UglyNumber.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/UglyNumberII.java" afterPath="$PROJECT_DIR$/src/main/java/UglyNumberII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/UniquePaths.java" afterPath="$PROJECT_DIR$/src/main/java/UniquePaths.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/UniquePathsII.java" afterPath="$PROJECT_DIR$/src/main/java/UniquePathsII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/ValidateBinarySearchTree.java" afterPath="$PROJECT_DIR$/src/main/java/ValidateBinarySearchTree.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/WildcardMatching.java" afterPath="$PROJECT_DIR$/src/main/java/WildcardMatching.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/WildcardMatchingTest.java" afterPath="$PROJECT_DIR$/src/main/java/WildcardMatchingTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/WoodCut.java" afterPath="$PROJECT_DIR$/src/main/java/WoodCut.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/WordBreak.java" afterPath="$PROJECT_DIR$/src/main/java/WordBreak.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/WordLadder.java" afterPath="$PROJECT_DIR$/src/main/java/WordLadder.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/WordLadderII.java" afterPath="$PROJECT_DIR$/src/main/java/WordLadderII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/kSum.java" afterPath="$PROJECT_DIR$/src/main/java/kSum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/kSumII.java" afterPath="$PROJECT_DIR$/src/main/java/kSumII.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/DirectedGraphNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/DirectedGraphNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/DoublyListNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/DoublyListNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/ListNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/ListNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/ParentTreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/ParentTreeNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/RandomListNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/RandomListNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/TreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/TreeNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/utils/UndirectedGraphNode.java" afterPath="$PROJECT_DIR$/src/main/java/utils/UndirectedGraphNode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/KClosestNumberInSortedArrayTest.java" afterPath="$PROJECT_DIR$/src/test/java/KClosestNumberInSortedArrayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/Search2DMatrixTest.java" afterPath="$PROJECT_DIR$/src/test/java/Search2DMatrixTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/SubsetIITest.java" afterPath="$PROJECT_DIR$/src/test/java/SubsetIITest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/TopOccurrenceOfTargetTest.java" afterPath="$PROJECT_DIR$/src/test/java/TopOccurrenceOfTargetTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/WoodCutTest.java" afterPath="$PROJECT_DIR$/src/test/java/WoodCutTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/leetcode_java.iml" afterPath="$PROJECT_DIR$/leetcode_java.iml" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="leetcode_java" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="SubsetIITest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/SubsetIITest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KClosestNumberInSortedArrayTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/KClosestNumberInSortedArrayTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddTwoNumbersII.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/AddTwoNumbersII.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddTwoNumbers.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/AddTwoNumbers.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Search2DMatrixTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/Search2DMatrixTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TopOccurrenceOfTargetTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/TopOccurrenceOfTargetTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WoodCutTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/WoodCutTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="22" lean-forward="false" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="package-info" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>main.java</find>
+      <find>package ;</find>
+      <find>import .</find>
+      <find>package .</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>import</replace>
+      <replace>import</replace>
+      <replace>package</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/test/java/WoodCutTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Backpack.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BackpackII.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BalancedBinaryTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStock.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStockII.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStockIII.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BinaryTreeInorderTraversal.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BinaryTreeLevelOrderTraversal.java" />
+        <option value="$PROJECT_DIR$/src/main/java/AnimalShelter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BSTIterator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/DirectedGraphNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ParentTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BinaryTreeLevelOrderTraversalII.java" />
+        <option value="$PROJECT_DIR$/src/test/java/TopOccurrenceOfTargetTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/SubsetIITest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/KClosestNumberInSortedArrayTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/Search2DMatrixTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/AddTwoNumbersII.java" />
+        <option value="$PROJECT_DIR$/src/main/java/AddTwoNumbers.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leetcode_java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leetcode_java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leetcode_java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leetcode_java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leetcode_java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leetcode_java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="copyright.filetypes.JavaScript" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FullScreen" value="true" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+  </component>
+  <component name="RunManager" selected="JUnit.KClosestNumberInSortedArrayTest">
+    <configuration default="false" name="KClosestNumberInSortedArrayTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="leetcode_java" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="KClosestNumberInSortedArrayTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="KClosestNumberInSortedArrayTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="leetcode_java" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="KClosestNumberInSortedArrayTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="leetcode_java" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.KClosestNumberInSortedArrayTest.test" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.KClosestNumberInSortedArrayTest" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.KClosestNumberInSortedArrayTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.KClosestNumberInSortedArrayTest.test" />
+      </list>
+    </recent_temporary>
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eddeda87-5d5d-49e1-9082-6b97bcc890b2" name="Default" comment="" />
+      <created>1480744768852</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1480744768852</updated>
+      <workItem from="1480744770237" duration="437000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="437000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/test/java/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BackpackII.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BalancedBinaryTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStockII.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BestTimetoBuyandSellStockIII.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BinaryTreeInorderTraversal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BinaryTreeLevelOrderTraversal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/AnimalShelter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="37" lean-forward="false" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BSTIterator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/DirectedGraphNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ListNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ParentTreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Backpack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BinaryTreeLevelOrderTraversalII.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/WoodCutTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="22" lean-forward="false" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/TopOccurrenceOfTargetTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/SubsetIITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/Search2DMatrixTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/AddTwoNumbersII.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/AddTwoNumbers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/KClosestNumberInSortedArrayTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
