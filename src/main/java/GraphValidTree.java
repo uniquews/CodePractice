@@ -1,13 +1,12 @@
-package main;
-
 import java.util.HashMap;
 
 /**
  * Created by shuaiwang on 12/2/16.
  */
 public class GraphValidTree {
-    class UnionFind{
+    class UnionFind {
         private HashMap<Integer, Integer> parentMap;
+
         public UnionFind(int n) {
             parentMap = new HashMap<>();
             for (int i = 0; i < n; i++) {

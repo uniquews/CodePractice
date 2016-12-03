@@ -1,5 +1,3 @@
-package main;
-
 /**
  * Created by shuaiwang on 12/2/16.
  */
@@ -30,7 +28,7 @@ public class WordSearch {
         if (board[row][column] == word.charAt(index)) {
             visited[row][column] = true;
             boolean found = helper(board, word, visited, row + 1, column, index + 1) ||
-                    helper(board, word, visited, row, column + 1,index + 1) ||
+                    helper(board, word, visited, row, column + 1, index + 1) ||
                     helper(board, word, visited, row - 1, column, index + 1) ||
                     helper(board, word, visited, row, column - 1, index + 1);
             visited[row][column] = false;
