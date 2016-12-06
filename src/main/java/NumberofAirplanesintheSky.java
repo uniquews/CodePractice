@@ -1,6 +1,3 @@
-package main;
-
-
 import main.utils.Interval;
 
 import java.util.ArrayList;

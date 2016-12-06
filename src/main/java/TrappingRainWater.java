@@ -1,7 +1,3 @@
-package main;
-
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 /**
  * Created by shuaiwang on 12/5/16.
  */
