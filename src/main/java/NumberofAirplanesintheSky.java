@@ -1,4 +1,4 @@
-import main.utils.Interval;
+import utils.Interval;
 
 import java.util.ArrayList;
 import java.util.Collections;

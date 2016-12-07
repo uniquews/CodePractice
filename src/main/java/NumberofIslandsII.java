@@ -1,4 +1,4 @@
-import main.utils.Point;
+import utils.Point;
 
 import java.util.ArrayList;
 import java.util.HashMap;

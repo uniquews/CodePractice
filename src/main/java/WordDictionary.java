@@ -1,7 +1,3 @@
-package main;
-
-import main.utils.TreeNode;
-
 /**
  * Created by shuaiwang on 12/3/16.
  */
