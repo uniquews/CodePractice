@@ -22,11 +22,11 @@ public class MinimumSizeSubarraySum {
         for (int left = 0; left < nums.length; left++) {
             while (right < nums.length) {
                 if (sum < target) {
-                    right++;
                     sum += nums[right];
+                    right++;
                 } else {
                     found = true;
-                    result = Math.min(result, right - left + 1);
+                    result = Math.min(result, right - left);
                     break;
                 }
             }
