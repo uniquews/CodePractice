@@ -47,7 +47,7 @@ public class NutsAndBoltsProblem {
                 return i;
             }
         }
-        throw new RuntimeException("pivot not found");
+        throw new IllegalArgumentException("pivot not found");
     }
 
     private void swap(String[] array, int start, int end) {
