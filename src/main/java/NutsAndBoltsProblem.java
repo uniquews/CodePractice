@@ -29,13 +29,13 @@ public class NutsAndBoltsProblem {
         // pick the first one in bolts
         String pivotInBolts = bolts[start];
 
-        // Scan nuts array, find the matched one
+        // Scan nuts array, find the matched one // for sorting bolts
         int pivotInNutsIndex = scanInNuts(pivotInBolts, nuts, comparator);
         String pivotInNuts = nuts[pivotInNutsIndex];
 
         // swap it with last one in nuts
         int partitionedIndex = partitionInNuts(nuts, pivotInBolts, pivotInNutsIndex, start, end, comparator);
-        partitionInBolts(bolts, pivotInNuts, 0, start, end, comparator);
+        partitionInBolts(bolts, pivotInNuts, start, start, end, comparator);
 
         sort(nuts, bolts, start, partitionedIndex - 1, comparator);
         sort(nuts, bolts, partitionedIndex + 1, end, comparator);
@@ -43,11 +43,11 @@ public class NutsAndBoltsProblem {
 
     private int scanInNuts(String pivotInBolt, String[] nuts, NBComparator comparator) {
         for (int i = 0; i < nuts.length; i++) {
-            if (comparator.cmp(pivotInBolt, nuts[i]) == 0) {
+            if (comparator.cmp(nuts[i], pivotInBolt) == 0) {
                 return i;
             }
         }
-        return -1;
+        throw new RuntimeException("pivot not found");
     }
 
     private void swap(String[] array, int start, int end) {
@@ -59,28 +59,28 @@ public class NutsAndBoltsProblem {
     private int partitionInNuts(String[] nuts, String pivotInBolts, int pivotInNutsIndex, int start, int end, NBComparator comparator) {
         swap(nuts, pivotInNutsIndex, end);
 
-        int left = start - 1;
+        int left = start;
         for (int right = start; right < end; right++) {
             if (comparator.cmp(nuts[right], pivotInBolts) == -1) {
-                left++;
                 swap(nuts, left, right);
+                left++;
             }
         }
-        swap(nuts, left + 1, end);
-        return left + 1;
+        swap(nuts, left, end);
+        return left;
     }
 
     private void partitionInBolts(String[] bolts, String pivotInNuts, int pivotInBoltsIndex, int start, int end, NBComparator comparator) {
         swap(bolts, pivotInBoltsIndex, end);
 
-        int left = start - 1;
+        int left = start;
         for (int right = start; right < end; right++) {
             if (comparator.cmp(pivotInNuts, bolts[right]) == 1) {
-                left++;
                 swap(bolts, left, right);
+                left++;
             }
         }
-        swap(bolts, left + 1, end);
+        swap(bolts, left, end);
     }
 
     public static void main(String[] args) {
