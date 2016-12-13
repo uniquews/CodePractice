@@ -1,12 +1,19 @@
+import java.util.Arrays;
+
 /**
  * Created by shuaiwang on 12/12/16.
  */
 public class NutsAndBoltsProblem {
-    public class NBComparator {
+    public static  class NBComparator {
         int cmp(String nut, String bolt) {
-            return nut.compareToIgnoreCase(bolt);
+            int result = nut.compareToIgnoreCase(bolt);
+            if (result < 0 )
+                return -1;
+            else if (result == 0)
+                return 0;
+            else
+                return 1;
         }
-
     }
 
     public void sortNutsAndBolts(String[] nuts, String[] bolts, NBComparator compare) {
@@ -51,7 +58,6 @@ public class NutsAndBoltsProblem {
 
     private int partitionInNuts(String[] nuts, String pivotInBolts, int pivotInNutsIndex, int start, int end, NBComparator comparator) {
         swap(nuts, pivotInNutsIndex, end);
-        String pivot = nuts[end];
 
         int left = start - 1;
         for (int right = start; right < end; right++) {
@@ -67,11 +73,9 @@ public class NutsAndBoltsProblem {
     private void partitionInBolts(String[] bolts, String pivotInNuts, int pivotInBoltsIndex, int start, int end, NBComparator comparator) {
         swap(bolts, pivotInBoltsIndex, end);
 
-        String pivot = bolts[end];
-
         int left = start - 1;
         for (int right = start; right < end; right++) {
-            if (comparator.cmp(pivotInNuts, bolts[right]) == -1) {
+            if (comparator.cmp(pivotInNuts, bolts[right]) == 1) {
                 left++;
                 swap(bolts, left, right);
             }
@@ -82,10 +86,13 @@ public class NutsAndBoltsProblem {
     public static void main(String[] args) {
         NutsAndBoltsProblem test = new NutsAndBoltsProblem();
         String[] nuts = {"ab","bc","dd","gg"};
-        String[] bolts = {"ab","gg","dd","bc"};
+        String[] bolts = {"AB","GG","DD","BC"};
 
         NBComparator nbc = new NBComparator();
 
         test.sortNutsAndBolts(nuts, bolts, nbc);
+
+        System.out.print(Arrays.toString(nuts));
+        System.out.print(Arrays.toString(bolts));
     }
 }
