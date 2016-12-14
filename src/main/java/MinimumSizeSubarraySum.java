@@ -20,13 +20,9 @@ public class MinimumSizeSubarraySum {
 
         int right = 0, sum = 0, result = Integer.MAX_VALUE;
         for (int left = 0; left < nums.length; left++) {
-            while (right < nums.length) {
-                if (sum < target) {
-                    sum += nums[right];
-                    right++;
-                } else {
-                    break;
-                }
+            while (right < nums.length && sum < target) {
+                sum += nums[right];
+                right++;
             }
 
             if (sum >= target) {
