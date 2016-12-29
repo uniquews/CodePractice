@@ -6,7 +6,8 @@ import java.util.HashMap;
 public class ScrambleString {
 
     // Way 1: dfs + memory search
-    HashMap<String, Boolean> hashMap = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> hashMap = new HashMap<>();
+
     public boolean isScramble(String s1, String s2) {
         // Write your code here
         if (hashMap.containsKey(s1 + "#" + s2)) {
@@ -27,7 +28,7 @@ public class ScrambleString {
 
         for (int i = 1; i < s1.length(); i++) {
             if (isScramble(s1.substring(0, i), s2.substring(0, i)) && isScramble(s1.substring(i, len), s2.substring(i, len))
-                || isScramble(s1.substring(0, i), s2.substring(len - i, len)) && isScramble(s1.substring(i, len), s2.substring(0, len - i))) {
+                    || isScramble(s1.substring(0, i), s2.substring(len - i, len)) && isScramble(s1.substring(i, len), s2.substring(0, len - i))) {
                 hashMap.put(s1 + "#" + s2, true);
                 return true;
             }
