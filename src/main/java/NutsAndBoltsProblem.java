@@ -4,10 +4,10 @@ import java.util.Arrays;
  * Created by shuaiwang on 12/12/16.
  */
 public class NutsAndBoltsProblem {
-    public static  class NBComparator {
+    public static class NBComparator {
         int cmp(String nut, String bolt) {
             int result = nut.compareToIgnoreCase(bolt);
-            if (result < 0 )
+            if (result < 0)
                 return -1;
             else if (result == 0)
                 return 0;
@@ -85,8 +85,8 @@ public class NutsAndBoltsProblem {
 
     public static void main(String[] args) {
         NutsAndBoltsProblem test = new NutsAndBoltsProblem();
-        String[] nuts = {"ab","bc","dd","gg"};
-        String[] bolts = {"AB","GG","DD","BC"};
+        String[] nuts = {"ab", "bc", "dd", "gg"};
+        String[] bolts = {"AB", "GG", "DD", "BC"};
 
         NBComparator nbc = new NBComparator();
 

@@ -21,7 +21,7 @@ public class LongestIncreasingContinuousSubsequence {
 
         for (int i = 1; i < A.length; i++) {
             if (A[i] > A[i - 1]) {
-                ins[i]  = ins[i - 1] + 1;
+                ins[i] = ins[i - 1] + 1;
                 maxIns = Math.max(maxIns, ins[i]);
             } else if (A[i] < A[i - 1]) {
                 dis[i] = dis[i - 1] + 1;

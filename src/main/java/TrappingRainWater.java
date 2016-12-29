@@ -7,7 +7,7 @@ public class TrappingRainWater {
         int start = 0, end = heights.length - 1, count = 0;
 
         while (start < end) {
-            if (heights[start] < heights[end] ) {
+            if (heights[start] < heights[end]) {
                 if (start + 1 < end && heights[start + 1] < heights[start]) {
                     count += heights[start] - heights[start + 1];
                     heights[start + 1] = heights[start];
@@ -31,7 +31,7 @@ public class TrappingRainWater {
     }
 
     public static void main(String[] args) {
-        int[] f = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int[] f = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         TrappingRainWater test = new TrappingRainWater();
         System.out.print(test.trapRainWater(f));
     }

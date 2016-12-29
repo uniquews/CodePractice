@@ -9,7 +9,7 @@ import java.util.List;
  * Created by shuaiwang on 12/3/16.
  */
 public class NumberofAirplanesintheSky {
-    class Point{
+    class Point {
         private int time;
         private int fly;
 
