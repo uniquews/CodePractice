@@ -1,12 +1,10 @@
 /**
  * Created by shuaiwang on 12/20/16.
- *
+ * <p>
  * dp[i][j] means the minimun sum of combining stones from index i to index j inclusive.
  * dp[i][j] =  Math.min(dp[i][k], dp[k + 1][j]) + sum[i][j]  0 <= i < A.length, i <= j < A.length  i <= k < j
- *
+ * <p>
  * sum[i][j] means the sum of stones starting from index i and ended with index j (inclusive)
- *
- *
  */
 
 public class StoneGame {
@@ -39,7 +37,7 @@ public class StoneGame {
 
     public static void main(String[] args) {
         StoneGame test = new StoneGame();
-        int[] A = {1,1,1,1};
+        int[] A = {1, 1, 1, 1};
         System.out.print(test.stoneGame(A));
     }
 }

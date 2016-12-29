@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class NumberofIslandsII {
     private HashMap<Integer, Integer> parentMap = new HashMap<>();
+
     public boolean union(int a, int b) {
         int aParent = find(a);
         int bParent = find(b);
@@ -83,13 +84,13 @@ public class NumberofIslandsII {
         // [[1,1],[1,2],[1,3],[1,4]]
         int n = 4;
         int m = 5;
-        Point a = new Point(1,1);
-        Point b = new Point(1,2);
-        Point c = new Point(1,3);
-        Point d = new Point(1,4);
+        Point a = new Point(1, 1);
+        Point b = new Point(1, 2);
+        Point c = new Point(1, 3);
+        Point d = new Point(1, 4);
 //        Point e = new Point(6,5);
 
-        Point[] points = {a,b,c,d};
+        Point[] points = {a, b, c, d};
         NumberofIslandsII test = new NumberofIslandsII();
         System.out.print(test.numIslands2(n, m, points));
     }

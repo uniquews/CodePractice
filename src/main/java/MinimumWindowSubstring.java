@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Created by shuaiwang on 12/14/16.
@@ -9,7 +8,7 @@ public class MinimumWindowSubstring {
      * @param source: A string
      * @param target: A string
      * @return A string denote the minimum window
-     *          Return "" if there is no such a string
+     * Return "" if there is no such a string
      */
     public String minWindow(String source, String target) {
         // write your code

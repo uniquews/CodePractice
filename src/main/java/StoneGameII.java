@@ -34,7 +34,7 @@ public class StoneGameII {
 
     public static void main(String[] args) {
         StoneGameII test = new StoneGameII();
-        int[] A = {3,4,3};
+        int[] A = {3, 4, 3};
         System.out.print(test.stoneGame2(A));
     }
 }

@@ -32,7 +32,7 @@ public class BurstBalloons {
 
     public static void main(String[] args) {
         BurstBalloons test = new BurstBalloons();
-        int[] nums = {4,1,5,10};
+        int[] nums = {4, 1, 5, 10};
         System.out.print(test.maxCoins(nums));
     }
 }

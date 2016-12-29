@@ -1,11 +1,13 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
 
 /**
  * Created by shuaiwang on 12/11/16.
- *
- *
+ * <p>
+ * <p>
  * Input = {8,1,6,4,5,10,5,4}
- *
+ * <p>
  * Idea: Keep a descending order deque, remain the correct window size by using two pointers
  */
 
@@ -43,7 +45,7 @@ public class SlidingWindowMaximum {
 
     public static void main(String[] args) {
         SlidingWindowMaximum test = new SlidingWindowMaximum();
-        int[] input = {1,2,7,7,2};
+        int[] input = {1, 2, 7, 7, 2};
         int k = 1;
         System.out.print(test.maxSlidingWindow(input, k));
     }

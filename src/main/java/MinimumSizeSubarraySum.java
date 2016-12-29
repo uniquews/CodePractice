@@ -3,10 +3,9 @@
  */
 
 
-
 public class MinimumSizeSubarraySum {
     /**
-     * @param nums: an array of integers
+     * @param nums:   an array of integers
      * @param target: an integer
      * @return: an integer representing the minimum size of subarray
      */
