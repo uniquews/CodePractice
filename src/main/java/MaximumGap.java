@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MaximumGap {
     public int maximumGap(int[] nums) {
         // write your code here
-        if (nums == null || nums.length == 2) {
+        if (nums == null || nums.length < 2) {
             return 0;
         }
 
@@ -35,7 +35,11 @@ public class MaximumGap {
             minNum = Math.min(minNum, nums[i]);
         }
 
-        int lenOfBucket = (maxNum - minNum) / (nums.length - 1) + 1;
+        int lenOfBucket = (int) Math.ceil((maxNum - minNum) * 1.0 / (nums.length - 1));
+
+        if (lenOfBucket == 0) {
+            return 0;
+        }
 
         int numOfBucket = (maxNum - minNum) / lenOfBucket + 1; // numOfBucket could be nums.length or nums.length + 1
 
