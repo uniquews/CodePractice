@@ -81,7 +81,52 @@ public class MaximumGap {
         }
         return gap;
     }
-
+ 
+    /**
+     * @param nums: an array of integers
+     * @return: the maximum difference
+     */
+    public int maximumGapII(int[] nums) {
+        // write your code here
+        if (nums == null || nums.length < 2) {
+            return 0;
+        }
+        int max = nums[0], min = nums[0];
+        for (int n : nums) {
+            max = Math.max(n, max);
+            min = Math.min(n, min);
+        }
+        if (max == min) {
+            return 0;
+        }
+        int gap = (int) Math.ceil((max - min) * 1.0 / (nums.length - 1));
+        int[][] buckets = new int[(max - min) / gap + 1][2];
+        for (int[] bucket : buckets) {
+            bucket[0] = -1;
+            bucket[1] = -1;
+        }
+        for (int n : nums) {
+            int i = (n - min) / gap;
+            if (buckets[i][0] == -1) {
+                buckets[i][0] = n;
+                buckets[i][1] = n;
+            } else {
+                buckets[i][0] = Math.min(buckets[i][0], n);
+                buckets[i][1] = Math.max(buckets[i][1], n);
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < buckets.length - 1; i++) {
+            int j = i + 1;
+            while (j < buckets.length && buckets[j][0] == -1) {
+                j++;
+            }
+            res = Math.max(res, buckets[j][0] - buckets[i][1]);
+            i = j - 1;
+        }
+        return res;
+    }
+ 
     public static void main(String[] args) {
         MaximumGap test = new MaximumGap();
         int[] A = {2147483647,0};
