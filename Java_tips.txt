@@ -1,0 +1,2 @@
+Java bit manipulation:
+http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html
