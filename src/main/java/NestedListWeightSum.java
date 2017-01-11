@@ -8,22 +8,24 @@ import java.util.List;
 
 
 public class NestedListWeightSum {
-    private int result = 0;
     public int depthSum(List<NestedInteger> nestedList) {
         int depth = 1;
-        helper(nestedList, depth,0);
+        int result = 0;
+        for (int i = 0; i < nestedList.size(); i++)
+            result += helper(nestedList, depth, i);
         return result;
     }
 
-    private void helper(List<NestedInteger> nestedList, int depth, int index) {
+    private int helper(List<NestedInteger> nestedList, int depth, int index) {
         if (nestedList.get(index).isInteger()) {
-            result += nestedList.get(index).getInteger() * depth;
-            return;
+            return nestedList.get(index).getInteger() * depth;
         } else {
+            int sumOfList = 0;
             List<NestedInteger> nextLevel = nestedList.get(index).getList();
             for (int i = 0; i < nextLevel.size(); i++) {
-                helper(nestedList, depth + 1, i);
+                sumOfList += helper(nextLevel, depth + 1, i);
             }
+            return sumOfList;
         }
     }
 }
