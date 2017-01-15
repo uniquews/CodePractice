@@ -15,6 +15,7 @@ public class QueueReconstructionByHeight {
         for (int i = 0; i < people.length; i++) {
             list.add(people[i][1], people[i]);
         }
+
         return list.toArray(new int[people.length][]);
     }
 }
