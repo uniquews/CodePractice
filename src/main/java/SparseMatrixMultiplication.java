@@ -10,9 +10,16 @@ public class SparseMatrixMultiplication {
         int[][] C = new int[aRow][bCol];
 
         // Advanced Way:
+        /**
+         * A[0][0] * B[0][0] = C[0][0] (will be updated later with values from A[0][1] * B[1][0])
+         *
+         * A[0][0] * B[0][1] = C[0][1] (will be updated later with values from A[0][1] * B[0][1])
+         *
+         * A[0][0] * B[0][2] = C[0][2] (same as above)
+         * */
         for (int i = 0; i < aRow; i++) {
             for (int k = 0; k < aCol; k++) {
-                if (A[i][k] != 0)
+                if (A[i][k] != 0) // if A[i][k] is 0, then it will not change the value of C[i][j]. So we car ignore it
                     for (int j = 0; j < bCol; j++) {
                         C[i][j] += A[i][k] * B[k][j];
                     }
