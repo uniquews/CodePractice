@@ -9,6 +9,7 @@ public class SparseMatrixMultiplication {
 
         int[][] C = new int[aRow][bCol];
 
+        // Advanced Way:
         for (int i = 0; i < aRow; i++) {
             for (int k = 0; k < aCol; k++) {
                 if (A[i][k] != 0)
@@ -17,6 +18,16 @@ public class SparseMatrixMultiplication {
                     }
             }
         }
+
+        // Naive Way, but will be TLE
+//        for (int i = 0; i < aRow; i++) {
+//            for (int j = 0; j < bCol; j++) {
+//                for (int k = 0; k < aCol; k++) {
+//                    C[i][j] += A[i][k] + B[k][j];
+//                }
+//
+//            }
+//        }
         return C;
     }
 
