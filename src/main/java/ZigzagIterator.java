@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by shuaiwang on 1/19/17.
  */
 public class ZigzagIterator {
-    // k list solution
+    // k list solution 1
     private List<List<Integer>> list;
     private int maxRow;
     private int maxColumn;
@@ -47,7 +48,39 @@ public class ZigzagIterator {
         return currentColumn < maxColumn;
     }
 
-// Two lists solution
+    // k list solution 2
+//    private List<Iterator<Integer>> list;
+//    private int i = 0;
+//
+//    public ZigzagIterator(List<List<Integer>> li) {
+//        list = new ArrayList<>();
+//        for (int i = 0 ; i < li.size(); i++) {
+//            Iterator<Integer> i1 = li.get(i).iterator();
+//            if (i1.hasNext()) list.add(i1);
+//        }
+//    }
+//
+//    public int next() {
+//        Iterator<Integer> x = list.get(i);
+//        int res = x.next();
+//        if (!x.hasNext()) {
+//            list.remove(x);
+//            i--;
+//        }
+//        if (i < list.size() - 1) {
+//            i++;
+//        } else {
+//            i = 0;
+//        }
+//
+//        return res;
+//    }
+//
+//    public boolean hasNext() {
+//        return list.size() > 0;
+//    }
+
+// Two list solution in leetcode
 //    private int maxRow;
 //    private int maxColumn;
 //    private int currentRow;
