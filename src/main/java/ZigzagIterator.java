@@ -1,52 +1,68 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 1/19/17.
  */
 public class ZigzagIterator {
-    // k list solution 1
-    private List<List<Integer>> list;
-    private int maxRow;
-    private int maxColumn;
-    private int currentRow;
-    private int currentColumn;
-
-    public ZigzagIterator(List<List<Integer>> li) {
-        list = li;
-        maxRow = list.size();
-        for (int i = 0; i < list.size(); i++) {
-            maxColumn = Math.max(list.get(i).size(), maxColumn);
-        }
-        currentColumn = 0;
-        currentRow = -1;
-        findNextNumber();
-    }
-
-    private void findNextNumber() {
-        while (currentColumn < maxColumn) {
-            currentRow++;
-            if (currentRow == maxRow) {
-                currentRow = 0;
-                currentColumn++;
-            }
-            if (currentColumn < list.get(currentRow).size() || currentColumn < list.get(currentRow).size()) {
-                break;
-            }
-        }
+    // Best leetcode solution
+    LinkedList<Iterator> list;
+    public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
+        list = new LinkedList<Iterator>();
+        if(!v1.isEmpty()) list.add(v1.iterator());
+        if(!v2.isEmpty()) list.add(v2.iterator());
     }
 
     public int next() {
-        int result = list.get(currentRow).get(currentColumn);
-        findNextNumber();
+        Iterator poll = list.remove();
+        int result = (Integer)poll.next();
+        if(poll.hasNext()) list.add(poll);
         return result;
     }
 
     public boolean hasNext() {
-        return currentColumn < maxColumn;
+        return !list.isEmpty();
     }
+
+    // k list solution 1
+//    private List<List<Integer>> list;
+//    private int maxRow;
+//    private int maxColumn;
+//    private int currentRow;
+//    private int currentColumn;
+//
+//    public ZigzagIterator(List<List<Integer>> li) {
+//        list = li;
+//        maxRow = list.size();
+//        for (int i = 0; i < list.size(); i++) {
+//            maxColumn = Math.max(list.get(i).size(), maxColumn);
+//        }
+//        currentColumn = 0;
+//        currentRow = -1;
+//        findNextNumber();
+//    }
+//
+//    private void findNextNumber() {
+//        while (currentColumn < maxColumn) {
+//            currentRow++;
+//            if (currentRow == maxRow) {
+//                currentRow = 0;
+//                currentColumn++;
+//            }
+//            if (currentColumn < list.get(currentRow).size() || currentColumn < list.get(currentRow).size()) {
+//                break;
+//            }
+//        }
+//    }
+//
+//    public int next() {
+//        int result = list.get(currentRow).get(currentColumn);
+//        findNextNumber();
+//        return result;
+//    }
+//
+//    public boolean hasNext() {
+//        return currentColumn < maxColumn;
+//    }
 
     // k list solution 2
 //    private List<Iterator<Integer>> list;
