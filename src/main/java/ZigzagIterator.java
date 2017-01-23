@@ -151,12 +151,12 @@ public class ZigzagIterator {
         input.add(l2);
         input.add(l3);
         List<Integer> result = new ArrayList<>();
-        ZigzagIterator test = new ZigzagIterator(input);
-        while (test.hasNext()) {
-
-            result.add(test.next());
-        }
-        System.out.print(result);
+//        ZigzagIterator test = new ZigzagIterator(input);
+//        while (test.hasNext()) {
+//
+//            result.add(test.next());
+//        }
+//        System.out.print(result);
     }
 
 }
