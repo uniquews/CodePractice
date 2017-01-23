@@ -1,2 +1,6 @@
 Java bit manipulation:
 http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html
+
+
+How to change the ArrayList of Integer to Array of int, if result is an ArrayList
+result.stream().mapToInt(Integer::intValue).toArray();
