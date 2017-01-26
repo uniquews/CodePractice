@@ -10,13 +10,11 @@ public class FlipGameII {
         if (isFinalResultInList(level))
             return true;
 
-        boolean nextPlayerLose = false;
         for (int i = 0; i < level.size(); i++) {
-            nextPlayerLose = nextPlayerLose || !canWin(level.get(i));
+            if (!canWin(level.get(i))) {
+                return true;
+            }
         }
-        if (nextPlayerLose)
-            return true;
-
         return false;
     }
 
