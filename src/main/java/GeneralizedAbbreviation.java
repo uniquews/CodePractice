@@ -12,45 +12,39 @@ import java.util.List;
 public class GeneralizedAbbreviation {
     public List<String> generateAbbreviations(String word) {
         List<String> result = new ArrayList<>();
-        helper(word, word, 0, result);
+        helper(word, word.toCharArray(), 0, result);
         return result;
     }
 
-    private void helper(String word, String current, int index, List<String> result) {
+    private void helper(String word, char[] current, int index, List<String> result) {
         String currentAfterCompress = compressString(current);
         result.add(currentAfterCompress);
-//        result.add(current);
 
         for (int i = index; i < word.length(); i++) {
-            String tmp;
-            if (i <= word.length() - 2) {
-                tmp = current.substring(0, i) + "1" + current.substring(i + 1);
-            } else {
-                tmp = current.substring(0, i) + "1";
-            }
-
-            helper(word, tmp, i + 1, result);
+            char tmp = current[i];
+            current[i] = '1';
+            helper(word, current, i + 1, result);
+            current[i] = tmp;
         }
     }
 
-    private String compressString(String current) {
+    private String compressString(char[] current) {
         StringBuilder sb = new StringBuilder();
         int start = 0;
-        while (start < current.length()) {
-            if (current.charAt(start) >= '1' && current.charAt(start) <= '9') {
+        while (start < current.length) {
+            if (current[start] == '1') {
                 int end = start;
                 int number = 0;
-                while (end < current.length() && current.charAt(end) >= '1' && current.charAt(end) <= '9') {
+                while (end < current.length && current[end] == '1') {
                     end++;
                     number++;
                 }
                 sb.append(Integer.toString(number));
                 start = end - 1;
             } else {
-                sb.append(current.charAt(start));
+                sb.append(current[start]);
             }
             start++;
-
         }
 
         return sb.toString();
