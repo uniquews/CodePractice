@@ -5,7 +5,7 @@ package utils;
  *
  * @author Bohan Zheng
  */
-public class StringUitils {
+public class StringUtils {
   public static String charArrayToString(char[] strs) {
     StringBuilder sb = new StringBuilder();
     int count = 0;
@@ -19,6 +19,9 @@ public class StringUitils {
         }
         sb.append(c);
       }
+    }
+    if (count != 0) {
+      sb.append(count);
     }
     return sb.toString();
   }
