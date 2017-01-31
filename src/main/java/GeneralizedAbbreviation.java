@@ -17,27 +17,43 @@ public class GeneralizedAbbreviation {
     }
 
     private void helper(String word, String current, int index, List<String> result) {
-        String currentStep;
-        if (index > 0 && current.charAt(index - 1) >= '1' && current.charAt(index - 1) <= '9') {
-            currentStep = current.substring(0, index - 1) +
-                    (Integer.toString(current.charAt(index - 1) - '0' + 1)) +
-                    current.substring(index + 1);
-            result.add(currentStep);
-        } else {
-            currentStep = current;
-            result.add(currentStep);
-        }
+        String currentAfterCompress = compressString(current);
+        result.add(currentAfterCompress);
+//        result.add(current);
 
         for (int i = index; i < word.length(); i++) {
             String tmp;
-            if (index <= word.length() - 2) {
-                tmp = current.substring(0, index) + "1" + current.substring(index + 1);
+            if (i <= word.length() - 2) {
+                tmp = current.substring(0, i) + "1" + current.substring(i + 1);
             } else {
-                tmp = current.substring(0, index) + "1";
+                tmp = current.substring(0, i) + "1";
             }
 
             helper(word, tmp, i + 1, result);
         }
+    }
+
+    private String compressString(String current) {
+        StringBuilder sb = new StringBuilder();
+        int start = 0;
+        while (start < current.length()) {
+            if (current.charAt(start) >= '1' && current.charAt(start) <= '9') {
+                int end = start;
+                int number = 0;
+                while (end < current.length() && current.charAt(end) >= '1' && current.charAt(end) <= '9') {
+                    end++;
+                    number++;
+                }
+                sb.append(Integer.toString(number));
+                start = end - 1;
+            } else {
+                sb.append(current.charAt(start));
+            }
+            start++;
+
+        }
+
+        return sb.toString();
     }
 
     public static void main(String[] args) {
