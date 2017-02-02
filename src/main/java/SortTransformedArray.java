@@ -33,35 +33,17 @@ public class SortTransformedArray {
         }
         double minX = 1.0 * (-1) * b / (2 * a);
 
-        // find upper bound
+        // find lower/upper bound
         int upperIndex = 0;
         int lowerIndex = 0;
-        int start = 0, end = nums.length - 1;
-        while (start + 1 < end) {
-            int mid = start + (end - start) / 2;
-            if (1.0 * nums[mid] == minX) {
-                upperIndex = mid;
-                lowerIndex = mid;
-                break;
-            } else if (1.0 * nums[mid] > minX) {
-                end = mid;
-            } else {
-                start = mid;
-            }
+        while (nums[lowerIndex] < minX) {
+            lowerIndex++;
         }
 
-        if (start + 1 >= end) {
-            if (1.0 * nums[start] == minX) {
-                upperIndex = start;
-                lowerIndex = start;
-            } else if (1.0 * nums[end] == minX) {
-                upperIndex = end;
-                lowerIndex = end;
-            } else {
-                lowerIndex = start;
-                upperIndex = end;
-            }
+        if (nums[lowerIndex] > minX) {
+            lowerIndex--;
         }
+        upperIndex = lowerIndex + 1;
 
         int i = 0;
         while (lowerIndex >= 0 || upperIndex <= nums.length - 1) {
@@ -86,8 +68,6 @@ public class SortTransformedArray {
                         lowerIndex--;
                     } else {
                         result[i] = helper(nums[upperIndex], a, b, c);
-                        if (lowerIndex == upperIndex)
-                            lowerIndex--;
                         upperIndex++;
                     }
                 } else if (a < 0) {
@@ -96,8 +76,6 @@ public class SortTransformedArray {
                         lowerIndex--;
                     } else {
                         result[nums.length - 1 - i] = helper(nums[upperIndex], a, b, c);
-                        if (lowerIndex == upperIndex)
-                            lowerIndex--;
                         upperIndex++;
                     }
                 }
