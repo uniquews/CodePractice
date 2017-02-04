@@ -8,9 +8,9 @@ public class SubtreewithMaximumAverage {
         public int sum;
         public int node;
         public TreeNode maxAvgTreeNode;
-        public int maxAvg;
+        public double maxAvg;
 
-        public ResultType(int s, int n, TreeNode nodeWithMaxAvg, int avg) {
+        public ResultType(int s, int n, TreeNode nodeWithMaxAvg, double avg) {
               sum = s;
               node = n;
               maxAvgTreeNode = nodeWithMaxAvg;
@@ -37,16 +37,36 @@ public class SubtreewithMaximumAverage {
 
         int currentSum = leftNode.sum + rightNode.sum + n.val;
         int currentNode = leftNode.node + rightNode.node + 1;
-        int currentAvg = currentSum / currentNode;
+        double currentAvg = (1.0) * currentSum / currentNode;
 
         if (currentAvg > leftNode.maxAvg && currentAvg > rightNode.maxAvg) {
             return new ResultType(currentSum, currentNode, n, currentAvg);
         }
 
         if (leftNode.maxAvg < rightNode.maxAvg) {
-            return new ResultType(currentAvg, currentNode, rightNode.maxAvgTreeNode, rightNode.maxAvg);
+            return new ResultType(currentSum, currentNode, rightNode.maxAvgTreeNode, rightNode.maxAvg);
         } else {
             return new ResultType(currentSum, currentNode, leftNode.maxAvgTreeNode, leftNode.maxAvg);
         }
+    }
+
+    public static void main(String[] args) {
+        SubtreewithMaximumAverage test = new SubtreewithMaximumAverage();
+        TreeNode a = new TreeNode(1);
+        TreeNode b = new TreeNode(-5);
+        TreeNode c = new TreeNode(11);
+        TreeNode d = new TreeNode(1);
+        TreeNode e = new TreeNode(2);
+        TreeNode f = new TreeNode(4);
+        TreeNode g = new TreeNode(-2);
+
+        a.left = b;
+        a.right = c;
+        b.left = d;
+        b.right = e;
+        c.left = f;
+        c.right = g;
+
+        test.findSubtree2(a);
     }
 }
