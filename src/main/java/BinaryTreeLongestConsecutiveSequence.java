@@ -36,24 +36,24 @@ public class BinaryTreeLongestConsecutiveSequence {
         ResultType rightNode = divideAndConquor(n.right);
 
         ResultType current  = new ResultType(0,0,0, 0);
-        if (n.left != null && n.val < n.left.val) {
+        if (n.left != null && n.val == n.left.val - 1) {
             current.ascendingLen = leftNode.ascendingLen + 1;
         }
 
-        if (n.left != null && n.val > n.left.val) {
+        if (n.left != null && n.val == n.left.val + 1) {
             current.descendingLen = leftNode.descendingLen + 1;
         }
 
-        if (n.right != null && n.val < n.right.val) {
+        if (n.right != null && n.val == n.right.val - 1) {
             current.ascendingLen = rightNode.ascendingLen + 1;
         }
 
-        if (n.right != null && n.val > n.right.val) {
-            current.descendingLen = rightNode.ascendingLen + 1;
+        if (n.right != null && n.val == n.right.val + 1) {
+            current.descendingLen = rightNode.descendingLen + 1;
         }
 
-        current.maxAsLen = Math.max(Math.max(current.maxAsLen, leftNode.maxAsLen), rightNode.maxAsLen);
-        current.maxDeLen = Math.max(Math.max(current.maxDeLen, leftNode.maxDeLen), rightNode.maxDeLen);
+        current.maxAsLen = Math.max(Math.max(current.ascendingLen, leftNode.maxAsLen), rightNode.maxAsLen);
+        current.maxDeLen = Math.max(Math.max(current.descendingLen, leftNode.maxDeLen), rightNode.maxDeLen);
         return current;
     }
 
