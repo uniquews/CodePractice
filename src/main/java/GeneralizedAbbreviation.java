@@ -1,5 +1,3 @@
-import utils.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +17,36 @@ public class GeneralizedAbbreviation {
   }
 
   private void helper(String word, char[] current, int index, List<String> result) {
-    result.add(StringUtils.charArrayToString(current));
+    String currentAfterCompress = compressString(current);
+    result.add(currentAfterCompress);
+
     for (int i = index; i < word.length(); i++) {
-      current[i] = 0;
+      char tmp = current[i];
+      current[i] = '1';
       helper(word, current, i + 1, result);
-      current[i] = word.charAt(i);
+      current[i] = tmp;
     }
+  }
+
+  private String compressString(char[] current) {
+    StringBuilder sb = new StringBuilder();
+    int start = 0;
+    while (start < current.length) {
+      if (current[start] == '1') {
+        int end = start;
+        int number = 0;
+        while (end < current.length && current[end] == '1') {
+          end++;
+          number++;
+        }
+        sb.append(Integer.toString(number));
+        start = end - 1;
+      } else {
+        sb.append(current[start]);
+      }
+      start++;
+    }
+
+    return sb.toString();
   }
 }
