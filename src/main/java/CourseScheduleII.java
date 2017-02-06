@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by shuaiwang on 2/5/17.
@@ -9,15 +10,15 @@ public class CourseScheduleII {
         int[] result = new int[numCourses];
         Queue<Integer> queue = new LinkedList<>();
 
-        HashMap<Integer, List<Integer>> parents = new HashMap<>();
-        for (int i = 0; i < prerequisites.length; i++) {
-            if (parents.containsKey(prerequisites[i][0])) {
-                List p = parents.get(prerequisites[i][0]);
-                p.add(prerequisites[i][1]);
-                parents.put(prerequisites[i][0], p);
+        Map<Integer, List<Integer>> parents = new HashMap<>();
+        for (int[] prerequisite : prerequisites) {
+            if (parents.containsKey(prerequisite[0])) {
+                List<Integer> p = parents.get(prerequisite[0]);
+                p.add(prerequisite[1]);
+                parents.put(prerequisite[0], p);
             } else {
-                List<Integer> p = new LinkedList<>(Arrays.asList(prerequisites[i][1]));
-                parents.put(prerequisites[i][0], p);
+                List<Integer> p = new LinkedList<>(Arrays.asList(prerequisite[1]));
+                parents.put(prerequisite[0], p);
             }
         }
 
@@ -31,15 +32,13 @@ public class CourseScheduleII {
         while (!queue.isEmpty()) {
             Integer current = queue.poll();
             result[index] = current;
-            Iterator<Integer> iter = parents.keySet().iterator();
-            while (iter.hasNext()) {
-                List parentsList = parents.get(iter.next());
+            for (Integer key : parents.keySet()) {
+                List<Integer> parentsList = parents.get(key);
                 if (parentsList.contains(current)) {
                     parentsList.remove(current);
                 }
                 if (parentsList.isEmpty()) {
-                    queue.add(iter.next());
-                    parents.remove(current);
+                    queue.add(key);
                 }
             }
             index++;
