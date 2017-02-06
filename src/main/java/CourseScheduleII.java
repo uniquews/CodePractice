@@ -12,9 +12,7 @@ public class CourseScheduleII {
         HashMap<Integer, Set<Integer>> parents = new HashMap<>();
         for (int i = 0; i < prerequisites.length; i++) {
             if (parents.containsKey(prerequisites[i][0])) {
-                Set<Integer> p = parents.get(prerequisites[i][0]);
-                p.add(prerequisites[i][1]);
-                parents.put(prerequisites[i][0], p);
+                parents.get(prerequisites[i][0]).add(prerequisites[i][1]);
             } else {
                 Set<Integer> p = new HashSet<>(Arrays.asList(prerequisites[i][1]));
                 parents.put(prerequisites[i][0], p);
