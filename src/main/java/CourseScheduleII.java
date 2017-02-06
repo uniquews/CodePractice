@@ -33,7 +33,7 @@ public class CourseScheduleII {
             Integer current = queue.poll();
             result[index] = current;
             for (Integer key : parents.keySet()) {
-                List parentsList = parents.get(key);
+                List<Integer> parentsList = parents.get(key);
                 if (parentsList.contains(current)) {
                     parentsList.remove(current);
                 }
