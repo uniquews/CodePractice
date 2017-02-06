@@ -9,14 +9,14 @@ public class CourseScheduleII {
         int[] result = new int[numCourses];
         Queue<Integer> queue = new LinkedList<>();
 
-        HashMap<Integer, List<Integer>> parents = new HashMap<>();
+        HashMap<Integer, Set<Integer>> parents = new HashMap<>();
         for (int i = 0; i < prerequisites.length; i++) {
             if (parents.containsKey(prerequisites[i][0])) {
-                List p = parents.get(prerequisites[i][0]);
+                Set<Integer> p = parents.get(prerequisites[i][0]);
                 p.add(prerequisites[i][1]);
                 parents.put(prerequisites[i][0], p);
             } else {
-                List<Integer> p = new LinkedList<>(Arrays.asList(prerequisites[i][1]));
+                Set<Integer> p = new HashSet<>(Arrays.asList(prerequisites[i][1]));
                 parents.put(prerequisites[i][0], p);
             }
         }
@@ -31,30 +31,32 @@ public class CourseScheduleII {
         while (!queue.isEmpty()) {
             Integer current = queue.poll();
             result[index] = current;
-            Iterator<Integer> iter = parents.keySet().iterator();
-            while (iter.hasNext()) {
-                List parentsList = parents.get(iter.next());
+            HashSet<Integer> removedKeys = new HashSet<>();
+            for (Integer child : parents.keySet()) {
+                Set<Integer> parentsList = parents.get(child);
                 if (parentsList.contains(current)) {
                     parentsList.remove(current);
                 }
                 if (parentsList.isEmpty()) {
-                    queue.add(iter.next());
-                    parents.remove(current);
+                    queue.add(child);
+                    removedKeys.add(child);
                 }
             }
+            parents.keySet().removeAll(removedKeys);
             index++;
         }
 
         if (!parents.isEmpty()) {
-            return new int[numCourses];
+            return new int[0];
         }
 
         return result;
     }
 
+    //10, [[5,8],[3,5],[1,9],[4,5],[0,2],[1,9],[7,8],[4,9]]
     public static void main(String[] args) {
-        int number = 4;
-        int[][] pre = {{1,0}, {2,0}, {3,1}, {3,2}};
+        int number = 10;
+        int[][] pre = {{5,8}, {3,5}, {1,9}, {4,5}, {0,2}, {1,9}, {7,8}, {4,9}};
         CourseScheduleII test = new CourseScheduleII();
         test.findOrder(number, pre);
     }
