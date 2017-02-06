@@ -10,7 +10,7 @@ public class CourseScheduleII {
         int[] result = new int[numCourses];
         Queue<Integer> queue = new LinkedList<>();
 
-        Map<Integer, List<Integer>> parents = new ConcurrentHashMap<>();
+        Map<Integer, List<Integer>> parents = new HashMap<>();
         for (int[] prerequisite : prerequisites) {
             if (parents.containsKey(prerequisite[0])) {
                 List<Integer> p = parents.get(prerequisite[0]);
@@ -39,7 +39,6 @@ public class CourseScheduleII {
                 }
                 if (parentsList.isEmpty()) {
                     queue.add(key);
-                    parents.remove(current);
                 }
             }
             index++;
