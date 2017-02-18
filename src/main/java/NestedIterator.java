@@ -1,47 +1,47 @@
 import utils.NestedInteger;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by shuaiwang on 2/14/17.
  */
 public class NestedIterator implements Iterator<Integer> {
-    private List<Integer> listOfInterger;
-    private Iterator<Integer> iter;
+    private final Stack<NestedInteger> stack;
+
     public NestedIterator(List<NestedInteger> nestedList) {
-        // Initialize your data structure here.
-        listOfInterger = new ArrayList<>();
-        dfs(nestedList);
-        iter = listOfInterger.iterator();
+        stack = new Stack<>();
+        pushToStack(nestedList);
     }
 
-    // @return {int} the next element in the iteration
     @Override
     public Integer next() {
-        // Write your code here
-        return iter.next();
+        NestedInteger nestedInteger = stack.pop();
+        if (nestedInteger.isInteger()) {
+            return nestedInteger.getInteger();
+        }
+        pushToStack(nestedInteger.getList());
+        return this.next();
     }
 
-    private void dfs(List<NestedInteger> l) {
-        if (l == null) {
-            return;
-        }
-
-        for (int i = 0; i < l.size(); i++) {
-            if (l.get(i).isInteger()) {
-                listOfInterger.add(l.get(i).getInteger());
-            } else {
-                dfs(l.get(i).getList());
-            }
-        }
-    }
-
-    // @return {boolean} true if the iteration has more element or false
     @Override
     public boolean hasNext() {
-        // Write your code here
-        return iter.hasNext();
+        return !stack.isEmpty();
+    }
+
+    private void pushToStack(List<NestedInteger> nestedList) {
+        for (int i = nestedList.size() - 1; i >= 0; i--) {
+            if (nestedList.get(i) == null) {
+                continue;
+            }
+            if (nestedList.get(i).isInteger()) {
+                stack.push(nestedList.get(i));
+            } else {
+                if (!nestedList.get(i).getList().isEmpty() && nestedList.get(i).getList().get(0) != null) {
+                    stack.push(nestedList.get(i));
+                }
+            }
+        }
     }
 }
