@@ -64,7 +64,7 @@ public class WordSquares {
 
         public List<String> findStringWithSamePrefix(String prefix) {
             List<String> list = new ArrayList<>();
-            if (prefix == "") {
+            if (prefix == null || prefix.length() == 0) {
                 return list;
             }
             find(prefix, root, 0, list);
@@ -87,28 +87,22 @@ public class WordSquares {
         }
 
         List<String> listOfWords = new ArrayList<>(Arrays.asList(words));
-        dfs(listOfWords, 1, eachResult, result, words[0].length());
+        dfs(listOfWords, 0, eachResult, result, words[0].length());
 
         return result;
     }
 
     private void dfs(List<String> words, int index, List<String> eachResult, List<List<String>> result, int len) {
-        if (index == len && words.size() > 0) {
-            for (int i = 0; i < words.size(); i++) {
-                eachResult.add(words.get(i));
-                result.add(new ArrayList<>(eachResult));
-                eachResult.remove(eachResult.size() - 1);
-            }
+        if (index == len && validWordSquare(eachResult)) {
+            result.add(new ArrayList<>(eachResult));
             return;
         }
         for (int i = 0; i < words.size(); i++) {
             eachResult.add(words.get(i));
             StringBuilder sb = new StringBuilder();
             for (int j = 0; j < eachResult.size(); j++) {
-                if (index == len) {
-                    sb.append(eachResult.get(j).charAt(index - 1));
-                } else {
-                    sb.append(eachResult.get(j).charAt(index));
+                if (index + 1 < len) {
+                    sb.append(eachResult.get(j).charAt(index + 1));
                 }
             }
 
@@ -116,6 +110,24 @@ public class WordSquares {
             dfs(wordsWithSamePrefix, index + 1, eachResult, result, len);
             eachResult.remove(eachResult.size() - 1);
         }
+    }
+
+    private boolean validWordSquare(List<String> words) {
+        for (int i = 0; i < words.size(); i++) {
+            String comp1 = words.get(i);
+            StringBuilder sb = new StringBuilder();
+
+            for (int j = 0; j < words.size(); j++) {
+                if (i < words.get(j).length()) {
+                    sb.append(words.get(j).charAt(i));
+                }
+            }
+
+            if (!comp1.equals(sb.toString())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
