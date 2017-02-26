@@ -6,47 +6,45 @@ import java.util.HashMap;
 public class LongestSubstringwithAtMostKDistinctCharacters {
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
         // write your code here
-        int result = 0;
-        if (s == null || s.length() == 0 || k == 0) {
-            return result;
+        if (s == null || s.length() == 0) {
+            return 0;
         }
 
-
         HashMap<Character, Integer> hashMap = new HashMap<>();
-        int left = 0, right = 0, count = 0;
-        for (; left < s.length(); left++) {
-            while (right < s.length()) {
-                if (hashMap.containsKey(s.charAt(right))) {
-                    hashMap.put(s.charAt(right), hashMap.get(s.charAt(right)) + 1);
+
+        int start = 0, end = 0, count = 0, maxLen = 0;
+        for (; start < s.length(); start++) {
+            while (end < s.length()) {
+                if (hashMap.containsKey(s.charAt(end))) {
+                    hashMap.put(s.charAt(end), hashMap.get(s.charAt(end)) + 1);
                 } else {
                     if (count == k) {
                         break;
                     }
-                    hashMap.put(s.charAt(right), 1);
+                    hashMap.put(s.charAt(end), 1);
                     count++;
                 }
-                right++;
+                end++;
             }
-
-            result = Math.max(result, right - left);
-
-            hashMap.put(s.charAt(left), hashMap.get(s.charAt(left)) - 1);
-            if (hashMap.get(s.charAt(left)) == 0) {
-                hashMap.remove(s.charAt(left));
+            maxLen = Math.max(end - start, maxLen);
+            hashMap.put(s.charAt(start), hashMap.get(s.charAt(start)) - 1);
+            if (hashMap.get(s.charAt(start)) == 0) {
+                hashMap.remove(s.charAt(start));
                 count--;
             }
 
         }
-        return result;
+        return maxLen;
     }
 
     public static void main(String[] args) {
 
         LongestSubstringwithAtMostKDistinctCharacters test = new LongestSubstringwithAtMostKDistinctCharacters();
 //        String a = "eqgkcwGFvjjmxutystqdfhuMblWbylgjxsxgnoh";  // 9 -> 36 j -> g
-        String a = "eceba";  // 9 -> 36 j -> g
+//        String a = "eceba";  // 9 -> 36 j -> g
+        String a = "abaccc";  // 9 -> 36 j -> g
 //        System.out.print(a.length());
-        int k = 3;
-        test.lengthOfLongestSubstringKDistinct(a, k);
+        int k = 2;
+        System.out.print(test.lengthOfLongestSubstringKDistinct(a, k));
     }
 }
