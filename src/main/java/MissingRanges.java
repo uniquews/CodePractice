@@ -7,11 +7,6 @@ import java.util.List;
 public class MissingRanges {
     public List<String> findMissingRanges(int[] nums, int lower, int upper) {
         List<String> result = new ArrayList<>();
-        if (nums == null ) {
-            result.add("0->99");
-            return result;
-        }
-
         if (nums.length == 0) {
             if (lower == upper) {
                 result.add(new StringBuilder().append(lower).toString());
