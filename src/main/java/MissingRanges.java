@@ -7,42 +7,30 @@ import java.util.List;
 public class MissingRanges {
     public List<String> findMissingRanges(int[] nums, int lower, int upper) {
         List<String> result = new ArrayList<>();
-        if (nums.length == 0) {
-            if (lower == upper) {
-                result.add(new StringBuilder().append(lower).toString());
-            } else {
-                result.add(new StringBuilder().append(lower).append("->").append(upper).toString());
-            }
-            return result;
-        }
 
         int left = lower, current = 0;
         for (int right = 0; right < nums.length; right++) {
             current = nums[right];
             if (left < current) {
-                if (left == current - 1) {
-                    result.add(Integer.toString(left));
-                } else {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(left).append("->").append(current - 1);
-                    result.add(sb.toString());
-                }
+                result.add(buildStr(left, current - 1));
             }
-            if (current == Integer.MAX_VALUE)
+            if (current == upper) // corner case: [Integer.MAX_INT]  lower = 0, upper = Integer.MAX_INT
                 return result;
             left = current + 1;
         }
 
-        if (left < upper) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(left).append("->").append(upper);
-            result.add(sb.toString());
-        } else if (left == upper) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(left);
-            result.add(sb.toString());
-        }
+        result.add(buildStr(left, upper));
         return result;
+    }
+
+    private String buildStr(int lower, int upper) {
+        StringBuilder sb = new StringBuilder();
+        if (lower == upper) {
+            sb.append(lower);
+        } else {
+            sb.append(lower).append("->").append(upper);
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
