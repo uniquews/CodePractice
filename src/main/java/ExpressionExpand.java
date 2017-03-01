@@ -1,6 +1,8 @@
 /**
  * Created by shuaiwang on 1/31/17.
  */
+
+// Better method see Decode String
 public class ExpressionExpand {
     public String expressionExpand(String s) {
         // Write your code here
