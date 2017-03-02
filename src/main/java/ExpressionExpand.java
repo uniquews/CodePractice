@@ -27,8 +27,8 @@ public class ExpressionExpand {
                     sb.append(s.charAt(i));
                 } else {
                     // first, we need to extact number
-                    int start = i, left = i + 1, right = i + 1;
-                    while (s.charAt(left) != '[') {
+                    int start = i, left = i + 1;
+                    while (s.charAt(left) != '[') {//
                         left++;
                     }
                     int numbers = Integer.parseInt(s.substring(start, left));
