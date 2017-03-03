@@ -29,4 +29,8 @@ public class EncodeAndDecodeStrings {
         return li;
     }
 
+    public static void main(String[] args) {
+
+    }
+
 }
