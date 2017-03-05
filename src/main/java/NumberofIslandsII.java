@@ -33,43 +33,43 @@ public class NumberofIslandsII {
         return rootParent;
     }
 
-    public List<Integer> numIslands2(int n, int m, Point[] operators) {
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
         // Write your code here
         List<Integer> result = new ArrayList<>();
-        if (operators == null)
+        if (positions == null)
             return result;
 
         HashSet<Integer> points = new HashSet<>();
         int count = 0;
 
-        for (int i = 0; i < operators.length; i++) {
-            int row = operators[i].x;
-            int column = operators[i].y;
-            int position = row * m + column * n;
+        for (int i = 0; i < positions.length; i++) {
+            int row = positions[i][0];
+            int column = positions[i][1];
+            int position = row * n + column;
             points.add(position);
             parentMap.put(position, position);
             count++;
 
-            int upper = (row - 1) * m + column * n;
+            int upper = (row - 1) * n + column;
             if (row - 1 >= 0 && points.contains(upper)) {
                 if (union(position, upper))
                     count--;
             }
 
-            int left = row * m + (column - 1) * n;
+            int left = row * n + (column - 1);
             if (column - 1 >= 0 && points.contains(left)) {
                 if (union(position, left))
                     count--;
             }
 
-            int right = row * m + (column + 1) * n;
-            if (column + 1 < m && points.contains(right)) {
+            int right = row * n + (column + 1);
+            if (column + 1 < n && points.contains(right)) {
                 if (union(position, right))
                     count--;
             }
 
-            int lower = (row + 1) * m + column * n;
-            if (row + 1 < n && points.contains(lower)) {
+            int lower = (row + 1) * n + column;
+            if (row + 1 < m && points.contains(lower)) {
                 if (union(position, lower))
                     count--;
             }
@@ -89,9 +89,9 @@ public class NumberofIslandsII {
         Point c = new Point(1, 3);
         Point d = new Point(1, 4);
 //        Point e = new Point(6,5);
-
-        Point[] points = {a, b, c, d};
-        NumberofIslandsII test = new NumberofIslandsII();
-        System.out.print(test.numIslands2(n, m, points));
+//
+//        Point[] points = {a, b, c, d};
+//        NumberofIslandsII test = new NumberofIslandsII();
+//        System.out.print(test.numIslands2(n, m, points));
     }
 }

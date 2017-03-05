@@ -37,6 +37,7 @@ public class StrStrII {
         next[0] = -1;
         while (j < target.length() - 1) {
             if (k == -1 || target.charAt(k) == target.charAt(j)) {
+
                 k++;
                 j++;
                 next[j] = k;
