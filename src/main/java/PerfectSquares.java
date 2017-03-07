@@ -13,13 +13,7 @@ public class PerfectSquares {
         dp[0] = 0;
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j * j <= i; j++) {
-                if (dp[i - j * j] != Integer.MAX_VALUE) {
-                    if (i - j * j == 0) {
-                        dp[i] = dp[0] + 1;
-                    } else {
-                        dp[i] = Math.min(dp[i], dp[j * j] + dp[i - j * j]);
-                    }
-                }
+                dp[i] = Math.min(dp[i], 1 + dp[i - j * j]);
             }
         }
         return dp[n];
