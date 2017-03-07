@@ -6,31 +6,33 @@ import java.util.HashSet;
 public class PerfectRectangle {
     public boolean isRectangleCover(int[][] rectangles) {
 
-        HashSet<int[]> hashSet = new HashSet<>();
+        HashSet<String> hashSet = new HashSet<>();
         for (int i = 0; i < rectangles.length; i++) {
-            int[] leftBottom = {rectangles[i][0], rectangles[i][1]};
-            int[] rightBottom = {rectangles[i][2], rectangles[i][1]};
-            int[] leftTop = {rectangles[i][0], rectangles[i][3]};
-            int[] rightTop = {rectangles[i][2], rectangles[i][3]};
+            String leftBottom = rectangles[i][0] + "," + rectangles[i][1];
+            String rightBottom = rectangles[i][2] + "," + rectangles[i][1];
+            String leftTop = rectangles[i][0] + ", " + rectangles[i][3];
+            String rightTop = rectangles[i][2] + ", "+ rectangles[i][3];
 
-            if (hashSet.contains(leftBottom))
+            if (!hashSet.add(leftBottom))
                 hashSet.remove(leftBottom);
-            else
-                hashSet.add(leftBottom);
-            if (hashSet.contains(rightBottom))
+
+            if (!hashSet.add(rightBottom))
                 hashSet.remove(rightBottom);
-            else
-                hashSet.add(rightBottom);
-            if (hashSet.contains(leftTop))
+
+            if (!hashSet.add(leftTop))
                 hashSet.remove(leftTop);
-            else
-                hashSet.add(leftTop);
-            if (hashSet.contains(rightTop))
+
+            if (!hashSet.add(rightTop))
                 hashSet.remove(rightTop);
-            else
-                hashSet.add(rightTop);
+
         }
 
-        return hashSet.size() == 4 ? true : false;
+        return hashSet.size() == 4;
+    }
+
+    public static void main(String[] args) {
+        int[][] rectangles = {{1,1,3,3},{3,1,4,2},{3,2,4,4},{1,3,2,4},{2,3,3,4}};
+        PerfectRectangle test = new PerfectRectangle();
+        test.isRectangleCover(rectangles);
     }
 }
