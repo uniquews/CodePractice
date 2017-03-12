@@ -7,7 +7,7 @@ public class StrStrII {
         if (source == null || target == null) {
             return -1;
         }
-        int[] next = constructNext(target);
+        int[] next = buildNext(target);
 
         int i = 0;
         int j = 0;
@@ -26,18 +26,16 @@ public class StrStrII {
         return -1;
     }
 
-    private int[] constructNext(String target) {
-        if (target == null || target.length() == 0) {
+    private int[] buildNext(String s) {
+        if (s == null || s.length() == 0)
             return null;
-        }
+        int[] next = new int[s.length()];
 
-        int[] next = new int[target.length()];
-        int k = -1;
-        int j = 0;
+        int j = 0, k = -1;
         next[0] = -1;
-        while (j < target.length() - 1) {
-            if (k == -1 || target.charAt(k) == target.charAt(j)) {
 
+        while (j + 1 < s.length()) {
+            if (k == -1 || s.charAt(k) == s.charAt(j)) {
                 k++;
                 j++;
                 next[j] = k;
