@@ -4,32 +4,29 @@
 
 //比较首尾两根柱子，矮柱子旁边的那根柱子的最终高度是可以被确定的。 移动矮柱子的指针， 问题规模变为n - 1
 public class TrappingRainWater {
-    public int trapRainWater(int[] heights) {
+    public int trapRainWater(int[] height) {
         // write your code here
-        int start = 0, end = heights.length - 1, count = 0;
+        if (height == null || height.length == 0) {
+            return 0;
+        }
 
-        while (start < end) {
-            if (heights[start] < heights[end]) {
-                if (start + 1 < end && heights[start + 1] < heights[start]) {
-                    count += heights[start] - heights[start + 1];
-                    heights[start + 1] = heights[start];
+        int start = 0, end = height.length - 1, water = 0, shortest = 0;
+        while (start + 1 < end) {
+            if (height[start] <= height[end] && start + 1 < end) {
+                if (height[start] - height[start + 1] > 0) {
+                    water += height[start] - height[start + 1];
+                    height[start + 1] = height[start];
                 }
                 start++;
-            } else if (heights[start] > heights[end]) {
-                if (end - 1 > start && heights[end - 1] < heights[end]) {
-                    count += heights[end] - heights[end - 1];
-                    heights[end - 1] = heights[end];
+            } else if (height[end] < height[start] && start + 1 < end) {
+                if (height[end] - height[end - 1] > 0) {
+                    water += height[end] - height[end - 1];
+                    height[end - 1] = height[end];
                 }
                 end--;
-            } else {
-                if (start + 1 < end && heights[start + 1] < heights[start]) {
-                    count += heights[start] - heights[start + 1];
-                    heights[start + 1] = heights[start];
-                }
-                start++;
             }
         }
-        return count;
+        return water;
     }
 
     public static void main(String[] args) {
