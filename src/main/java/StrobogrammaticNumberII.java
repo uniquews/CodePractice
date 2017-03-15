@@ -23,7 +23,7 @@ public class StrobogrammaticNumberII {
 
     private void dfs(HashMap<Character, Character> map, char[] s, List<String> result, int start, int end) {
         if (start > end) {
-            result.add(new String(s));
+            result.add(new String(s));//
             //Calling toString on an array will call the toString method from Object. Which will return you the hashCode
             // s.toString is wrong...
             return;
