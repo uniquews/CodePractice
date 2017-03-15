@@ -1,6 +1,8 @@
 /**
  * Created by shuaiwang on 12/5/16.
  */
+
+//比较首尾两根柱子，矮柱子旁边的那根柱子的最终高度是可以被确定的。 移动矮柱子的指针， 问题规模变为n - 1
 public class TrappingRainWater {
     public int trapRainWater(int[] heights) {
         // write your code here
