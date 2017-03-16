@@ -20,6 +20,8 @@ public class TrappingRainWaterII {
 
     public int trapRainWater(int[][] heights) {
         // write your code here
+        if (heights == null || heights.length == 0 || heights[0] == null || heights[0].length == 0)
+            return 0;
 
         int count = 0;
         Queue<Cell> queue = new PriorityQueue<>(new Comparator<Cell>() {
