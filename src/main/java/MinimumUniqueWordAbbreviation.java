@@ -1,11 +1,17 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 3/16/17.
  */
 public class MinimumUniqueWordAbbreviation {
+    class ReturnType {
+        public String str;
+        public Integer abbr;
+        public ReturnType(String t, int i) {
+            str = t;
+            abbr = i;
+        }
+    }
     public String minAbbreviation(String target, String[] dictionary) {
         HashSet<String> dict = new HashSet<>();
         for (int i = 0; i < dictionary.length; i++) {
@@ -17,13 +23,12 @@ public class MinimumUniqueWordAbbreviation {
 
         String result = target;
         int minLen = target.length();
-        HashMap<String, Integer> hashMap = new HashMap<>();
 
         for (String s : targetSet) {
-            String compressedString = compress(s.toCharArray(), hashMap);
-            if (!dict.contains(s) && minLen > hashMap.get(compressedString)) {
-                minLen = hashMap.get(compressedString);
-                result = compressedString;
+            ReturnType entry = compress(s.toCharArray());
+            if (!dict.contains(s) && minLen > entry.abbr) {
+                minLen = entry.abbr;
+                result = entry.str;
             }
         }
         return result;
@@ -39,7 +44,7 @@ public class MinimumUniqueWordAbbreviation {
         }
     }
 
-    private String compress(char[] s, HashMap<String, Integer> hashMap) {
+    private ReturnType compress(char[] s) {
         StringBuilder sb = new StringBuilder();
         int abbreviationLen = 0;
         for (int i = 0; i < s.length; i++) {
@@ -57,8 +62,7 @@ public class MinimumUniqueWordAbbreviation {
             }
             abbreviationLen++;
         }
-        hashMap.put(sb.toString(), abbreviationLen);
-        return sb.toString();
+        return new ReturnType(sb.toString(), abbreviationLen);
     }
 
     public static void main(String[] args) {
