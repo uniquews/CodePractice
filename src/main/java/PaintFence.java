@@ -33,4 +33,9 @@ public class PaintFence {
             return current * dfs(level + 1, k , n - 1, n);
         }
     }
+
+    public static void main(String[] args) {
+        PaintFence test = new PaintFence();
+        test.numWays(3, 2);
+    }
 }
