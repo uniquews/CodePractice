@@ -37,8 +37,14 @@ public class RandomizedSet {
 
         count = 0;
         int pos = map.get(val);
+
+        int lastIndex = list.size() - 1;
+        list.set(pos, list.get(lastIndex));
+        list.set(lastIndex, val);
+
         map.remove(val);
-        list.remove(pos);
+        map.put(list.get(pos), pos);
+        list.remove(lastIndex);
         return true;
     }
 
@@ -48,11 +54,12 @@ public class RandomizedSet {
         if (count == size) {
             count = 0;
         }
-        int endPosition = size - count - 1;
+        int endPosition = size - count;
         Random random = new Random();
-        int peekPosition = random.nextInt(size);
+        int peekPosition = random.nextInt(endPosition);
         int result = list.get(peekPosition);
-        list.set(endPosition, list.get(peekPosition));
+        list.set(peekPosition, list.get(endPosition - 1));
+        list.set(endPosition - 1, result);
         count++;
         return result;
     }
