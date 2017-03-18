@@ -13,6 +13,9 @@ public class MinimumUniqueWordAbbreviation {
         }
     }
     public String minAbbreviation(String target, String[] dictionary) {
+        if (dictionary.length == 0) {
+            return String.valueOf(target.length());
+        }
         HashSet<String> dict = new HashSet<>();
         for (int i = 0; i < dictionary.length; i++) {
             dfs(dictionary[i].toCharArray(), 0, dict);
