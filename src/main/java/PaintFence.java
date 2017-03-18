@@ -12,30 +12,33 @@ public class PaintFence {
         if (n == 2) {
             return k * k;
         }
-        return n * (dfs(3, k, k - 1, n) + dfs(3, k, 1, n));
+
+        int tmp1 = (k - 1) * dfs(3, k,  n, true);
+        int tmp2 = 1 * dfs(3, k , n, false);
+        return k * (tmp1 + tmp2);
     }
 
-    private int dfs(int level, int k, int parent, int n) {
-        if (level == n && parent == k - 1) {
+    private int dfs(int level, int k, int n, boolean isKMinusOne) {
+        if (level == n && isKMinusOne) {
             return (k - 1) + 1;
-        } else if (level == n && parent == 1) {
+        } else if (level == n && !isKMinusOne) {
             return k - 1;
         }
 
-        if (parent == k - 1) {
+        if (isKMinusOne) {
             int current1 = k - 1;
             int current2 = 1;
-            int tmp1 = current1 * dfs(level + 1, k, k - 1, n);
-            int tmp2 = current2 * dfs(level + 1, k, 1, n);
+            int tmp1 = current1 * dfs(level + 1, k, n, true);
+            int tmp2 = current2 * dfs(level + 1, k, n, false);
             return tmp1 + tmp2;
         } else { // parent == 1
             int current = k - 1;
-            return current * dfs(level + 1, k , k - 1, n);
+            return current * dfs(level + 1, k ,  n, true);
         }
     }
 
     public static void main(String[] args) {
         PaintFence test = new PaintFence();
-        test.numWays(3, 2);
+        System.out.println(test.numWays(3, 2));
     }
 }
