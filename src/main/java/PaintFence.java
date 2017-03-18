@@ -12,25 +12,25 @@ public class PaintFence {
         if (n == 2) {
             return k * k;
         }
-        return n * (dfs(3, k, n - 1, n) + dfs(3, k, 1, n));
+        return n * (dfs(3, k, k - 1, n) + dfs(3, k, 1, n));
     }
 
     private int dfs(int level, int k, int parent, int n) {
-        if (level == k && parent == n - 1) {
-            return (n - 1) + 1;
-        } else if (level == k && parent == 1) {
-            return n - 1;
+        if (level == n && parent == k - 1) {
+            return (k - 1) + 1;
+        } else if (level == n && parent == 1) {
+            return k - 1;
         }
 
-        if (parent == n - 1) {
-            int current1 = n - 1;
+        if (parent == k - 1) {
+            int current1 = k - 1;
             int current2 = 1;
-            int tmp1 = current1 * dfs(level + 1, k, n - 1, n);
+            int tmp1 = current1 * dfs(level + 1, k, k - 1, n);
             int tmp2 = current2 * dfs(level + 1, k, 1, n);
             return tmp1 + tmp2;
         } else { // parent == 1
-            int current = n - 1;
-            return current * dfs(level + 1, k , n - 1, n);
+            int current = k - 1;
+            return current * dfs(level + 1, k , k - 1, n);
         }
     }
 
