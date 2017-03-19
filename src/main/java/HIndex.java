@@ -18,6 +18,8 @@ public class HIndex {
             // 有了position之后就可以知道比当前引用i大的paper有多少个，引用次数比i小的paper有多少个
             // A scientist has index h if h of his/her N papers have at least h citations each:
             // 从position之后的，至少要有大于等于i的paper，它们的引用次数是大于等于i的。
+            // the other N − h papers have no more than h citations each.
+            // 换言之就是可以有大于等于citations.length - i的paper他们的citations是小于i的
 
             int position = findLowerBound(citations, i);
             if (citations.length - position >= i) {
