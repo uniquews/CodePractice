@@ -53,50 +53,55 @@ public class HIndex {
 //    }
 
     // input: [0,3,3,1] output: h = 2
-    // 其实没有必要像之前一样那么麻烦，如果把i直接看成是论文数而不是论文的index数，就可以用一下方法
+    /**
+     * 循环所有可能的hIndex， hIndex的范围为1到论文总数。每个人默认的起始hIndex都是0所以没必要从0开始
+     * 假设我当前尝试的possibleH是1， 只要至少有一篇论文的citation大于等于1，那么1就是valid citation
+     * 因为所有的论文按照citation从小到大排好序了，在所有的论文里，只要citation最大的那篇论文的被引用次数
+     * 大于等于1，那么1就成立，也就是 citations[citations.length - possibleH] >= possibleH
+     * 同理当possibleH是2，只需要查看倒数第二篇论文的citation是不是大于等于2。
+     * */
+//    public int hIndex(int[] citations) {
+//        if (citations == null || citations.length == 0)
+//            return 0;
+//        Arrays.sort(citations);
+//        int h = 0;
+//        for (int i = 1; i <= citations.length; i++) {
+//            int possibleH = i;
+//            if (citations[citations.length - possibleH] >= possibleH) {
+//                h = possibleH;
+//            }
+//        }
+//
+//        return h;
+//    }
+
+    // O(N)
     public int hIndex(int[] citations) {
-        if (citations == null || citations.length == 0)
+        if (citations == null || citations.length == 0) {
             return 0;
-        int result = 0;
+        }
+
+        int totalPaper = citations.length;
+        // bucket数组中的Index表示所有可能的hIndex
+        int[] bucket = new int[totalPaper + 1];
         for (int i = 0; i < citations.length; i++) {
-            int possibleH = i;
-            //citations[possibleH] 指的是当前这篇论文的引用次数，后面的论文都比它引用次数多。
-            //citations.length - possibleH 比当前论文引用次数多的（包含等于）的论文数量
-            if (citations.length - possibleH >= citations[possibleH]) {
-                result = possibleH;
+            if (citations[i] > totalPaper) {
+                bucket[totalPaper] += 1;
+            } else {
+                bucket[citations[i]] += 1;
             }
         }
 
-        //返回的其实是第i篇论文，从i往后所有的论文数量，（后面的论文大于等于第i篇论文的引用数）大于等于
-        //第i篇论文的引用数量。
-        return result + 1;
+        int sumOfCitation = 0;
+        int result = 0;
+        for (int i = bucket.length - 1; i > 0; i--) {
+            sumOfCitation += bucket[i];
+            if (sumOfCitation >= i) { // 大于当前论文citation的论文数 大于等于 当前论文的citations
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
-
-    // O(N)
-//    public int hIndex(int[] citations) {
-//        if (citations == null || citations.length == 0) {
-//            return 0;
-//        }
-//
-//        int totalPaper = citations.length;
-//        int[] bucket = new int[totalPaper + 1];
-//        for (int i = 0; i < citations.length; i++) {
-//            if (citations[i] > totalPaper) {
-//                bucket[totalPaper] = citations[i];
-//            } else {
-//                bucket[citations[i]] += 1;
-//            }
-//        }
-//
-//        int sumOfCitation = 0;
-//        int result = 0;
-//        for (int i = bucket.length - 1; i >= 0; i--) {
-//            sumOfCitation += bucket[i];
-//            if (sumOfCitation >= i) { // 大于当前论文citation的论文数 大于等于 当前论文的citations
-//                result = sumOfCitation;
-//            }
-//        }
-//        return result;
-//    }
 
 }
