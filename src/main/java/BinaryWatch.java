@@ -26,7 +26,7 @@ public class BinaryWatch {
         if (layer == totalNumSelectedPoints) {
             if (isHours && sum < 12) //没有大于12的小时
                 list.add(sum);
-            else if (!isHours && sum <= 60) //没有大于60的分钟
+            else if (!isHours && sum < 60) //没有大于60的分钟
                 list.add(sum);
             return;
         }
@@ -37,23 +37,14 @@ public class BinaryWatch {
         }
     }
 
+    // 小时的范围是 [0-11]，  分钟的范围是[0-59]
     private void combineHourAndMinute(List<String> result, List<Integer> hours, List<Integer> minutes) {
         // 1. 小时不能有leading zero
         // 2. 分钟必须有leading zero
-        // 3. 分钟等于60的时候要自动归零，小时加1，如果小时超过了12，就不加到result中
         for (int i = 0; i < hours.size(); i++) {
             for (int j = 0; j < minutes.size(); j++) {
                 int currentHour = hours.get(i);
                 int currentMinute = minutes.get(j);
-
-                if (currentMinute == 60) {
-                    currentMinute = 0;
-                    currentHour += 1;
-                }
-
-                if (currentHour >= 12) {
-                    continue;
-                }
 
                 String hour = String.valueOf(currentHour);
                 String minute;
