@@ -29,7 +29,7 @@ public class SlidingWindowMaximum {
         int index = 0;
         while (end < nums.length) {
             list[index] = deque.peekFirst();
-            if (nums[start] == deque.peekLast()) {
+            if (nums[start] == deque.peekFirst()) {
                 deque.removeFirst();
             }
             start++;
