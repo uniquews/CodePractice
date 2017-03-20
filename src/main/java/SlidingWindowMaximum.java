@@ -10,39 +10,41 @@ import java.util.*;
  */
 
 public class SlidingWindowMaximum {
+
+    //随着窗口向右滑动，保持deque是一个单调递减序列，每次的max in window就总是deque里的第一个值
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k == 0)
             return new int[0];
         Deque<Integer> deque = new LinkedList<>();
         int[] list = new int[nums.length - k + 1];
 
-        int start = 0, end = 0;
-        while (end < k) {
-            int current = nums[end];
-            while (!deque.isEmpty() && deque.peekLast() < current) {
-                deque.removeLast();
-            }
-            deque.addLast(current);
-            end++;
+        for (int i = 0; i < k - 1; i++) {
+            Enqueue(deque, nums[i]);
         }
 
         int index = 0;
-        while (end < nums.length) {
+        for (int i = k - 1; i < nums.length; i++) {
+            Enqueue(deque, nums[i]); // 把end移到当前被计算的window的末尾
             list[index] = deque.peekFirst();
-            if (nums[start] == deque.peekFirst()) {
-                deque.removeFirst();
-            }
-            start++;
-
-            while (!deque.isEmpty() && deque.peekLast() < nums[end]) {
-                deque.removeLast();
-            }
-            deque.add(nums[end]);
-            end++;
+            Dequeue(deque, nums[i - k + 1]); //把start移道下一个被计算window开始
             index++;
         }
-        list[index] = deque.peekFirst();
         return list;
+    }
+
+    // delete number from beginning of the deque
+    private void Dequeue(Deque<Integer> deque, int candidate) {
+        if (candidate == deque.peekFirst()) {
+            deque.removeFirst();
+        }
+    }
+
+    // add number from end of the deque
+    private void Enqueue(Deque<Integer> deque, int candidate) {
+        while (!deque.isEmpty() && deque.peekLast() < candidate) {
+            deque.removeLast();
+        }
+        deque.addLast(candidate);
     }
 
     public static void main(String[] args) {
