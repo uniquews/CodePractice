@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Created by shuaiwang on 3/20/17.
@@ -61,12 +62,21 @@ public class ReversePairs {
 //    }
 
     public int reversePairs(int[] nums) {
-
+        TreeSet<Long> redBlack = new TreeSet<>();
+        int sum = 0;
+        for (int ele : nums) {
+            // search in redBlack
+            sum = redBlack.tailSet(2L * ele).size();
+            // insert to redBlack
+            redBlack.add(ele * 1L);
+        }
+        return sum;
     }
+
 
     public static void main(String[] args) {
         ReversePairs test = new ReversePairs();
-        int[] nums = {2147483647,2147483647,2147483647,2147483647,2147483647,2147483647};
+        int[] nums = {1,3,2,3,1};
         test.reversePairs(nums);
     }
 }
