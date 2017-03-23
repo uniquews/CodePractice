@@ -1,6 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 12/11/16.
@@ -12,41 +10,47 @@ import java.util.Deque;
  */
 
 public class SlidingWindowMaximum {
-    public ArrayList<Integer> maxSlidingWindow(int[] nums, int k) {
-        // write your code here
-        ArrayList<Integer> result = new ArrayList<>();
-        Deque<Integer> deque = new ArrayDeque<Integer>();
 
-        if (nums == null || nums.length == 0) {
-            return result;
+    //随着窗口向右滑动，保持deque是一个单调递减序列，每次的max in window就总是deque里的第一个值
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k == 0)
+            return new int[0];
+        Deque<Integer> deque = new LinkedList<>();
+        int[] list = new int[nums.length - k + 1];
+
+        for (int i = 0; i < k - 1; i++) {
+            Enqueue(deque, nums[i]);
         }
 
-        int start = 0;
-        for (int i = 0; i < nums.length; i++) {
-            // This is for remain the correct sliding window size
-            if (i - start == k) {
-                if (nums[start] == deque.peekFirst())
-                    deque.removeFirst();
-                start++;
-            }
-
-            // keep numbers in deque as descending order
-            while (!deque.isEmpty() && nums[i] > deque.peekLast()) {
-                deque.removeLast();
-            }
-
-            deque.add(nums[i]); // keeping adding number every iteration
-            if (i >= k - 1) {
-                result.add(deque.peekFirst());
-            }
+        int index = 0;
+        for (int i = k - 1; i < nums.length; i++) {
+            Enqueue(deque, nums[i]); // 把end移到当前被计算的window的末尾
+            list[index] = deque.peekFirst();
+            Dequeue(deque, nums[i - k + 1]); //把start移道下一个被计算window开始
+            index++;
         }
-        return result;
+        return list;
+    }
+
+    // delete number from beginning of the deque
+    private void Dequeue(Deque<Integer> deque, int candidate) {
+        if (candidate == deque.peekFirst()) {
+            deque.removeFirst();
+        }
+    }
+
+    // add number from end of the deque
+    private void Enqueue(Deque<Integer> deque, int candidate) {
+        while (!deque.isEmpty() && deque.peekLast() < candidate) {
+            deque.removeLast();
+        }
+        deque.addLast(candidate);
     }
 
     public static void main(String[] args) {
         SlidingWindowMaximum test = new SlidingWindowMaximum();
-        int[] input = {1, 2, 7, 7, 2};
-        int k = 1;
+        int[] input = {7,2,4};
+        int k = 2;
         System.out.print(test.maxSlidingWindow(input, k));
     }
 }
