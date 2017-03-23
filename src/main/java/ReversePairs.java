@@ -6,6 +6,8 @@ import java.util.TreeSet;
 /**
  * Created by shuaiwang on 3/20/17.
  */
+
+// https://discuss.leetcode.com/topic/79227/general-principles-behind-problems-similar-to-reverse-pairs
 public class ReversePairs {
 
     //方法一，和count smaller number after itself一样，不用线段数但是会超时, 比如input是{1,2,3,4,5}
@@ -61,16 +63,50 @@ public class ReversePairs {
 //        return end;
 //    }
 
+    // 方法二： 分治
     public int reversePairs(int[] nums) {
-        TreeSet<Long> redBlack = new TreeSet<>();
-        int sum = 0;
-        for (int ele : nums) {
-            // search in redBlack
-            sum = redBlack.tailSet(2L * ele).size();
-            // insert to redBlack
-            redBlack.add(ele * 1L);
+        return divideAndConquer(nums, 0, nums.length - 1);
+    }
+
+    private int divideAndConquer(int[] num, int left, int right) {
+        if (left >= right) {
+            return 0;
         }
-        return sum;
+
+        int mid = left + (right - left) / 2;
+        int numOfPairsLeft = divideAndConquer(num, left, mid);
+        int numOfPairsRight = divideAndConquer(num, mid + 1, right);
+
+        int result = 0;
+        int i = left, j = mid + 1;
+        while (i <= mid) {
+            while (j <= right && num[i] > 2L * num[j]) {
+                j++;
+            }
+            result += j - mid - 1;
+            i++;
+        }
+
+        i = left;
+        j = mid + 1;
+        int index = 0;
+        int[] merge = new int[right - left + 1];
+        while (i <= mid || j <= right) {
+            if (i > mid) {
+                merge[index++] = num[j++];
+            } else if (j > right) {
+                merge[index++] = num[i++];
+            } else {
+                if (num[i] > num[j]) {
+                    merge[index++] = num[j++];
+                } else {
+                    merge[index++] = num[i++];
+                }
+            }
+        }
+
+        System.arraycopy(merge, 0, num, left, merge.length);
+        return numOfPairsLeft + numOfPairsRight + result;
     }
 
 
@@ -78,5 +114,8 @@ public class ReversePairs {
         ReversePairs test = new ReversePairs();
         int[] nums = {1,3,2,3,1};
         test.reversePairs(nums);
+        int a = 6;
+        a += a & -a;
+        System.out.println(a);
     }
 }
