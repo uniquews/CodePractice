@@ -1,4 +1,3 @@
-import java.time.temporal.ChronoField;
 import java.util.*;
 
 /**
@@ -6,110 +5,12 @@ import java.util.*;
  */
 public class AlienDictionary {
     public String alienOrder(String[] words) {
+        // Key is the character node, value is a list of its children.
         HashMap<Character, List<Character>> graph = new HashMap<>();
+        // Key is the character node, value is its in degree.
         HashMap<Character, Integer> indegree = new HashMap<>();
 
-        // build graph
-        int maxLen = 0;
-        for (int i = 0; i < words.length; i++) {
-            maxLen = Math.max(words[i].length(), maxLen);
-        }
-
-        HashMap<String, List<String>> setOfString = new HashMap<>();
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].length() == 0) {
-                continue;
-            }
-
-            String tmp = String.valueOf(words[i].charAt(0));
-            char tmpChar = words[i].charAt(0);
-            if (setOfString.containsKey(tmp)) {
-                setOfString.get(tmp).add(words[i]);
-            } else {
-                setOfString.put(tmp, new ArrayList<>(Arrays.asList(words[i])));
-            }
-
-            if (i == 0) {
-                indegree.put(tmpChar, 0);
-                graph.put(tmpChar, new ArrayList<>());
-            } else {
-                if (i > 0 && !tmp.equals(String.valueOf(words[i - 1].charAt(0)))) {
-                    if (graph.containsKey(words[i - 1].charAt(0))) {
-                        graph.get(words[i - 1].charAt(0)).add(tmpChar);
-                    } else {
-                        graph.put(words[i - 1].charAt(0), new ArrayList<>(Arrays.asList(tmpChar)));
-                    }
-
-                    if (indegree.containsKey(tmpChar)) {
-                        indegree.put(tmpChar, indegree.get(tmpChar) + 1);
-                    } else {
-                        indegree.put(tmpChar, 1);
-                    }
-                }
-
-                if (!indegree.containsKey(tmpChar)) {
-                    indegree.put(tmpChar, 0);
-                }
-                if (!graph.containsKey(tmpChar)) {
-                    graph.put(tmpChar, new ArrayList<>());
-                }
-            }
-        }
-
-        for (int i = 1; i < maxLen; i++) {
-            HashMap<String, List<String>> tmpSetOfString = new HashMap<>();
-            for (List<String> list : setOfString.values()) {
-                for (int j = 0; j < list.size(); j++) {
-                    String s = list.get(j);
-                    if (s.length() - 1 < i) {
-                        continue;
-                    }
-
-                    char current = s.charAt(i);
-                    String subStr = s.substring(0, i + 1);
-                    if (j == 0) {
-                        if (!indegree.containsKey(current)) {
-                            indegree.put(current, 0);
-                        }
-                        if (!graph.containsKey(current)) {
-                            graph.put(current, new ArrayList<>());
-                        }
-                    } else {
-                        char parent = list.get(j - 1).charAt(i);
-                        if (list.get(j - 1).length() >= i + 1 && s.charAt(i) != parent) {
-                            if (!graph.containsKey(parent)) {
-                                graph.put(parent, new ArrayList<>(Arrays.asList(current)));
-                            } else {
-                                graph.get(parent).add(current);
-                            }
-                            if (!indegree.containsKey(current)) {
-                                indegree.put(current, 1);
-                            } else {
-                                indegree.put(current, indegree.get(current) + 1);
-                            }
-                        }
-
-                        if (!graph.containsKey(current)) {
-                            graph.put(current, new ArrayList<>());
-                        }
-                        if (!indegree.containsKey(current)) {
-                            indegree.put(current, 0);
-                        }
-                    }
-
-                    if (tmpSetOfString.containsKey(subStr)) {
-                        tmpSetOfString.get(subStr).add(s);
-                    } else {
-                        tmpSetOfString.put(subStr, new ArrayList<>(Arrays.asList(s)));
-                    }
-                }
-            }
-
-            setOfString.clear();
-            setOfString.putAll(tmpSetOfString);
-            tmpSetOfString.clear();
-        }
-
+        buildGraph(words, graph, indegree);
         // 拓扑排序
         StringBuilder sb = new StringBuilder();
 
@@ -137,8 +38,40 @@ public class AlienDictionary {
         return sb.toString();
     }
 
+    private void buildGraph(String[] strs, Map<Character, List<Character>> graph, Map<Character, Integer> inDegreeMap) {
+        for (int i = 0; i < strs.length - 1; i++) {
+            addEachCharacterInStringToGraph(strs[i], graph, inDegreeMap);
+            char[] edge = findEdgeBetweenString(strs[i], strs[i + 1]);
+            if (edge != null) {
+                inDegreeMap.put(edge[1], inDegreeMap.getOrDefault(edge[1], 0) + 1);
+                graph.get(edge[0]).add(edge[1]);
+            }
+        }
+        addEachCharacterInStringToGraph(strs[strs.length - 1], graph, inDegreeMap);
+    }
+
+    private void addEachCharacterInStringToGraph(
+            String str, Map<Character, List<Character>> graph, Map<Character, Integer> inDegreeMap) {
+        for (char c : str.toCharArray()) {
+            graph.putIfAbsent(c, new ArrayList<>());
+            inDegreeMap.putIfAbsent(c, 0);
+        }
+    }
+
+    /**
+     * Finds an edge between str1 and str2, str1 ranks higher than str2. Returns null if no edge can be found.
+     */
+    private char[] findEdgeBetweenString(String str1, String str2) {
+        for (int i = 0; i < str1.length() && i < str2.length(); i++) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                return new char[]{str1.charAt(i), str2.charAt(i)};
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
-        String[] strings = {"ri","xz","qxf","jhsguaw","dztqrbwbm","dhdqfb","jdv","fcgfsilnb","ooby"};
+        String[] strings = {"ab", "ba", "cd"};
         // ["ri","xz","qxf","jhsguaw","dztqrbwbm","dhdqfb","jdv","fcgfsilnb","ooby"]
 
         AlienDictionary test = new AlienDictionary();
