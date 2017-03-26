@@ -36,7 +36,7 @@ public class WordSearchII {
                 parent = parent.children[pos];
                 if (i == word.length() - 1) {
                     parent.isWord = true;
-                    parent.numberOfSameWord++;
+                    parent.numberOfSameWord = 1;
                 }
             }
         }
@@ -60,36 +60,45 @@ public class WordSearchII {
     }
 
     private void dfs(char[][] board, int row, int column, TrieNode charNode, StringBuilder sb, List<String> result) {
-        if (row < 0 || row >= board.length || column < 0 || column >= board[0].length) {
-            return;
+        if (charNode.isWord) {
+            result.add(sb.toString());
         }
+
 
         if (charNode.children[board[row][column] - 'a'] != null) {
             TrieNode nextParent = charNode.children[board[row][column] - 'a'];
 
-            sb.append(board[row][column]);
-            dfs(board, row + 1, column, nextParent, sb, result);
-            sb.deleteCharAt(sb.length() - 1);
-
-            sb.append(board[row][column]);
-            dfs(board, row - 1 , column, nextParent, sb, result);
-            sb.deleteCharAt(sb.length() - 1);
-
-            sb.append(board[row][column]);
-            dfs(board, row, column + 1, nextParent, sb, result);
-            sb.deleteCharAt(sb.length() - 1);
-
-            sb.append(board[row][column]);
-            dfs(board, row, column - 1, nextParent, sb, result);
-            sb.deleteCharAt(sb.length() - 1);
-
-            if (charNode.isWord && charNode.numberOfSameWord > 0) {
+            if (row + 1 < board.length) {
                 sb.append(board[row][column]);
-                result.add(sb.toString());
-                charNode.numberOfSameWord--;
+                dfs(board, row + 1, column, nextParent, sb, result);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+
+            if (row - 1 >= 0) {
+                sb.append(board[row][column]);
+                dfs(board, row - 1 , column, nextParent, sb, result);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+
+            if (column + 1 < board[0].length) {
+                sb.append(board[row][column]);
+                dfs(board, row, column + 1, nextParent, sb, result);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+
+            if (column - 1 >= 0) {
+                sb.append(board[row][column]);
+                dfs(board, row, column - 1, nextParent, sb, result);
                 sb.deleteCharAt(sb.length() - 1);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        WordSearchII test = new WordSearchII();
+        char[][] board = {{'a'}};
+        String[] a = {"a", "a"};
+        test.findWords(board, a);
     }
 
 
