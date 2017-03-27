@@ -74,7 +74,6 @@ public class WordSearchII {
     if (charNode.isWord && charNode.numberOfSameWord > 0) {
       charNode.numberOfSameWord--;
       result.add(sb.toString());
-      return;
     }
 
     int[] dx = {0, 0, 1, -1};
@@ -101,7 +100,7 @@ public class WordSearchII {
 
   public static void main(String[] args) {
     WordSearchII test = new WordSearchII();
-    char[][] board = {{'a'}};
+    char[][] board = {{'a','b','c'}};
     String[] a = {"a", "a"};
     test.findWords(board, a);
   }
