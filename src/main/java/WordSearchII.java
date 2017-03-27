@@ -50,48 +50,57 @@ public class WordSearchII {
 
         StringBuilder sb = new StringBuilder();
         List<String> result = new ArrayList<>();
+        boolean[][] visited = new boolean[board.length][board[0].length];
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                dfs(board, i, j, trie.root, sb, result);
+                if (trie.root.children[board[i][j] - 'a'] != null) {
+                    sb.append(board[i][j]);
+                    dfs(board, i, j, trie.root.children[board[i][j] - 'a'], sb, result, visited);
+                    sb.deleteCharAt(sb.length() - 1);
+                }
             }
         }
         return result;
     }
 
-    private void dfs(char[][] board, int row, int column, TrieNode charNode, StringBuilder sb, List<String> result) {
+    private void dfs(char[][] board, int row, int column, TrieNode charNode, StringBuilder sb, List<String> result, boolean[][] visited) {
         if (charNode.isWord) {
             result.add(sb.toString());
+            charNode.isWord = false;
         }
 
+        visited[row][column] = true;
 
-        if (charNode.children[board[row][column] - 'a'] != null) {
-            TrieNode nextParent = charNode.children[board[row][column] - 'a'];
-
-            if (row + 1 < board.length) {
-                sb.append(board[row][column]);
-                dfs(board, row + 1, column, nextParent, sb, result);
-                sb.deleteCharAt(sb.length() - 1);
-            }
-
-            if (row - 1 >= 0) {
-                sb.append(board[row][column]);
-                dfs(board, row - 1 , column, nextParent, sb, result);
-                sb.deleteCharAt(sb.length() - 1);
-            }
-
-            if (column + 1 < board[0].length) {
-                sb.append(board[row][column]);
-                dfs(board, row, column + 1, nextParent, sb, result);
-                sb.deleteCharAt(sb.length() - 1);
-            }
-
-            if (column - 1 >= 0) {
-                sb.append(board[row][column]);
-                dfs(board, row, column - 1, nextParent, sb, result);
-                sb.deleteCharAt(sb.length() - 1);
-            }
+        if (row + 1 < board.length && !visited[row + 1][column] && charNode.children[board[row + 1][column] - 'a'] != null) {
+            TrieNode nextParent = charNode.children[board[row + 1][column] - 'a'];
+            sb.append(board[row + 1][column]);
+            dfs(board, row + 1, column, nextParent, sb, result, visited);
+            sb.deleteCharAt(sb.length() - 1);
         }
+
+        if (row - 1 >= 0 && !visited[row - 1][column] && charNode.children[board[row - 1][column] - 'a'] != null) {
+            TrieNode nextParent = charNode.children[board[row - 1][column] - 'a'];
+            sb.append(board[row - 1][column]);
+            dfs(board, row - 1, column, nextParent, sb, result, visited);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+        if (column + 1 < board[0].length && !visited[row][column + 1] && charNode.children[board[row][column + 1] - 'a'] != null) {
+            TrieNode nextParent = charNode.children[board[row][column + 1] - 'a'];
+            sb.append(board[row][column + 1]);
+            dfs(board, row, column + 1, nextParent, sb, result, visited);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+        if (column - 1 >= 0 && !visited[row][column - 1] && charNode.children[board[row][column - 1] - 'a'] != null) {
+            TrieNode nextParent = charNode.children[board[row][column - 1] - 'a'];
+            sb.append(board[row][column - 1]);
+            dfs(board, row, column - 1, nextParent, sb, result, visited);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+        visited[row][column] = false;
     }
 
     public static void main(String[] args) {
