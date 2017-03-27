@@ -92,10 +92,11 @@ public class WordSearchII {
       for (TrieNode nextNode : charNode.children) {
         if (nextNode != null && nextNode.value == board[x][y]) {
           dfs(board, x, y, nextNode, sb, result, visited);
-          sb.deleteCharAt(sb.length() - 1);
         }
       }
     }
+    sb.deleteCharAt(sb.length() - 1);
+    visited[row][column] = false;
   }
 
   public static void main(String[] args) {
