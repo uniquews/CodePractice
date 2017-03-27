@@ -55,9 +55,7 @@ public class WordSearchII {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (trie.root.children[board[i][j] - 'a'] != null) {
-                    sb.append(board[i][j]);
                     dfs(board, i, j, trie.root.children[board[i][j] - 'a'], sb, result, visited);
-                    sb.deleteCharAt(sb.length() - 1);
                 }
             }
         }
@@ -65,41 +63,34 @@ public class WordSearchII {
     }
 
     private void dfs(char[][] board, int row, int column, TrieNode charNode, StringBuilder sb, List<String> result, boolean[][] visited) {
+        sb.append(board[row][column]);
+        visited[row][column] = true;
         if (charNode.isWord) {
             result.add(sb.toString());
             charNode.isWord = false;
         }
 
-        visited[row][column] = true;
-
         if (row + 1 < board.length && !visited[row + 1][column] && charNode.children[board[row + 1][column] - 'a'] != null) {
             TrieNode nextParent = charNode.children[board[row + 1][column] - 'a'];
-            sb.append(board[row + 1][column]);
             dfs(board, row + 1, column, nextParent, sb, result, visited);
-            sb.deleteCharAt(sb.length() - 1);
         }
 
         if (row - 1 >= 0 && !visited[row - 1][column] && charNode.children[board[row - 1][column] - 'a'] != null) {
             TrieNode nextParent = charNode.children[board[row - 1][column] - 'a'];
-            sb.append(board[row - 1][column]);
             dfs(board, row - 1, column, nextParent, sb, result, visited);
-            sb.deleteCharAt(sb.length() - 1);
         }
 
         if (column + 1 < board[0].length && !visited[row][column + 1] && charNode.children[board[row][column + 1] - 'a'] != null) {
             TrieNode nextParent = charNode.children[board[row][column + 1] - 'a'];
-            sb.append(board[row][column + 1]);
             dfs(board, row, column + 1, nextParent, sb, result, visited);
-            sb.deleteCharAt(sb.length() - 1);
         }
 
         if (column - 1 >= 0 && !visited[row][column - 1] && charNode.children[board[row][column - 1] - 'a'] != null) {
             TrieNode nextParent = charNode.children[board[row][column - 1] - 'a'];
-            sb.append(board[row][column - 1]);
             dfs(board, row, column - 1, nextParent, sb, result, visited);
-            sb.deleteCharAt(sb.length() - 1);
         }
 
+        sb.deleteCharAt(sb.length() - 1);
         visited[row][column] = false;
     }
 
