@@ -9,11 +9,9 @@ public class WordSearchII {
         // Initialize your data structure here.
         public TrieNode[] children;
         public boolean isWord;
-        public int numberOfSameWord;
         public TrieNode() {
             children = new TrieNode[26];
             isWord = false;
-            numberOfSameWord = 0;
         }
     }
 
@@ -36,7 +34,6 @@ public class WordSearchII {
                 parent = parent.children[pos];
                 if (i == word.length() - 1) {
                     parent.isWord = true;
-                    parent.numberOfSameWord = 1;
                 }
             }
         }
