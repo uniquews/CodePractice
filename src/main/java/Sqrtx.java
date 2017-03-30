@@ -21,10 +21,6 @@ public class Sqrtx {
             }
         }
 
-        if (end * end == x) {
-            return end;
-        }
-
         return start;
     }
 }
