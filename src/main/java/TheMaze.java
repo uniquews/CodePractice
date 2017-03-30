@@ -8,9 +8,6 @@ public class TheMaze {
     }
 
     private boolean dfs(int[][] maze, int[] current, int[] destination, boolean[][] visited) {
-        if (current[0] == -1 && current[1] == -1)
-            return false;
-
         if (current[0] == destination[0] && current[1] == destination[1]) {
             return true;
         }
@@ -24,21 +21,25 @@ public class TheMaze {
         // move to left
         int[] nextLeft = moveHelper(maze, current[0], current[1], true, false);
         boolean isDesInLeft = dfs(maze, nextLeft, destination, visited);
+        if (isDesInLeft) return isDesInLeft;
 
         // move to right
         int[] nextRight = moveHelper(maze, current[0], current[1], true, true);
         boolean isDesInRight = dfs(maze, nextRight, destination, visited);
+        if (isDesInRight) return isDesInRight;
 
         // move to up
         int[] nextUp = moveHelper(maze, current[0], current[1], false, true);
         boolean isDesInUp = dfs(maze, nextUp, destination, visited);
+        if (isDesInUp) return isDesInUp;
 
         // move to below
         int[] nextBelow = moveHelper(maze, current[0], current[1],  false, false);
         boolean isDesInBelow = dfs(maze, nextBelow, destination, visited);
+        if (isDesInBelow) return isDesInBelow;
 
         visited[current[0]][current[1]] = false;
-        return isDesInLeft || isDesInRight || isDesInUp || isDesInBelow;
+        return false;
     }
 
     private int[] moveHelper(int[][] maze, int r, int c, boolean horizon, boolean increase) {
@@ -49,49 +50,38 @@ public class TheMaze {
                 i++;
             }
             result[0] = r;
-            if (i == maze[0].length) {
-                result[1] = i - 1;
-            } else {
-                result[1] = i;
-            }
+            result[1] = i - 1;
         } else if (horizon && !increase) {
             int i = c - 1;
-            while (i >= maze[0].length && maze[r][i] != 1) {
+            while (i >= 0 && maze[r][i] != 1) {
                 i--;
             }
             result[0] = r;
-            if (i < 0) {
-                result[1] = i + 1;
-            } else {
-                result[1] = i;
-            }
+            result[1] = i + 1;
         } else if (!horizon && increase) {
             int i = r + 1;
             while (i < maze.length && maze[i][c] != 1) {
                 i++;
             }
+            result[0] = i - 1;
             result[1] = c;
-            if (i == maze.length) {
-                result[0] = maze.length - 1;
-            } else {
-                result[0] = i;
-            }
         } else {
             int i = r - 1;
             while (i >= 0 && maze[i][c] != 1) {
                 i--;
             }
+            result[0] = i + 1;
             result[1] = c;
-            if (i < 0) {
-                result[0] = 0;
-            } else {
-                result[0] = i;
-            }
-        }
-        if ((result[0] == r && result[1] == c) || maze[result[0]][result[1]] == 1) {
-            result[0] = -1;
-            result[1] = -1;
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        //[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]]
+        int[][] maze = {{0,0,1,0,0}, {0,0,0,0,0}, {0,0,0,1,0}, {1,1,0,1,1}, {0,0,0,0,0}};
+        int[] start = {0, 4};
+        int[] des = {4, 4};
+        TheMaze test = new TheMaze();
+        System.out.println(test.hasPath(maze, start, des));
     }
 }
