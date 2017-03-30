@@ -21,24 +21,23 @@ public class TheMaze {
         // move to left
         int[] nextLeft = moveHelper(maze, current[0], current[1], true, false);
         boolean isDesInLeft = dfs(maze, nextLeft, destination, visited);
-        if (isDesInLeft) return isDesInLeft;
 
         // move to right
         int[] nextRight = moveHelper(maze, current[0], current[1], true, true);
         boolean isDesInRight = dfs(maze, nextRight, destination, visited);
-        if (isDesInRight) return isDesInRight;
 
         // move to up
         int[] nextUp = moveHelper(maze, current[0], current[1], false, true);
         boolean isDesInUp = dfs(maze, nextUp, destination, visited);
-        if (isDesInUp) return isDesInUp;
 
         // move to below
         int[] nextBelow = moveHelper(maze, current[0], current[1],  false, false);
         boolean isDesInBelow = dfs(maze, nextBelow, destination, visited);
-        if (isDesInBelow) return isDesInBelow;
 
-        visited[current[0]][current[1]] = false;
+        if (isDesInLeft || isDesInRight || isDesInUp || isDesInBelow) {
+            visited[current[0]][current[1]] = false;
+            return true;
+        }
         return false;
     }
 
