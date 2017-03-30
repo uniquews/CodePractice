@@ -7,6 +7,9 @@ public class TheMaze {
         return dfs(maze, start, destination, visited);
     }
 
+
+    // 不需要reset visited， 这样才不会TLE 原因是因为如果maze[i][j] 可以到destination，那么会一路popup返回结果为true
+    // 如果maze[i][j] 不能到destination，一直mark成visited，这样以后遍历到它的时候，就直接返回false
     private boolean dfs(int[][] maze, int[] current, int[] destination, boolean[][] visited) {
         if (current[0] == destination[0] && current[1] == destination[1]) {
             return true;
@@ -21,23 +24,30 @@ public class TheMaze {
         // move to left
         int[] nextLeft = moveHelper(maze, current[0], current[1], true, false);
         boolean isDesInLeft = dfs(maze, nextLeft, destination, visited);
+        if (isDesInLeft) {
+            return true;
+        }
 
         // move to right
         int[] nextRight = moveHelper(maze, current[0], current[1], true, true);
         boolean isDesInRight = dfs(maze, nextRight, destination, visited);
+        if (isDesInRight) {
+            return true;
+        }
 
         // move to up
         int[] nextUp = moveHelper(maze, current[0], current[1], false, true);
         boolean isDesInUp = dfs(maze, nextUp, destination, visited);
+        if (isDesInUp)
+            return true;
 
         // move to below
         int[] nextBelow = moveHelper(maze, current[0], current[1],  false, false);
         boolean isDesInBelow = dfs(maze, nextBelow, destination, visited);
-
-        if (isDesInLeft || isDesInRight || isDesInUp || isDesInBelow) {
-            visited[current[0]][current[1]] = false;
+        if (isDesInBelow) {
             return true;
         }
+
         return false;
     }
 
