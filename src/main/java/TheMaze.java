@@ -19,65 +19,70 @@ public class TheMaze {
         visited[current[0]][current[1]] = true;
 
         // move to left
-        int[] nextLeft = moveHelper(maze, current[0], current[1], true, false);
-        boolean isDesInLeft = dfs(maze, nextLeft, destination, visited);
-
-        // move to right
-        int[] nextRight = moveHelper(maze, current[0], current[1], true, true);
-        boolean isDesInRight = dfs(maze, nextRight, destination, visited);
-
-        // move to up
-        int[] nextUp = moveHelper(maze, current[0], current[1], false, true);
-        boolean isDesInUp = dfs(maze, nextUp, destination, visited);
-
-        // move to below
-        int[] nextBelow = moveHelper(maze, current[0], current[1],  false, false);
-        boolean isDesInBelow = dfs(maze, nextBelow, destination, visited);
-
-        if (isDesInLeft || isDesInRight || isDesInUp || isDesInBelow) {
-            visited[current[0]][current[1]] = false;
+        int[] nextLeft = moveHelper(maze, current[0], current[1], "left");
+        if (dfs(maze, nextLeft, destination, visited)) {
             return true;
         }
-        return false;
+
+        // move to right
+        int[] nextRight = moveHelper(maze, current[0], current[1], "right");
+        if (dfs(maze, nextRight, destination, visited)) {
+            return true;
+        }
+
+        // move to up
+        int[] nextUp = moveHelper(maze, current[0], current[1], "up");
+        if (dfs(maze, nextUp, destination, visited)) {
+            return true;
+        }
+
+        // move to below
+        int[] nextBelow = moveHelper(maze, current[0], current[1], "down");
+        return dfs(maze, nextBelow, destination, visited);
     }
 
-    private int[] moveHelper(int[][] maze, int r, int c, boolean horizon, boolean increase) {
+    private int[] moveHelper(int[][] maze, int r, int c, String dir) {
         int[] result = new int[2];
-        if (horizon && increase) {
-            int i = c + 1;
-            while (i < maze[0].length && maze[r][i] != 1) {
-                i++;
-            }
-            result[0] = r;
-            result[1] = i - 1;
-        } else if (horizon && !increase) {
-            int i = c - 1;
-            while (i >= 0 && maze[r][i] != 1) {
-                i--;
-            }
-            result[0] = r;
-            result[1] = i + 1;
-        } else if (!horizon && increase) {
-            int i = r + 1;
-            while (i < maze.length && maze[i][c] != 1) {
-                i++;
-            }
-            result[0] = i - 1;
-            result[1] = c;
-        } else {
-            int i = r - 1;
-            while (i >= 0 && maze[i][c] != 1) {
-                i--;
-            }
-            result[0] = i + 1;
-            result[1] = c;
+        switch (dir) {
+            case "left":
+                int i = c - 1;
+                while (i >= 0 && maze[r][i] != 1) {
+                    i--;
+                }
+                result[0] = r;
+                result[1] = i + 1;
+                break;
+            case "right":
+                i = c + 1;
+                while (i < maze[0].length && maze[r][i] != 1) {
+                    i++;
+                }
+                result[0] = r;
+                result[1] = i - 1;
+                break;
+            case "up":
+                i = r - 1;
+                while (i >= 0 && maze[i][c] != 1) {
+                    i--;
+                }
+                result[0] = i + 1;
+                result[1] = c;
+                break;
+            case "down":
+                i = r + 1;
+                while (i < maze.length && maze[i][c] != 1) {
+                    i++;
+                }
+                result[0] = i - 1;
+                result[1] = c;
+                break;
         }
         return result;
     }
 
     public static void main(String[] args) {
         //[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]]
-        int[][] maze = {{0,0,1,0,0}, {0,0,0,0,0}, {0,0,0,1,0}, {1,1,0,1,1}, {0,0,0,0,0}};
+        int[][] maze = {{0, 0, 1, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {1, 1, 0, 1, 1}, {0, 0, 0, 0, 0}};
         int[] start = {0, 4};
         int[] des = {4, 4};
         TheMaze test = new TheMaze();
