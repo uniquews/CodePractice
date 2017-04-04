@@ -6,16 +6,14 @@ import utils.TreeNode;
  */
 public class KthSmallestElementInABST {
     class ReturnType {
-        public int numOfSmallerChildren;
-        public boolean isKthSmallest;
-        public int resultNodeVal;
+        public int size;
+        public Integer resultNodeVal;
 
         public ReturnType() {
-
+            resultNodeVal = null;
         }
-        public ReturnType(int n, boolean i) {
-            numOfSmallerChildren = n;
-            isKthSmallest = i;
+        public ReturnType(int n) {
+            size = n;
         }
     }
     public int kthSmallest(TreeNode root, int k) {
@@ -24,27 +22,22 @@ public class KthSmallestElementInABST {
 
     private ReturnType helper(TreeNode current, int k) {
         if (current == null) {
-            return new ReturnType(-1, false);
+            return new ReturnType(0);
         }
+
         ReturnType result = new ReturnType();
         ReturnType leftNode = helper(current.left, k);
-        ReturnType rightNode = helper(current.right, k - leftNode.numOfSmallerChildren - 1);
-
-        if (leftNode.numOfSmallerChildren + rightNode.numOfSmallerChildren + 2 == k - 1) {
-            result.numOfSmallerChildren = k - 1;
-            result.isKthSmallest = true;
-            result.resultNodeVal = current.val;
-        } else {
-            result.numOfSmallerChildren = leftNode.numOfSmallerChildren + rightNode.numOfSmallerChildren + 2;
-            result.isKthSmallest = leftNode.isKthSmallest || rightNode.isKthSmallest;
-            if (leftNode.isKthSmallest) {
-                result.resultNodeVal = leftNode.resultNodeVal;
-            }
-
-            if (rightNode.isKthSmallest) {
-                result.resultNodeVal = rightNode.resultNodeVal;
-            }
+        if (leftNode.resultNodeVal != null) {
+            result.resultNodeVal = leftNode.resultNodeVal;
         }
+        if (leftNode.size == k - 1) {
+            result.resultNodeVal = current.val;
+        }
+        ReturnType rightNode = helper(current.right, k - leftNode.size - 1);
+        if (rightNode.resultNodeVal != null) {
+            result.resultNodeVal = rightNode.resultNodeVal;
+        }
+        result.size = leftNode.size + rightNode.size + 1;
         return result;
     }
 }
