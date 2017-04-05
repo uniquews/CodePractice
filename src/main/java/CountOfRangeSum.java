@@ -3,7 +3,7 @@
  */
 public class CountOfRangeSum {
     public int countRangeSum(int[] nums, int lower, int upper) {
-        int[] sum = new int[nums.length + 1];
+        long[] sum = new long[nums.length + 1];
         for (int i = 0; i < nums.length; i++) {
             sum[i + 1] = sum[i] + nums[i];
         }
@@ -11,7 +11,7 @@ public class CountOfRangeSum {
         return  divideAndConquer(sum, 0, nums.length, lower, upper);
     }
 
-    private int divideAndConquer(int[] sum, int left, int right, int lower, int upper) {
+    private int divideAndConquer(long[] sum, int left, int right, int lower, int upper) {
         if (left >= right) {
             return 0;
         }
@@ -22,7 +22,7 @@ public class CountOfRangeSum {
         int countFromRight = divideAndConquer(sum, j, right, lower, upper);
 
         int count = 0;
-        int[] merge = new int[right - left + 1];
+        long[] merge = new long[right - left + 1];
 
         int j1 = mid + 1, j2 = mid + 1;
         while (i <= mid) {
@@ -56,7 +56,7 @@ public class CountOfRangeSum {
             merge[index++] = sum[j++];
         }
 
-        System.arraycopy(merge, 0, sum, 0, right - left + 1);
+        System.arraycopy(merge, 0, sum, left, right - left + 1);
         return count + countFromLeft + countFromRight;
     }
 }
