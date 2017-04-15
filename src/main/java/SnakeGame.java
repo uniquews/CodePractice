@@ -6,14 +6,14 @@ import java.util.*;
  */
 public class SnakeGame {
 
-    private List<int[]> snake;
+    private LinkedList<int[]> snake;
     private int maxRow;
     private int maxCol;
     private int [][] f;
     private int currentFood;
     private HashSet<Integer> body;
     public SnakeGame(int width, int height, int[][] food) {
-        snake = new ArrayList<>();
+        snake = new LinkedList<>();
         body = new HashSet<>();
         maxRow = height;
         maxCol = width;
@@ -30,21 +30,16 @@ public class SnakeGame {
      @return The game's score after the move. Return -1 if game over.
      Game over when snake crosses the screen boundary or bites its body. */
     public int move(String direction) {
-        int parentRow = snake.get(0)[0], parentCol = snake.get(0)[1];
+        int parentRow = snake.peek()[0], parentCol = snake.peek()[1];
         boolean foundFood = false;
         if (direction.equals("U")) {
-            parentRow = snake.get(0)[0] - 1;
+            parentRow = parentRow - 1;
         } else if (direction.equals("D")) {
-            parentRow = snake.get(0)[0] + 1;
+            parentRow = parentRow + 1;
         } else if (direction.equals("L")) {
-            parentCol = snake.get(0)[1] - 1;
+            parentCol = parentCol - 1;
         } else {
-            parentCol = snake.get(0)[1] + 1;
-        }
-
-        if (parentRow < 0 || parentRow == maxRow || parentCol < 0 || parentCol == maxCol ||
-                body.contains(parentRow * maxCol + parentCol)) {
-            return -1;
+            parentCol = parentCol + 1;
         }
 
         if (f != null && currentFood < f.length && f[currentFood][0] == parentRow && f[currentFood][1] == parentCol) {
@@ -52,43 +47,37 @@ public class SnakeGame {
             currentFood = currentFood + 1;
         }
 
-        int index = 0;
-        while (index < snake.size()) {
-            int[] currentPoint = snake.get(index);
-            int nextParentRow = currentPoint[0];
-            int nextParentCol = currentPoint[1];
-
-            currentPoint[0] = parentRow;
-            currentPoint[1] = parentCol;
-
-            body.add(parentRow * maxCol + parentCol);
-
-            if (index == snake.size() - 1) {
-                int[] increase = new int[]{nextParentRow, nextParentCol};
-                if (foundFood) {
-                    if (body.contains(nextParentRow * maxCol + nextParentCol)) {
-                        return -1;
-                    } else {
-                        snake.add(increase);
-                    }
-                } else {
-                    body.remove(nextParentRow * maxCol + nextParentCol);
-                }
-            }
-            parentRow = nextParentRow;
-            parentCol = nextParentCol;
-            index++;
+        if (!foundFood) {
+            int[] end = snake.peekLast();
+            snake.removeLast();
+            body.remove(end[0] * maxCol + end[1]);
         }
+
+        if (parentRow < 0 || parentRow == maxRow || parentCol < 0 || parentCol == maxCol ||
+                body.contains(parentRow * maxCol + parentCol)) {
+            return -1;
+        }
+
+        snake.addFirst(new int[]{parentRow, parentCol});
+        body.add(parentRow * maxCol + parentCol);
+
         return body.size() - 1;
     }
 
     public static void main(String[] args) {
-        int[][] n ={{1,0}};
-        SnakeGame test = new SnakeGame(2,2, n);
-        test.move("R");
+        int[][] n ={{2,0}, {0,0}, {0,2}, {2,2}};
+        SnakeGame test = new SnakeGame(3,3, n);
         test.move("D");
-        test.move("L");
-        test.move("U");
+        test.move("D");
         test.move("R");
+        test.move("U");
+        test.move("U");
+        test.move("L");
+        test.move("D");
+        test.move("R");
+        test.move("R");
+        test.move("U");
+        test.move("L");
+        test.move("D");
     }
 }
