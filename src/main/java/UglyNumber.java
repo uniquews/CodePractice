@@ -1,6 +1,13 @@
 /**
  * Created by shuaiwang on 10/23/16.
  */
+
+
+/***
+ * 思路：
+ *
+ * 将Num里的2 3 5 factor都除尽, 和1比较
+ */
 public class UglyNumber {
     public boolean isUgly(int num) {
         // Write your code here
