@@ -23,6 +23,8 @@ public class KthSmallestElementInASortedMatrix {
 //    }
 
     // 二分
+
+    //时间复杂度：O((row + col) * log(max - min)) max是matrix 中最大的数， min是matrix中最小数
     public int kthSmallest(int[][] matrix, int k) {
         int start = matrix[0][0], end = matrix[matrix.length - 1][matrix[0].length - 1];
         while (start <= end) {
