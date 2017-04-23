@@ -8,13 +8,13 @@ public class Heaters {
         Arrays.sort(houses);
         Arrays.sort(heaters);
 
-        int j = 0, result = Integer.MAX_VALUE;
+        int j = 0, result = 0;
         for (int i = 0; i < houses.length; i++) {
             int currentHouse = houses[i];
             while (j + 1 < heaters.length && Math.abs(currentHouse - heaters[j + 1]) < Math.abs(currentHouse - heaters[j])) {
                 j++;
             }
-            result = Math.min(result, Math.abs(heaters[j] - currentHouse));
+            result = Math.max(result, Math.abs(heaters[j] - currentHouse));
         }
         return result;
     }
