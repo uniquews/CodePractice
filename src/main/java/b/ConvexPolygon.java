@@ -12,7 +12,7 @@ public class ConvexPolygon {
             int[] prevPoint = points[(i - 1 + n) % n];
             int[] nextPoint = points[(i + 1 + n) % n];
             long currentNormal = getNormal(currentPoint, prevPoint, nextPoint);
-            if (!(currentNormal == 0 || currentNormal * prevNormal >= 0)) {
+            if (currentNormal * prevNormal < 0) {
                 return false;
             }
             prevNormal = currentNormal == 0 ? prevNormal : currentNormal;
