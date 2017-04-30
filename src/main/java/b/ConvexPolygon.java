@@ -15,7 +15,7 @@ public class ConvexPolygon {
             if (!(currentNormal == 0 || currentNormal * prevNormal >= 0)) {
                 return false;
             }
-            prevNormal = currentNormal;
+            prevNormal = currentNormal == 0 ? prevNormal : currentNormal;
         }
         return true;
     }
