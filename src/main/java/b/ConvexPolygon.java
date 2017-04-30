@@ -20,6 +20,9 @@ public class ConvexPolygon {
         return true;
     }
 
+    /**
+     * 求向量积 http://baike.baidu.com/item/%E5%B9%B3%E9%9D%A2%E5%90%91%E9%87%8F#4_5
+     */
     private long getNormal(int[] current, int[] prev, int[] next) {
         // prev - current.
         int dx1 = prev[0] - current[0];
