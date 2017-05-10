@@ -29,10 +29,8 @@ public class Trie {
                 parent.children[pos] = child;
             }
             parent = parent.children[pos];
-            if (i == word.length() - 1) {
-                parent.isWord = true;
-            }
         }
+        parent.isWord = true;
     }
 
     public boolean find(String word, int index, TrieNode parent, boolean exactWord) {
