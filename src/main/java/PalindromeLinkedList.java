@@ -4,6 +4,12 @@ import utils.ListNode;
  * Created by shuaiwang on 9/28/16.
  */
 public class PalindromeLinkedList {
+
+    /**
+     * O(1) space solution
+     *
+     * reverse之后原Linkedlist会变
+     * */
     public boolean isPalindrome(ListNode head) {
         // Write your code here
         if (head == null) {
@@ -55,5 +61,19 @@ public class PalindromeLinkedList {
             cur = prev.next;
         }
         return prepare.next;
+    }
+
+    public static void main(String[] args) {
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(1);
+        ListNode c = new ListNode(2);
+        ListNode d = new ListNode(1);
+
+        a.next = b;
+        b.next = c;
+        c.next = d;
+
+        PalindromeLinkedList test = new PalindromeLinkedList();
+        test.isPalindrome(a);
     }
 }
