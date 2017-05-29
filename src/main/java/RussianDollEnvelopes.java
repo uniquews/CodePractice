@@ -53,14 +53,14 @@ public class RussianDollEnvelopes {
             return 0;
         }
 
-        envelopes = sortEnvelopes(envelopes);
+        sortEnvelopes(envelopes);
 
         List<Integer> result = longestIncreasingSubSequenceOfHeight(envelopes);
 
         return result.size();
     }
 
-    int[][] sortEnvelopes(int[][] envelopes) {
+    void sortEnvelopes(int[][] envelopes) {
         Arrays.sort(envelopes, (o1, o2) -> {
             if (o1[0] < o2[0]) {
                 return -1;
@@ -70,7 +70,7 @@ public class RussianDollEnvelopes {
                 return o2[1] - o1[1];
             }
         });
-        return envelopes;
+        return;
     }
 
     List<Integer> longestIncreasingSubSequenceOfHeight(int[][] envelopes) {
@@ -92,7 +92,6 @@ public class RussianDollEnvelopes {
 
             if (result.get(end) < current) {
                 result.add(current);
-//                System.out.println("[" +  envelopes[i][0] + ", " + current + "]");
             } else if (result.get(start) > current) {
                 result.set(start, current);
             } else if (result.get(start) == current) {
