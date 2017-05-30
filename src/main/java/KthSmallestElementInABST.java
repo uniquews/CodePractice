@@ -40,4 +40,26 @@ public class KthSmallestElementInABST {
         result.size = leftNode.size + rightNode.size + 1;
         return result;
     }
+
+
+    // 方法二
+//    private int count;
+//    private int result;
+//    public int kthSmallest(TreeNode root, int k) {
+//        count = k;
+//        inorder(root);
+//        return result;
+//    }
+//
+//    private void inorder(TreeNode n) {
+//        if (n == null)
+//            return;
+//        inorder(n.left);
+//        count--;
+//        if (count == 0) {
+//            result = n.val;
+//            return;
+//        }
+//        inorder(n.right);
+//    }
 }
