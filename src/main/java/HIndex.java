@@ -94,11 +94,18 @@ public class HIndex {
 
         int sumOfCitation = 0;
         int result = 0;
-        for (int i = bucket.length - 1; i > 0; i--) {
+//        for (int i = bucket.length - 1; i > 0; i--) {
+//            sumOfCitation += bucket[i];
+//            if (sumOfCitation >= i) { // 大于当前论文citation的论文数 大于等于 当前论文的citations
+//                result = i;
+//                break;
+//            }
+//        }
+
+        for (int i = 0; i < bucket.length; i++) {
             sumOfCitation += bucket[i];
-            if (sumOfCitation >= i) { // 大于当前论文citation的论文数 大于等于 当前论文的citations
+            if (sumOfCitation > totalPaper - i) {
                 result = i;
-                break;
             }
         }
         return result;
