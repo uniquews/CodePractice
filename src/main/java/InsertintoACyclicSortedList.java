@@ -6,7 +6,7 @@ import utils.ListNode;
 public class InsertintoACyclicSortedList {
     /**
      * @param node a list node in the list
-     * @param x an integer
+     * @param x    an integer
      * @return the inserted new list node
      */
     public ListNode insert(ListNode node, int x) {
@@ -22,7 +22,7 @@ public class InsertintoACyclicSortedList {
             if (current.val <= x && current.next.val >= x) {
                 break;
             }
-            if (isCurrentTheLargestNode(current) 
+            if (isCurrentTheLargestNode(current)
                     && isNewNodeTheLargestOrSmallest(current, x)) {
                 break;
             }
@@ -33,11 +33,11 @@ public class InsertintoACyclicSortedList {
         current.next = result;
         return result;
     }
-    
+
     private boolean isCurrentTheLargestNode(ListNode current) {
         return current.val > current.next.val;
     }
-    
+
     private boolean isNewNodeTheLargestOrSmallest(ListNode current, int x) {
         return x >= current.val || x <= current.next.val;
     }
