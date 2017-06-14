@@ -15,6 +15,7 @@ public class ExpressionExpand {
 
     private int helper(String s, int index, int times, StringBuilder sb) {
         int endIndexOfSubString = index;
+        // this while loop is for when times = 0, then it needs to find the most recent ]
         while (endIndexOfSubString < s.length() && s.charAt(endIndexOfSubString) != ']') {
             endIndexOfSubString++;
         }
@@ -55,7 +56,8 @@ public class ExpressionExpand {
         String s2 = "abc3[a]";
         String s3 = "3[abc]";
         String s4 = "4[ac]dy";
-        System.out.print(test.expressionExpand(s1));
+        String s5 = "4[wer]0[er]";
+        System.out.print(test.expressionExpand(s5));
     }
 
 }
