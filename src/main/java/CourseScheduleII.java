@@ -50,6 +50,10 @@ public class CourseScheduleII {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
         Map<Integer, Integer> degree = new HashMap<>();
+        StringBuilder sb = new StringBuilder();
+        String s = new String();
+        s.substring(0,0);
+        sb.substring(0,0);
 
         for (int i = 0; i < numCourses; i++) {
             degree.put(i, 0);
