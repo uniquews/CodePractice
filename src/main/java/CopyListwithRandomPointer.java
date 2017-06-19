@@ -5,38 +5,41 @@ import utils.RandomListNode;
  */
 public class CopyListwithRandomPointer {
     public RandomListNode copyRandomList(RandomListNode head) {
-        // write your code here
-
         if (head == null) {
             return null;
         }
 
-        RandomListNode p = head;
-        while (p != null) {
-            RandomListNode newNode = new RandomListNode(p.label);
-            newNode.next = p.next;
-            p.next = newNode;
-            p = p.next.next;
+        RandomListNode cur = head;
+        while (cur != null) {
+            RandomListNode copy = new RandomListNode(cur.label);
+            copy.next = cur.next;
+            cur.next = copy;
+            cur = cur.next.next;
         }
 
-        p = head;
-        while (p != null) {
-            if (p.random != null) {
-                p.next.random = p.random.next;
+        cur = head;
+        while (cur != null) {
+            if (cur.random != null) {
+                cur.next.random = cur.random.next;
             }
-            p = p.next.next;
+            cur = cur.next.next;
         }
 
-        p = head;
-        RandomListNode result = p.next;
-        while (p != null) {
-            RandomListNode newNode = p.next;
-            p.next = newNode.next;
-            if (newNode.next != null) {
-                newNode.next = newNode.next.next;
-            }
-            p = p.next;
+        cur = head;
+        RandomListNode dummy = new RandomListNode(-1);
+        RandomListNode result = dummy;
+        while (cur != null) {
+            result.next = cur.next;
+            cur.next = cur.next.next;
+            result = result.next;
+            cur = cur.next;
         }
-        return result;
+        return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        RandomListNode a = new RandomListNode(-1);
+        CopyListwithRandomPointer test = new CopyListwithRandomPointer();
+        test.copyRandomList(a);
     }
 }
