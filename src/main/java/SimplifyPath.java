@@ -5,42 +5,31 @@ import java.util.Stack;
  */
 public class SimplifyPath {
     public String simplifyPath(String path) {
+        String[] p = path.split("/");
+
         Stack<String> stk = new Stack<>();
-        int i = 0;
-        while (i < path.length()) {
-            int start = i;
-            while (start < path.length() && path.charAt(start) == '/') {
-                start++;
-            }
+        StringBuilder sb = new StringBuilder();
 
-            int end = start;
-            while (end < path.length() && path.charAt(end) != '/') {
-                end++;
-            }
-
-            if (start == path.length())
-                break;
-
-            String current = path.substring(start, end);
-            if (current.equals("..")) {
-                if (!stk.isEmpty()) {
+        for (int i = 0; i < p.length; i++) {
+            if (p[i].equals("") || p[i].equals(".")) {
+                continue;
+            } else if (p[i].equals("..")) {
+                if (stk.size() != 0) { // test case: /../
                     stk.pop();
                 }
-            } else if (current.equals(".")) {
-                // do nothing
             } else {
-                stk.push(current);
+                stk.push(p[i]);
             }
-            i = end;
         }
 
-        StringBuilder sb = new StringBuilder();
-        while (!stk.isEmpty()) {
-            String tmp = "/" + stk.pop();
-            sb.insert(0, tmp);
+        if (stk.size() == 0) {
+            return "/";
         }
-        if (sb.length() == 0) {
-            sb.append("/");
+
+        while (!stk.isEmpty()) {
+            StringBuilder tmp = new StringBuilder();
+            tmp.append("/").append(stk.pop());
+            sb.insert(0, tmp.toString());
         }
         return sb.toString();
     }
