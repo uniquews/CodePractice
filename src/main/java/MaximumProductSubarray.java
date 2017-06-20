@@ -3,25 +3,21 @@
  */
 public class MaximumProductSubarray {
     public int maxProduct(int[] nums) {
-        // write your code here
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int[] maxVal = new int[nums.length]; // the max value of the subarray, which is ended at index i
-        int[] minVal = new int[nums.length]; // the min value of the subarray, which is ended at index i
-        maxVal[0] = nums[0];
-        minVal[0] = nums[0];
-        int result = maxVal[0];
+        int currentMax = nums[0];
+        int currentMin = nums[0];
+
+        int result = currentMax;
 
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] > 0) {
-                maxVal[i] = Math.max(nums[i], nums[i] * maxVal[i - 1]); // either multiply with previous numbers or not
-                minVal[i] = Math.min(nums[i], nums[i] * minVal[i - 1]);
+            if (nums[i] >= 0) {
+                currentMax = Math.max(currentMax * nums[i], nums[i]);
+                currentMin = Math.min(currentMin * nums[i], nums[i]);
             } else {
-                maxVal[i] = Math.max(nums[i], nums[i] * minVal[i - 1]);
-                minVal[i] = Math.min(nums[i], nums[i] * maxVal[i - 1]);
+                int prevMax = currentMax;
+                currentMax = Math.max(currentMin * nums[i], nums[i]);
+                currentMin = Math.min(prevMax * nums[i], nums[i]);
             }
-            result = Math.max(result, maxVal[i]);
+            result = Math.max(result, currentMax);
         }
         return result;
     }
