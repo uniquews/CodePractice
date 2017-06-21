@@ -6,42 +6,40 @@ import utils.TreeNode;
 public class ConstructBinaryTreefromPreorderandInorderTraversal {
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        // write your code here
-
-        if (preorder.length != inorder.length) {
+        if (preorder == null || preorder.length == 0)
             return null;
-        }
-
         return helper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
     }
 
-    private TreeNode helper(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
-        if (preStart > preEnd) {
-            return null;
+    private TreeNode helper(int[] preorder, int s1, int e1, int[] inorder, int s2, int e2) {
+        if (s1 == e1) {
+            return new TreeNode(preorder[s1]);
         }
 
-        TreeNode root = new TreeNode(preorder[preStart]);
-        int position = findPosition(root, inorder);
-
-        int leftLength = position - inStart;
-
-        TreeNode leftNode = helper(preorder, preStart + 1, preStart + leftLength, inorder, inStart, inStart + leftLength - 1);
-        TreeNode rightNode = helper(preorder, preStart + leftLength + 1, preEnd, inorder, inStart + leftLength + 1, inEnd);
-
-        root.left = leftNode;
-        root.right = rightNode;
-
-        return root;
-
-    }
-
-    private int findPosition(TreeNode root, int[] inorder) {
-        for (int i = 0; i < inorder.length; i++) {
-            if (root.val == inorder[i]) {
-                return i;
+        TreeNode node = new TreeNode(preorder[s1]);
+        int index = 0;
+        for (int i = s2; i <= e2; i++) {
+            if (preorder[s1] == inorder[i]) {
+                index = i;
             }
         }
 
-        return -1;
+        int leftLength = index - s2;
+        int rightLength = e2 - s2 - leftLength;
+
+        TreeNode leftNode = null;
+        TreeNode rightNode = null;
+
+        if (leftLength != 0) {
+            leftNode = helper(preorder, s1 + 1, s1 + 1 + leftLength - 1, inorder, s2, s2 + leftLength - 1);
+        }
+
+        if (rightLength != 0) {
+            rightNode = helper(preorder, s1 + leftLength + 1, e1, inorder, index + 1, e2);
+        }
+
+        node.left = leftNode;
+        node.right = rightNode;
+        return node;
     }
 }

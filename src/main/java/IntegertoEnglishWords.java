@@ -40,9 +40,18 @@ public class IntegertoEnglishWords {
         }
 
         if (num < 100) {
+            // return TENS[num / 10] + " " + LESS_THAN_20[num % 10] + " "; 不能写成这样
+            // 比如当num = 50 时，上面的写法会返回 Fifty  （跟着两个空格）所以不能这么写的原因是
+            // 当num可以被10整除时，会introduce两个空格
             return TENS[num / 10] + " " + helper(num % 10);
         }
 
         return LESS_THAN_20[num / 100] + " " + "Hundred" + " " + helper(num % 100);
+    }
+
+    public static void main(String[] args) {
+        int a = 10000000;
+        IntegertoEnglishWords test = new IntegertoEnglishWords();
+        test.numberToWords(a);
     }
 }

@@ -5,23 +5,50 @@ import java.util.*;
  */
 public class ZigzagIterator {
     // Best leetcode solution
-    LinkedList<Iterator> list;
-    public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
-        list = new LinkedList<Iterator>();
-        if(!v1.isEmpty()) list.add(v1.iterator());
-        if(!v2.isEmpty()) list.add(v2.iterator());
+    LinkedList<Iterator<Integer>>  list;
+    public ZigzagIterator(ArrayList<ArrayList<Integer>> vecs) {
+        // initialize your data structure here.
+        list = new LinkedList<>();
+        for (int i = 0; i < vecs.size(); i++) {
+            if (vecs.get(i) != null && vecs.get(i).iterator().hasNext()) {
+                list.add(vecs.get(i).iterator());
+            }
+        }
     }
 
     public int next() {
-        Iterator poll = list.remove();
-        int result = (Integer)poll.next();
-        if(poll.hasNext()) list.add(poll);
+        // Write your code here
+        Iterator<Integer> current = list.poll();
+        int result = current.next();
+        if (current.hasNext()) {
+            list.add(current);
+        }
         return result;
     }
 
     public boolean hasNext() {
+        // Write your code here
         return !list.isEmpty();
     }
+
+
+//    LinkedList<Iterator> list;
+//    public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
+//        list = new LinkedList<Iterator>();
+//        if(!v1.isEmpty()) list.add(v1.iterator());
+//        if(!v2.isEmpty()) list.add(v2.iterator());
+//    }
+//
+//    public int next() {
+//        Iterator poll = list.remove();
+//        int result = (Integer)poll.next();
+//        if(poll.hasNext()) list.add(poll);
+//        return result;
+//    }
+//
+//    public boolean hasNext() {
+//        return !list.isEmpty();
+//    }
 
     // k list solution 1
 //    private List<List<Integer>> list;
