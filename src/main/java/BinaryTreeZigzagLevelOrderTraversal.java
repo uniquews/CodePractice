@@ -1,107 +1,54 @@
 import utils.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 8/7/16.
  */
 public class BinaryTreeZigzagLevelOrderTraversal {
-//    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
-//        // write your code here
-//
-//        // Way 1: Save space but level.add(0, current.val); is time consuming
-//        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-//
-//        if (root == null)
-//        {
-//            return result;
-//        }
-//
-//        LinkedList<TreeNode> queue = new LinkedList<>();
-//        queue.offer(root);
-//
-//        boolean leftToRight = true;
-//
-//        while (!queue.isEmpty())
-//        {
-//            ArrayList<Integer> level = new ArrayList<>();
-//            int queueSize = queue.size();
-//            for (int i = 0; i < queueSize; i++)
-//            {
-//
-//                TreeNode current;
-//                current = queue.poll();
-//                if (leftToRight)
-//                {
-//                    level.add(current.val);
-//                }
-//                else
-//                {
-//                    level.add(0, current.val);
-//                }
-//
-//                if (current.left != null)
-//                {
-//                    queue.offer(current.left);
-//                }
-//
-//                if (current.right != null)
-//                {
-//                    queue.offer(current.right);
-//                }
-//            }
-//
-//            leftToRight = !leftToRight;
-//            result.add(level);
-//        }
-//        return result;
-//    }
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new LinkedList<>();
 
-    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
-        // write your code here
+        LinkedList<TreeNode> q = new LinkedList<>();
+        q.add(root);
 
-        // Way 2: Save time but use two stacks
-        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-
-        if (root == null) {
-            return result;
-        }
         boolean leftToRight = true;
 
-        Stack<TreeNode> currentLevel = new Stack<>();
-        Stack<TreeNode> nextLevel = new Stack<>();
-
-        currentLevel.push(root);
-        while (!currentLevel.isEmpty()) {
-            ArrayList<Integer> level = new ArrayList<>();
-            while (!currentLevel.isEmpty()) {
-                TreeNode current = currentLevel.pop();
-                level.add(current.val);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> currentLevel = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+                if (node.left != null)
+                    q.add(node.left);
+                if (node.right != null)
+                    q.add(node.right);
 
                 if (leftToRight) {
-                    if (current.left != null) {
-                        nextLevel.push(current.left);
-                    }
-
-                    if (current.right != null) {
-                        nextLevel.push(current.right);
-                    }
+                    currentLevel.add(node.val);
                 } else {
-                    if (current.right != null) {
-                        nextLevel.push(current.right);
-                    }
-
-                    if (current.left != null) {
-                        nextLevel.push(current.left);
-                    }
+                    currentLevel.add(0, node.val);
                 }
             }
-            result.add(level);
-            currentLevel.addAll(nextLevel);
-            nextLevel.clear();
             leftToRight = !leftToRight;
+            result.add(currentLevel);
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        TreeNode a = new TreeNode(3);
+        TreeNode b = new TreeNode(9);
+        TreeNode c = new TreeNode(20);
+        a.left = b;
+        a.right = c;
+
+        TreeNode d = new TreeNode(15);
+        TreeNode e = new TreeNode (7);
+        c.left = d;
+        c.right = e;
+
+        BinaryTreeZigzagLevelOrderTraversal test = new BinaryTreeZigzagLevelOrderTraversal();
+        test.zigzagLevelOrder(a);
     }
 }
