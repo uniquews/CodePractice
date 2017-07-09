@@ -21,29 +21,29 @@ public class ZombieInMatrix {
 
         while (!queue.isEmpty()) {
             index++;
-            Queue<int[]> nextLevel = new LinkedList<>();
-            while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size != 0) {
                 int[] current = queue.poll();
                 int i = current[0];
                 int j = current[1];
                 if (i - 1 >= 0 && grid[i - 1][j] == 0) {
                     grid[i - 1][j] = 1;
-                    nextLevel.add(new int[]{i - 1, j});
+                    queue.add(new int[]{i - 1, j});
                 }
                 if (i + 1 < grid.length && grid[i + 1][j] == 0) {
                     grid[i + 1][j] = 1;
-                    nextLevel.add(new int[]{i + 1, j});
+                    queue.add(new int[]{i + 1, j});
                 }
                 if (j - 1 >= 0 && grid[i][j - 1] == 0) {
                     grid[i][j - 1] = 1;
-                    nextLevel.add(new int[]{i, j - 1});
+                    queue.add(new int[]{i, j - 1});
                 }
                 if (j + 1 < grid[0].length && grid[i][j + 1] == 0) {
                     grid[i][j + 1] = 1;
-                    nextLevel.add(new int[] {i, j + 1});
+                    queue.add(new int[] {i, j + 1});
                 }
+                size--;
             }
-            queue = nextLevel;
         }
 
         for (int i = 0; i < grid.length; i++) {

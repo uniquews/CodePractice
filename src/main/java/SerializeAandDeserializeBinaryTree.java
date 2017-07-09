@@ -11,70 +11,67 @@ import java.util.Queue;
 public class SerializeAandDeserializeBinaryTree {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        List<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        for (int i = 0; i < queue.size(); i++) {
-            TreeNode current = queue.get(i);
-            if (current != null) {
-                queue.add(current.left);
-                queue.add(current.right);
-            }
-        }
-
-        // The end of string doesn't contain any null node
-        int end = queue.size() - 1;
-        while (end >= 0 && queue.get(end) == null) {
-            queue.remove(end);
-            end--;
-        }
-
-        if (end < 0) {
-            return "{}";
-        }
+        if (root == null)
+            return "";
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append(queue.get(0).val);
-        for (int i = 1; i < queue.size(); i++) {
-            TreeNode current = queue.get(i);
-            if (current == null) {
-                sb.append(",null");
+        while (!queue.isEmpty()) {
+            TreeNode cur = queue.poll();
+            if (cur == null) {
+                sb.append("null ");
             } else {
-                sb.append(",").append(current.val);
+                sb.append(cur.val).append(" ");
+                queue.offer(cur.left);
+                queue.offer(cur.right);
             }
         }
-        sb.append("}");
+
         return sb.toString();
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data.equals("{}"))
+        if (data.equals("")) {
             return null;
+        }
 
-        String[] dataArray = data.substring(1, data.length() - 1).split(",");
-        List<TreeNode> queue = new ArrayList<>();
-        TreeNode root = new TreeNode(Integer.valueOf(dataArray[0]));
-        queue.add(root);
+        Queue<TreeNode> queue = new LinkedList<>();
+        String[] nodes = data.split(" ");
+        TreeNode root = new TreeNode(Integer.valueOf(nodes[0]));
+        queue.offer(root);
 
-        int index = 0;
-        boolean isLeft = true;
-        for (int i = 1; i < dataArray.length; i++) {
-            TreeNode node = queue.get(index);
-            if (!dataArray[i].equals("null")) {
-                TreeNode child = new TreeNode(Integer.valueOf(dataArray[i]));
-                queue.add(child);
-                if (isLeft) {
-                    node.left = child;
-                } else {
-                    node.right = child;
-                }
+        for (int i = 1; i < nodes.length; i++) {
+            TreeNode cur = queue.poll();
+            if (!nodes[i].equals("null")) {
+                TreeNode leftNode = new TreeNode(Integer.valueOf(nodes[i]));
+                queue.offer(leftNode);
+                cur.left = leftNode;
             }
-            if (!isLeft) {
-                index++;
+            if (!nodes[++i].equals("null")) {
+                TreeNode rightNode = new TreeNode(Integer.valueOf(nodes[i]));
+                queue.offer(rightNode);
+                cur.right = rightNode;
             }
-            isLeft = !isLeft;
         }
         return root;
+    }
+
+    public static void main(String[] args) {
+        TreeNode a = new TreeNode(1);
+        TreeNode b = new TreeNode(2);
+        TreeNode c = new TreeNode(3);
+        TreeNode d = new TreeNode(4);
+        TreeNode e = new TreeNode(5);
+        c.left = d;
+        c.right = e;
+
+        a.left = b;
+        a.right = c;
+
+        SerializeAandDeserializeBinaryTree test = new SerializeAandDeserializeBinaryTree();
+        TreeNode result = test.deserialize(test.serialize(a));
+        System.out.println();
     }
 }
