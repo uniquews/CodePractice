@@ -5,60 +5,46 @@ import java.util.*;
  */
 public class SequenceReconstruction {
     public boolean sequenceReconstruction(int[] org, List<List<Integer>> seqs) {
-        HashMap<Integer, HashSet<Integer>> graph = new HashMap<>();
-        HashMap<Integer, Integer> indegree = new HashMap<>();
-        for (int i = 0; i < seqs.size(); i++) {
-            for (int j = 0; j < seqs.get(i).size(); j++) {
-                int current = seqs.get(i).get(j);
-                if (j == seqs.get(i).size() - 1) {
-                    if (!graph.containsKey(current)) {
-                        graph.put(current, new HashSet<>());
-                    }
-                } else {
-                    if (graph.containsKey(current)) {
-                        graph.get(current).add(seqs.get(i).get(j + 1));
-                    } else {
-                        graph.put(current, new HashSet<>(Arrays.asList(seqs.get(i).get(j + 1))));
-                    }
-                }
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        Map<Integer, Integer> indegree = new HashMap<>();
+
+        for (List<Integer> list : seqs) {
+            for (int n : list) {
+                map.put(n, new HashSet<>());
+                indegree.put(n, 0);
             }
         }
 
-        for (Integer parent : graph.keySet()) {
-            for (Integer neighbor : graph.get(parent)) {
-                if (indegree.containsKey(neighbor)) {
-                    indegree.put(neighbor, indegree.get(neighbor) + 1);
-                } else {
-                    indegree.put(neighbor, 1);
-                }
+        for (List<Integer> list : seqs) {
+            if (list == null)
+                continue;
+            if (list.size() >= 1 && (list.get(0) <= 0 || list.get(0) > org.length))
+                return false;
+            for (int i = 1; i < list.size(); i++) {
+                if (list.get(i) <= 0 || list.get(i) > org.length)
+                    return false;
+                if (map.get(list.get(i - 1)).add(list.get(i)))
+                    indegree.put(list.get(i), indegree.get(list.get(i)) + 1);
             }
         }
 
-        Queue<Integer> queue = new LinkedList<>();
-        for (Integer key : graph.keySet()) {
-            if (!indegree.containsKey(key)) {
-                queue.add(key);
+        Queue<Integer> q = new LinkedList<>();
+        for (Integer n : indegree.keySet()) {
+            if (indegree.get(n) == 0)
+                q.add(n);
+        }
+
+        int cnt = 0;
+        while (q.size() == 1) {
+            int current = q.poll();
+            for (int next : map.get(current)) {
+                indegree.put(next, indegree.get(next) - 1);
+                if (indegree.get(next) == 0)
+                    q.add(next);
             }
+            cnt++;
         }
-
-        List<Integer> tpSort = new ArrayList<>();
-        while (queue.size() == 1) {
-            int current = queue.poll();
-            tpSort.add(current);
-            for (Integer neighbor : graph.get(current)) {
-                indegree.put(neighbor, indegree.get(neighbor) - 1);
-                if (indegree.get(neighbor) == 0) {
-                    queue.add(neighbor);
-                }
-            }
-        }
-
-        ArrayList<Integer> c = new ArrayList<>();
-        for (int i = 0; i < org.length; i++) {
-            c.add(org[i]);
-        }
-
-        return tpSort.equals(c) && tpSort.size() == graph.keySet().size();
+        return cnt == org.length;
     }
 
 }
