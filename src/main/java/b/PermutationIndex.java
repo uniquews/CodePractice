@@ -23,12 +23,7 @@ public class PermutationIndex {
         long dupFact = 1;
         long index = 1;
         for (int i = A.length - 1; i >= 0; i--) {
-            if (dup.containsKey(A[i])) {
-                dup.put(A[i], dup.get(A[i]) + 1);
-                dupFact *= dup.get(A[i]);
-            } else {
-                dup.put(A[i], 1);
-            }
+            dupFact = getDupFact(A[i], dup, dupFact);
             index += getRankInArray(i, A) * fact / dupFact;
             fact *= A.length - i;
         }
@@ -43,5 +38,15 @@ public class PermutationIndex {
             }
         }
         return rank;
+    }
+
+    private long getDupFact(int key, Map<Integer, Integer> dup, long dupFact) {
+        if (dup.containsKey(key)) {
+            dup.put(key, dup.get(key) + 1);
+            dupFact *= dup.get(key);
+        } else {
+            dup.put(key, 1);
+        }
+        return dupFact;
     }
 }
