@@ -1,11 +1,16 @@
 package utils;
 
-import java.util.Collection;
+
+import java.util.List;
 
 /**
- * Created by bohan on 7/6/17.
+ * Created by shuaiwang on 6/2/17.
  */
 public class MultiTreeNode {
     public int val;
-    public Collection<MultiTreeNode> children;
+    public List<MultiTreeNode> children;
+
+    MultiTreeNode(int val) {
+        this.val = val;
+    }
 }
