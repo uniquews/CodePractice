@@ -1,15 +1,11 @@
 package utils;
 
 /**
- * Created by bohan on 7/6/17.
+
+ * Created by shuaiwang on 6/21/17.
  */
 public class TreeLinkNode {
-    public TreeLinkNode left;
-    public TreeLinkNode right;
-    public TreeLinkNode next;
     public int val;
-
-    public TreeLinkNode(int val) {
-        this.val = val;
-    }
+    public TreeLinkNode left, right, next;
+    public TreeLinkNode(int x) { val = x; }
 }
