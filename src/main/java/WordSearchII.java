@@ -1,101 +1,95 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by shuaiwang on 3/26/17.
  */
 public class WordSearchII {
+
     class TrieNode {
-        // Initialize your data structure here.
-        public TrieNode[] children;
-        public boolean isWord;
+        public TrieNode[] children = null;
+        public boolean hasWord = false;
+
         public TrieNode() {
             children = new TrieNode[26];
-            isWord = false;
         }
     }
 
-    public class Trie {
-        public TrieNode root;
+    class Trie {
+        public TrieNode root = null;
 
         public Trie() {
             root = new TrieNode();
         }
 
-        // Inserts a word into the trie.
-        public void insert(String word) {
-            TrieNode parent = root;
+        public void add(String word) {
+            TrieNode current = root;
             for (int i = 0; i < word.length(); i++) {
-                int pos = word.charAt(i) - 'a';
-                if (parent.children[pos] == null) {  //注意只要当parent[pos]没有 childNoded的时候才需要新建一个child
-                    TrieNode child = new TrieNode();
-                    parent.children[pos] = child;
+                if (current.children[word.charAt(i) - 'a'] == null) {
+                    TrieNode next = new TrieNode();
+                    current.children[word.charAt(i) - 'a'] = next;
                 }
-                parent = parent.children[pos];
+                current = current.children[word.charAt(i) - 'a'];
                 if (i == word.length() - 1) {
-                    parent.isWord = true;
+                    current.hasWord = true;
                 }
             }
         }
+
     }
 
     public List<String> findWords(char[][] board, String[] words) {
+        // write your code here
+        List<String> result = new ArrayList<>();
+        if (board == null || board[0].length == 0 || board[0] == null || board[0].length == 0)
+            return result;
+
         Trie trie = new Trie();
-        for (int i = 0; i < words.length; i++) {
-            trie.insert(words[i]);
+
+        for (String s : words) {
+            trie.add(s);
         }
 
-        StringBuilder sb = new StringBuilder();
-        List<String> result = new ArrayList<>();
-        boolean[][] visited = new boolean[board.length][board[0].length];
-
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (trie.root.children[board[i][j] - 'a'] != null) {
-                    dfs(board, i, j, trie.root.children[board[i][j] - 'a'], sb, result, visited);
-                }
+            for (int j = 0; j < board[0].length; j++) {
+                StringBuilder sb = new StringBuilder();
+                boolean[][] visited = new boolean[board.length][board[0].length];
+                helper(board, sb, i, j, visited, result, trie.root.children[board[i][j] - 'a']);
             }
         }
         return result;
     }
 
-    private void dfs(char[][] board, int row, int column, TrieNode charNode, StringBuilder sb, List<String> result, boolean[][] visited) {
-        sb.append(board[row][column]);
-        visited[row][column] = true;
-        if (charNode.isWord) {
+    private void helper(char[][] board, StringBuilder sb, int r, int c, boolean[][] visited, List<String> result, TrieNode current) {
+        if (current == null || visited[r][c]) {
+            return;
+        }
+
+        sb.append(board[r][c]);
+        visited[r][c] = true;
+
+        if (current.hasWord) {
             result.add(sb.toString());
-            charNode.isWord = false;
+            current.hasWord = false;
         }
 
-        if (row + 1 < board.length && !visited[row + 1][column] && charNode.children[board[row + 1][column] - 'a'] != null) {
-            TrieNode nextParent = charNode.children[board[row + 1][column] - 'a'];
-            dfs(board, row + 1, column, nextParent, sb, result, visited);
+        int[] dx = {0,0,-1,1};
+        int[] dy = {-1, 1, 0, 0};
+        for (int i = 0; i < dx.length; i++) {
+            if (r + dx[i] >= 0 && r + dx[i] < board.length && c + dy[i] >= 0 && c + dy[i] < board[0].length)
+                helper(board, sb, r + dx[i], c + dy[i], visited, result, current.children[board[r + dx[i]][c + dy[i]] - 'a']);
         }
-
-        if (row - 1 >= 0 && !visited[row - 1][column] && charNode.children[board[row - 1][column] - 'a'] != null) {
-            TrieNode nextParent = charNode.children[board[row - 1][column] - 'a'];
-            dfs(board, row - 1, column, nextParent, sb, result, visited);
-        }
-
-        if (column + 1 < board[0].length && !visited[row][column + 1] && charNode.children[board[row][column + 1] - 'a'] != null) {
-            TrieNode nextParent = charNode.children[board[row][column + 1] - 'a'];
-            dfs(board, row, column + 1, nextParent, sb, result, visited);
-        }
-
-        if (column - 1 >= 0 && !visited[row][column - 1] && charNode.children[board[row][column - 1] - 'a'] != null) {
-            TrieNode nextParent = charNode.children[board[row][column - 1] - 'a'];
-            dfs(board, row, column - 1, nextParent, sb, result, visited);
-        }
-
         sb.deleteCharAt(sb.length() - 1);
-        visited[row][column] = false;
+        visited[r][c] = false;
     }
 
     public static void main(String[] args) {
+        // ["doaf","agai","dcan"], {"dog"}
         WordSearchII test = new WordSearchII();
-        char[][] board = {{'a'}};
-        String[] a = {"a", "a"};
-        test.findWords(board, a);
+        char[][] board = {{'d', 'o', 'a', 'f'}, {'a', 'g', 'a', 'i'}, {'d', 'c', 'a', 'n'}};
+        ArrayList<String> input = new ArrayList<>(Arrays.asList("dad"));
+//        test.wordSearchII(board, input);
     }
 
 
