@@ -4,35 +4,41 @@ import java.util.*;
  * Created by shuaiwang on 11/16/16.
  */
 public class WordLadder {
-    public int ladderLength(String start, String end, Set<String> dict) {
-        // write your code here
-        int level = 1;
-        if (start.equals(end)) return level;
-
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         Queue<String> q = new LinkedList<>();
+
+        Set<String> dict = new HashSet<>();
         Set<String> visited = new HashSet<>();
-        q.offer(start);
+
+        for (String s : wordList) {
+            dict.add(s);
+        }
+
+        int level = 1;
+        q.add(beginWord);
+        visited.add(beginWord);
 
         while (!q.isEmpty()) {
-            int currentQueueSize = q.size();
-            while (currentQueueSize > 0) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
                 String current = q.poll();
-                for (int i = 0; i < current.length(); i++) {
+                for (int j = 0; j < current.length(); j++) {
                     for (char c = 'a'; c <= 'z'; c++) {
-                        char[] tmp = current.toCharArray();
-                        tmp[i] = c;
-                        String updateStr = new String(tmp);
-                        if (updateStr.equals(end)) {
-                            level++;
-                            return level;
+                        if (current.charAt(j) == c) {
+                            continue;
                         }
-                        if (dict.contains(updateStr) && !visited.contains(updateStr)) {
-                            visited.add(updateStr);
-                            q.offer(updateStr);
+
+                        char[] arr = current.toCharArray();
+                        arr[j] = c;
+                        String next = new String(arr);
+                        if (dict.contains(next) && next.equals(endWord))
+                            return level + 1;
+                        if (dict.contains(next) && !visited.contains(next)) {
+                            q.add(next);
+                            visited.add(next);
                         }
                     }
                 }
-                currentQueueSize--;
             }
             level++;
         }
@@ -43,9 +49,9 @@ public class WordLadder {
         String start = "hit";
         String end = "cog";
 
-        Set<String> s = new HashSet<>(Arrays.asList("hot", "dot", "dog", "lot", "log"));
-
-        WordLadder test = new WordLadder();
-        System.out.print(test.ladderLength(start, end, s));
+//        Set<String> s = new HashSet<>(Arrays.asList("hot", "dot", "dog", "lot", "log"));
+//
+//        WordLadder test = new WordLadder();
+//        System.out.print(test.ladderLength(start, end, s));
     }
 }
