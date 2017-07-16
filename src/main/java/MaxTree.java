@@ -12,12 +12,13 @@ public class MaxTree {
         // write your code here
 
         HashMap<Integer, TreeNode> map = new HashMap<>();
-        for (int i = 0; i < A.length; i++) {
-            map.put(A[i], new TreeNode(A[i]));
+        for (int num : A) {
+            map.put(num, new TreeNode(num));
         }
 
-        int[] leftBiggerNum = getFirstBiggerNumberOnLeft(A);
-        int[] rightBiggerNum = getFirstBiggerNumberOnRight(A);
+        int[][] biggerNum = helper(A);
+        int[] leftBiggerNum = biggerNum[0];
+        int[] rightBiggerNum = biggerNum[1];
 
         TreeNode root = new TreeNode(-1);
         for (int i = 0; i < A.length; i++) {
@@ -38,44 +39,34 @@ public class MaxTree {
         return root;
     }
 
-    private int[] getFirstBiggerNumberOnRight(int[] A) {
+    private int[][] helper(int[] A) {
         Stack<Integer> stk = new Stack<>();
-        int[] rightBiggerNum = new int[A.length];
-        Arrays.fill(rightBiggerNum, -1);
+
+        int[][] result = new int[2][A.length];
+        int[] leftFirstBigger = new int[A.length];
+        int[] rightFirstBigger = new int[A.length];
 
         for (int i = 0; i <= A.length; i++) {
-            int cur = i == A.length ? Integer.MAX_VALUE : A[i];
-            while (!stk.isEmpty() && cur > A[stk.peek()]) {
-                if (cur == Integer.MAX_VALUE) {
-                    break;
+            int h = i == A.length ? Integer.MAX_VALUE : A[i];
+            while (!stk.isEmpty() && h > A[stk.peek()]) {
+                int current = stk.pop();
+                if (i == A.length) {
+                    rightFirstBigger[current] = -1;
                 } else {
-                    int child = stk.pop();
-                    rightBiggerNum[child] = i;
+                    rightFirstBigger[current] = i;
+                }
+                if (stk.isEmpty()) {
+                    leftFirstBigger[current] = -1;
+                } else {
+                    leftFirstBigger[current] = stk.peek();
                 }
             }
             stk.push(i);
         }
-        return rightBiggerNum;
-    }
 
-    private int[] getFirstBiggerNumberOnLeft(int[] A) {
-        Stack<Integer> stk = new Stack<>();
-        int[] leftBiggerNum = new int[A.length];
-        Arrays.fill(leftBiggerNum, -1);
-
-        for (int i = A.length - 1; i >= -1; i--) {
-            int cur = i == -1 ? Integer.MAX_VALUE : A[i];
-            while (!stk.isEmpty() && cur > A[stk.peek()]) {
-                if (cur == Integer.MAX_VALUE) {
-                    break;
-                } else {
-                    int child = stk.pop();
-                    leftBiggerNum[child] = i;
-                }
-            }
-            stk.push(i);
-        }
-        return leftBiggerNum;
+        result[0] = leftFirstBigger;
+        result[1] = rightFirstBigger;
+        return result;
     }
 
     public static void main(String[] args) {
