@@ -15,7 +15,7 @@ public class ReadNCharactersGivenRead4 {
 
     public int read(char[] buf, int n) {
         while (currentRead < n) {
-            int readAtOneTime = read4(buf);
+            int readAtOneTime = read4(bufferFor4);
             if (readAtOneTime < 4) {
                 endOfFile = true;
             }
@@ -27,6 +27,7 @@ public class ReadNCharactersGivenRead4 {
             currentRead += len;
             if (endOfFile)
                 break;
+
         }
         return currentRead;
     }
