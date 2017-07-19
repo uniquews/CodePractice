@@ -24,6 +24,7 @@ public class ReadNCharactersGivenRead4 {
             for (int i = 0; i < len; i++) {
                 buf[currentRead + i] = bufferFor4[i];
             }
+            currentRead += len;
             if (endOfFile)
                 break;
         }
