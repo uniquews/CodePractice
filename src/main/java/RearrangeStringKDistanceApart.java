@@ -18,35 +18,71 @@
  *
  */
 public class RearrangeStringKDistanceApart {
+//    public String rearrangeString(String s, int k) {
+//        int[] count = new int[26];
+//        int[] valid = new int[26];
+//        for (int i = 0; i < s.length(); i++) {
+//            count[s.charAt(i) - 'a']++;
+//        }
+//
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < s.length(); i++) {
+//            int c = findValidMax(count, valid, i);
+//
+//            if (c == - 1) return "";
+//
+//            count[c]--;
+//            valid[c] = i + k;
+//            sb.append((char)('a' + c));
+//        }
+//        return sb.toString();
+//    }
+//
+//    private int findValidMax(int[] count, int[] valid, int index) {
+//        int max = Integer.MIN_VALUE;
+//        int indexOfMax = -1;
+//        for (int i = 0; i < count.length; i++) {
+//            if (count[i] > 0 && count[i] > max && valid[i] <= index) {
+//                max = count[i];
+//                indexOfMax = i;
+//            }
+//        }
+//        return indexOfMax;
+//    }
     public String rearrangeString(String s, int k) {
         int[] count = new int[26];
         int[] valid = new int[26];
+
         for (int i = 0; i < s.length(); i++) {
             count[s.charAt(i) - 'a']++;
         }
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            int c = findValidMax(count, valid, i);
-
-            if (c == - 1) return "";
-
-            count[c]--;
-            valid[c] = i + k;
-            sb.append((char)('a' + c));
+            int cur = findMaxOccur(count, valid, i);
+            if (cur == -1) return "";
+            sb.append((char)(cur + 'a'));
+            valid[cur] = i + k;
+            count[cur]--;
         }
         return sb.toString();
     }
 
-    private int findValidMax(int[] count, int[] valid, int index) {
-        int max = Integer.MIN_VALUE;
-        int indexOfMax = -1;
-        for (int i = 0; i < count.length; i++) {
-            if (count[i] > 0 && count[i] > max && valid[i] <= index) {
-                max = count[i];
-                indexOfMax = i;
+    private int findMaxOccur(int[] count, int[] valid, int index) {
+        int maxOccur = 0;
+        int result = -1;
+        for (int i = 0; i < 26; i++) {
+            if (count[i] > maxOccur && valid[i] <= index) {
+                result = i;
+                maxOccur = count[i];
             }
         }
-        return indexOfMax;
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String s = "aabbcc";
+        RearrangeStringKDistanceApart test = new RearrangeStringKDistanceApart();
+        test.rearrangeString(s, 3);
     }
 }
