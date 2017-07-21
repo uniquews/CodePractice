@@ -4,3 +4,10 @@ http://docs.oracle.com/javase/tutorial/java/nutsandbolts/op3.html
 
 How to change the ArrayList of Integer to Array of int, if result is an ArrayList
 result.stream().mapToInt(Integer::intValue).toArray();
+
+比较两个array里面的primitive element是否都相等，用Arrays.equals
+Object.equals 比较的是两个object的hashcode
+Object.deepEquals 比较的是两个Object中的每一个元素是否相等，因为也可以替换Arrays.equals
+Arrays.deepEqauls 只有当Array中存的是object是时候才能用，primitive element不能用
+
+Integer 超过128就不能用== 必须用Objects.equals
