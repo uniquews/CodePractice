@@ -6,25 +6,133 @@ import java.util.Queue;
  * Created by shuaiwang on 12/6/16.
  */
 public class TrappingRainWaterII {
+//    class Cell {
+//        public int x;
+//        public int y;
+//        public int h;
+//
+//        public Cell(int row, int column, int height) {
+//            x = row;
+//            y = column;
+//            h = height;
+//        }
+//    }
+//
+//    public int trapRainWater(int[][] heights) {
+//        // write your code here
+//        if (heights == null || heights.length == 0 || heights[0] == null || heights[0].length == 0)
+//            return 0;
+//
+//        int count = 0;
+//        Queue<Cell> queue = new PriorityQueue<>(new Comparator<Cell>() {
+//            @Override
+//            public int compare(Cell o1, Cell o2) {
+//                return o1.h - o2.h;
+//            }
+//        });
+//
+//        boolean[][] visited = new boolean[heights.length][heights[0].length];
+//
+//        visited[0][0] = true;
+//        visited[0][heights[0].length - 1] = true;
+//        visited[heights.length - 1][0] = true;
+//        visited[heights.length - 1][heights[0].length - 1] = true;
+//
+//        // top row
+//        for (int i = 1; i < heights[0].length - 1; i++) {
+//            Cell c = new Cell(0, i, heights[0][i]);
+//            queue.add(c);
+//            visited[0][i] = true;
+//        }
+//
+//        // bottom row
+//        for (int i = 1; i < heights[0].length - 1; i++) {
+//            Cell c = new Cell(heights.length - 1, i, heights[heights.length - 1][i]);
+//            queue.add(c);
+//            visited[heights.length - 1][i] = true;
+//        }
+//
+//        // left column
+//        for (int i = 1; i < heights.length - 1; i++) {
+//            Cell c = new Cell(i, 0, heights[i][0]);
+//            queue.add(c);
+//            visited[i][0] = true;
+//        }
+//
+//        // right column
+//        for (int i = 1; i < heights.length - 1; i++) {
+//            Cell c = new Cell(i, heights[0].length - 1, heights[i][heights[0].length - 1]);
+//            queue.add(c);
+//            visited[i][heights[0].length - 1] = true;
+//        }
+//
+//        while (!queue.isEmpty()) {
+//            Cell current = queue.poll();
+//            // top
+//            if (current.x - 1 > 0 && !visited[current.x - 1][current.y]) {
+//                Cell topNode = new Cell(current.x - 1, current.y, heights[current.x - 1][current.y]);
+//                queue.add(topNode);
+//                visited[current.x - 1][current.y] = true;
+//                if (topNode.h < current.h) {
+//                    count += current.h - topNode.h;
+//                    topNode.h = current.h;
+//                }
+//            }
+//
+//            // bottom
+//            if (current.x + 1 < heights.length && !visited[current.x + 1][current.y]) {
+//                Cell bottomNode = new Cell(current.x + 1, current.y, heights[current.x + 1][current.y]);
+//                queue.add(bottomNode);
+//                visited[current.x + 1][current.y] = true;
+//                if (bottomNode.h < current.h) {
+//                    count += current.h - bottomNode.h;
+//                    bottomNode.h = current.h;
+//                }
+//            }
+//
+//            // left
+//            if (current.y - 1 > 0 && !visited[current.x][current.y - 1]) {
+//                Cell leftNode = new Cell(current.x, current.y - 1, heights[current.x][current.y - 1]);
+//                queue.add(leftNode);
+//                visited[current.x][current.y - 1] = true;
+//                if (leftNode.h < current.h) {
+//                    count += current.h - leftNode.h;
+//                    leftNode.h = current.h;
+//                }
+//            }
+//
+//            // right
+//            if (current.y + 1 < heights[0].length && !visited[current.x][current.y + 1]) {
+//                Cell rightNode = new Cell(current.x, current.y + 1, heights[current.x][current.y + 1]);
+//                queue.add(rightNode);
+//                visited[current.x][current.y + 1] = true;
+//                if (rightNode.h < current.h) {
+//                    count += current.h - rightNode.h;
+//                    rightNode.h = current.h;
+//                }
+//            }
+//        }
+//        return count;
+//    }
+
+
     class Cell {
-        public int x;
-        public int y;
+        public int r;
+        public int c;
         public int h;
 
-        public Cell(int row, int column, int height) {
-            x = row;
-            y = column;
-            h = height;
+        public Cell(int row, int col, int hi) {
+            r = row;
+            c = col;
+            h = hi;
         }
     }
-
     public int trapRainWater(int[][] heights) {
         // write your code here
         if (heights == null || heights.length == 0 || heights[0] == null || heights[0].length == 0)
             return 0;
 
-        int count = 0;
-        Queue<Cell> queue = new PriorityQueue<>(new Comparator<Cell>() {
+        Queue<Cell> q = new PriorityQueue<>(1, new Comparator<Cell>() {
             @Override
             public int compare(Cell o1, Cell o2) {
                 return o1.h - o2.h;
@@ -32,84 +140,70 @@ public class TrappingRainWaterII {
         });
 
         boolean[][] visited = new boolean[heights.length][heights[0].length];
-
         visited[0][0] = true;
         visited[0][heights[0].length - 1] = true;
         visited[heights.length - 1][0] = true;
         visited[heights.length - 1][heights[0].length - 1] = true;
 
-        // top row
         for (int i = 1; i < heights[0].length - 1; i++) {
             Cell c = new Cell(0, i, heights[0][i]);
-            queue.add(c);
+            q.add(c);
             visited[0][i] = true;
         }
 
-        // bottom row
-        for (int i = 1; i < heights[0].length - 1; i++) {
-            Cell c = new Cell(heights.length - 1, i, heights[heights.length - 1][i]);
-            queue.add(c);
-            visited[heights.length - 1][i] = true;
-        }
-
-        // left column
-        for (int i = 1; i < heights.length - 1; i++) {
-            Cell c = new Cell(i, 0, heights[i][0]);
-            queue.add(c);
-            visited[i][0] = true;
-        }
-
-        // right column
         for (int i = 1; i < heights.length - 1; i++) {
             Cell c = new Cell(i, heights[0].length - 1, heights[i][heights[0].length - 1]);
-            queue.add(c);
+            q.add(c);
             visited[i][heights[0].length - 1] = true;
         }
 
-        while (!queue.isEmpty()) {
-            Cell current = queue.poll();
-            // top
-            if (current.x - 1 > 0 && !visited[current.x - 1][current.y]) {
-                Cell topNode = new Cell(current.x - 1, current.y, heights[current.x - 1][current.y]);
-                queue.add(topNode);
-                visited[current.x - 1][current.y] = true;
-                if (topNode.h < current.h) {
-                    count += current.h - topNode.h;
-                    topNode.h = current.h;
+        for (int i = 1; i < heights[0].length - 1; i++) {
+            Cell c = new Cell(heights.length - 1, i, heights[heights.length - 1][i]);
+            q.add(c);
+            visited[heights.length - 1][i] = true;
+        }
+
+        int count = 0;
+        while (!q.isEmpty()) {
+            Cell current = q.poll();
+            if (current.r + 1 < heights.length && !visited[current.r + 1][current.c]) {
+                Cell next = new Cell(current.r + 1, current.c, heights[current.r + 1][current.c]);
+                if (current.h > next.h) {
+                    count += current.h - next.h;
+                    next.h = current.h;
                 }
+                q.add(next);
+                visited[current.r + 1][current.c] = true;
             }
 
-            // bottom
-            if (current.x + 1 < heights.length && !visited[current.x + 1][current.y]) {
-                Cell bottomNode = new Cell(current.x + 1, current.y, heights[current.x + 1][current.y]);
-                queue.add(bottomNode);
-                visited[current.x + 1][current.y] = true;
-                if (bottomNode.h < current.h) {
-                    count += current.h - bottomNode.h;
-                    bottomNode.h = current.h;
+            if (current.r - 1 >= 0 && !visited[current.r - 1][current.c]) {
+                Cell next = new Cell(current.r - 1, current.c, heights[current.r - 1][current.c]);
+                if (current.h > next.h) {
+                    count += current.h - next.h;
+                    next.h = current.h;
                 }
+                q.add(next);
+                visited[current.r - 1][current.c] = true;
             }
 
-            // left
-            if (current.y - 1 > 0 && !visited[current.x][current.y - 1]) {
-                Cell leftNode = new Cell(current.x, current.y - 1, heights[current.x][current.y - 1]);
-                queue.add(leftNode);
-                visited[current.x][current.y - 1] = true;
-                if (leftNode.h < current.h) {
-                    count += current.h - leftNode.h;
-                    leftNode.h = current.h;
+            if (current.c + 1 < heights[0].length && !visited[current.r][current.c + 1]) {
+                Cell next = new Cell(current.r, current.c + 1, heights[current.r][current.c + 1]);
+                if (current.h > next.h) {
+                    count += current.h - next.h;
+                    next.h = current.h;
                 }
+                q.add(next);
+                visited[current.r][current.c + 1] = true;
             }
 
-            // right
-            if (current.y + 1 < heights[0].length && !visited[current.x][current.y + 1]) {
-                Cell rightNode = new Cell(current.x, current.y + 1, heights[current.x][current.y + 1]);
-                queue.add(rightNode);
-                visited[current.x][current.y + 1] = true;
-                if (rightNode.h < current.h) {
-                    count += current.h - rightNode.h;
-                    rightNode.h = current.h;
+            if (current.c - 1 >= 0 && !visited[current.r][current.c - 1]) {
+                Cell next = new Cell(current.r, current.c - 1, heights[current.r][current.c - 1]);
+                if (current.h > next.h) {
+                    count += current.h - next.h;
+                    next.h = current.h;
                 }
+                q.add(next);
+                visited[current.r][current.c - 1] = true;
             }
         }
         return count;
