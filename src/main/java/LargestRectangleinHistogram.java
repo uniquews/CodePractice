@@ -3,6 +3,12 @@ import java.util.Stack;
 /**
  * Created by shuaiwang on 10/24/16.
  */
+
+/**
+ * O(n)的做法实现了
+ * 找从i出发左边第一个比自己小和右边第一个比自己小的值
+ *
+ * */
 public class LargestRectangleinHistogram {
     public int largestRectangleArea(int[] height) {
         // write your code here
