@@ -10,7 +10,7 @@ public class TrappingRainWater {
             return 0;
         }
 
-        int start = 0, end = height.length - 1, water = 0, shortest = 0;
+        int start = 0, end = height.length - 1, water = 0;
         while (start + 1 < end) {
             if (height[start] <= height[end] && start + 1 < end) {
                 if (height[start] - height[start + 1] > 0) {

@@ -1,41 +1,44 @@
+package b;
+
 /**
- * Created by shuaiwang on 5/7/17.
+ * Created by bohan on 7/16/17.
  */
 public class EncodeStringWithShortestLength {
+    /**
+     * f[i][j] denotes the shortest encoded string from i to j;
+     * f[i][j] = minLength(f[i][j], f[i][k] + f[k + 1][j])
+     */
 //    public String encode(String s) {
-//        String[][] dp = new String[s.length()][s.length()];
-//        for (int l = 1; l <= s.length(); l++) {
-//            for (int i = 0; i + l <= s.length(); i++) {
-//                int j = i + l - 1;
-//                String current = s.substring(i, i + l);
+//        String[][] f = new String[s.length()][s.length()];
+//        for (int l = 0; l < s.length(); l++) {
+//            for (int i = 0; i < s.length() - l; i++) {
+//                int j = i + l;
+//                String substring = s.substring(i, j + 1);
+//                f[i][j] = substring;
 //                if (l < 4) {
-//                    dp[i][j] = current;
 //                    continue;
 //                }
-//                dp[i][j] = current; //这个算是初始化。。。否则下一行的dp[i][j]会报空指针
 //                for (int k = i; k < j; k++) {
-//                    if ((dp[i][k] + dp[k + 1][j]).length() < dp[i][j].length()) {
-//                        dp[i][j] = dp[i][k] + dp[k + 1][j];
+//                    if (f[i][j].length() > f[i][k].length() + f[k + 1][j].length()) {
+//                        f[i][j] = f[i][k] + f[k + 1][j];
 //                    }
 //                }
-//
-//                // string本身能否是一个完整的 repeatStr
-//                for (int m = 1; m <= current.length(); m++) {
-//                    String pattern = current.substring(0, m);
-//                    if (current.length() % pattern.length() == 0 &&
-//                            current.replaceAll(pattern, "").length() == 0) {
-//                        // 这个地方特别容易写错，不能用Pattern 因为pattern本身有可能是一个被shorten 的string
-//                        String tmp = current.length() / pattern.length() + "[" + dp[i][i + m - 1] + "]";
-//                        if (tmp.length() < dp[i][j].length()) {
-//                            dp[i][j] = tmp;
+//                // encode pattern.
+//                for (int patternLength = 1; patternLength < l; patternLength++) {
+//                    String pattern = substring.substring(0, patternLength);
+//                    if (substring.length() % patternLength == 0 && substring.replaceAll(pattern, "").length() == 0) {
+//                        String num = String.valueOf(substring.length() / patternLength);
+//                        pattern = f[i][i + patternLength - 1];
+//                        if (num.length() + pattern.length() + 2 >= f[i][j].length()) {
+//                            continue;
 //                        }
+//                        f[i][j] = num + "[" + pattern + "]";
 //                    }
 //                }
 //            }
 //        }
-//        return dp[0][s.length() - 1];
+//        return f[0][s.length() - 1];
 //    }
-
     public String encode(String s) {
         String[][] dp = new String[s.length()][s.length()];
         for (int i = 1; i <= s.length(); i++) {
@@ -66,11 +69,5 @@ public class EncodeStringWithShortestLength {
             }
         }
         return dp[0][s.length() - 1];
-    }
-
-    public static void main(String[] args) {
-        String a = "aabcaabcd";
-        EncodeStringWithShortestLength test = new EncodeStringWithShortestLength();
-        System.out.println(test.encode(a));
     }
 }

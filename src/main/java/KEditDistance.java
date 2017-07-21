@@ -4,18 +4,20 @@ import java.util.List;
 /**
  * Created by shuaiwang on 5/9/17.
  */
-class TrieNode {
-    // Initialize your data structure here.
-    public TrieNode[] children;
-    public boolean isWord;
-    public String str;
-    public TrieNode() {
-        children = new TrieNode[26];
-        isWord = false;
-        str = "";
-    }
-}
 public class KEditDistance {
+    class TrieNode {
+        // Initialize your data structure here.
+        public TrieNode[] children;
+        public boolean isWord;
+        public String str;
+
+        public TrieNode() {
+            children = new TrieNode[26];
+            isWord = false;
+            str = "";
+        }
+    }
+
     public class Trie {
         private TrieNode root;
 

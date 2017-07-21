@@ -3,34 +3,25 @@
  */
 public class AddStrings {
     public String addStrings(String num1, String num2) {
-        int ins = 0;
-        int i = num1.length() - 1, j = num2.length() - 1;
-        StringBuilder sb = new StringBuilder();
-        while (i >= 0 || j >= 0) {
-            int tmp1 = 0;
-            if (i >= 0 && num1.charAt(i) != '0') {
-                tmp1 = num1.charAt(i) - '1' + 1;
-            }
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
 
-            int tmp2 = 0;
-            if (j >= 0 && num2.charAt(j) != '0') {
-                tmp2 = num2.charAt(j) - '1' + 1;
-            }
-            int current = tmp1 + tmp2 + ins;
-            sb.insert(0, current % 10);
-            ins = current / 10;
+        StringBuilder sb = new StringBuilder();
+        int next = 0;
+        while (i >= 0 || j >= 0) {
+            int tmp1 = i >= 0 ? num1.charAt(i) - '0' : 0 ;
+            int tmp2 = j >= 0 ? num2.charAt(j) - '0' : 0;
+
+            int sum = tmp1 + tmp2 + next;
+            sb.insert(0, sum % 10);
+            next = sum / 10;
             i--;
             j--;
         }
 
-        if (ins != 0) {
-            sb.insert(0, ins);
+        if (next > 0) {
+            sb.insert(0, next);
         }
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        int x = '2';
-        System.out.print(x -  '1');
     }
 }

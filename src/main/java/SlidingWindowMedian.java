@@ -7,17 +7,10 @@ import java.util.PriorityQueue;
  */
 public class SlidingWindowMedian {
     private int balance = 0;
+
     public double[] medianSlidingWindow(int[] nums, int k) {
         PriorityQueue<Long> minHeap = new PriorityQueue<>();
-        PriorityQueue<Long> maxHeap = new PriorityQueue<>((o1, o2) -> {
-            if (o1 < o2) {
-                return 1;
-            } else if (o1 > o2) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+        PriorityQueue<Long> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
         HashMap<Long, Integer> deleteTable = new HashMap<>(); // key : nums[i], value: nums[i]出现了多少次
 
         double[] result = new double[nums.length - k + 1];
@@ -29,9 +22,9 @@ public class SlidingWindowMedian {
         int left = 0, right = k, index = 1;
         while (right < nums.length) {
             if (!deleteTable.containsKey(nums[left])) {
-                deleteTable.put((long)nums[left], 1);
+                deleteTable.put((long) nums[left], 1);
             } else {
-                deleteTable.put((long)nums[left], deleteTable.get(nums[left]) + 1);
+                deleteTable.put((long) nums[left], deleteTable.get(nums[left]) + 1);
             }
 
             addElement(minHeap, maxHeap, nums[right]);
@@ -123,7 +116,7 @@ public class SlidingWindowMedian {
     public static void main(String[] args) {
 //        int[] a = {1,3,-1,-3,5,3,6,7};
 //        int k = 3;
-        int[] a = {-2147483648,-2147483648,2147483647,-2147483648,-2147483648,-2147483648,2147483647,2147483647,2147483647,2147483647,-2147483648,2147483647,-2147483648};
+        int[] a = {-2147483648, -2147483648, 2147483647, -2147483648, -2147483648, -2147483648, 2147483647, 2147483647, 2147483647, 2147483647, -2147483648, 2147483647, -2147483648};
         int k = 2;
 
 //        int[] a = {Integer.MAX_VALUE,Integer.MAX_VALUE};
