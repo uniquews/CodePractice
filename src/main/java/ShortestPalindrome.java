@@ -20,9 +20,36 @@
  * */
 
 public class ShortestPalindrome {
+//    public String shortestPalindrome(String s) {
+//        if (s == null || s.length() == 0) return "";
+//        String tmp = s + "#" + new StringBuffer(s).reverse().toString();
+//        int[] next = kmp2(tmp);
+//        StringBuilder result = new StringBuilder(s);
+//        String nonPalindormePart = new StringBuilder(s.substring(next[tmp.length() - 1])).reverse().toString();
+//        return result.insert(0, nonPalindormePart).toString();
+//    }
+//
+//    private int[] kmp2(String s) {
+//        int k = -1, j = 0;
+//        int[] next = new int[s.length()];
+//
+//        while (j < s.length()) {
+//            if (k == -1 || s.charAt(k) == s.charAt(j)) {
+//                k++;
+//                next[j] = k;
+//                j++;
+//            } else {
+//                if (k == 0)
+//                    k = -1;
+//                else
+//                    k = next[k - 1]; // 当s[k]！= s[j] 需要去看s[k - 1]相同的prefix 而不是s[k]，因为s[k]已经和s[j]不匹配了
+//            }
+//        }
+//        return next;
+//    }
+
     public String shortestPalindrome(String s) {
-        if (s == null || s.length() == 0) return "";
-        String tmp = s + "#" + new StringBuffer(s).reverse().toString();
+        String tmp = s + "#" + new StringBuilder(s).reverse().toString();
         int[] next = kmp2(tmp);
         StringBuilder result = new StringBuilder(s);
         String nonPalindormePart = new StringBuilder(s.substring(next[tmp.length() - 1])).reverse().toString();
@@ -30,11 +57,10 @@ public class ShortestPalindrome {
     }
 
     private int[] kmp2(String s) {
-        int k = -1, j = 0;
         int[] next = new int[s.length()];
-
+        int k = -1, j = 0;
         while (j < s.length()) {
-            if (k == -1 || s.charAt(k) == s.charAt(j)) {
+            if (k == -1 || s.charAt(j) == s.charAt(k)) {
                 k++;
                 next[j] = k;
                 j++;
@@ -42,16 +68,16 @@ public class ShortestPalindrome {
                 if (k == 0)
                     k = -1;
                 else
-                    k = next[k - 1]; // 当s[k]！= s[j] 需要去看s[k - 1]相同的prefix 而不是s[k]，因为s[k]已经和s[j]不匹配了
+                    k = next[k - 1];
             }
         }
         return next;
     }
 
     public static void main(String[] args) {
-//        String a = "aabaaa";
+        String a = "aabaaa";
 //        String a = "abcd";
-        String a = "abcb";
+//        String a = "abcb";
         new ShortestPalindrome().shortestPalindrome(a);
     }
 }
