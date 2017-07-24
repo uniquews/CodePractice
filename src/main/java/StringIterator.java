@@ -2,50 +2,49 @@
  * Created by shuaiwang on 7/16/17.
  */
 public class StringIterator {
-    public char cur;
-    public int index = 0;
-    public int num = 0;
-    public String s = null;
-
+    private char c;
+    private int occur = 0;
+    private int index = 0;
+    private String s = null;
     public StringIterator(String compressedString) {
         s = compressedString;
-        cur = getChar();
-        num = getNum();
+        getChar();
     }
 
     public char next() {
-        char result = ' ';
-        if (num != 0) {
-            result = cur;
-            num--;
-        }
-
-        if (num == 0) {
-            cur = getChar();
-            num = getNum();
-        }
+        char result = c;
+        if (occur > 0)
+            occur--;
+        getChar();
         return result;
     }
 
     public boolean hasNext() {
-        if (s == null || (index == s.length() && num == 0))
-            return false;
-        return true;
+        if (occur != 0)
+            return true;
+        if (index != s.length())
+            return true;
+        return false;
     }
 
-    public char getChar() {
-        return index >= s.length() ? ' ' : s.charAt(index++);
+    private void getChar() {
+        if (occur > 0)
+            return;
+        if (index == s.length()) {
+            c = ' ';
+            return;
+        }
+        c = s.charAt(index++);
+        getNum();
     }
 
-    public int getNum() {
-        if (index >= s.length())
-            return 0;
+    private void getNum() {
         int start = index, end = index;
         while (end < s.length() && Character.isDigit(s.charAt(end))) {
             end++;
         }
+        occur = Integer.valueOf(s.substring(start, end));
         index = end;
-        return Integer.valueOf(s.substring(start, end));
     }
 
     public static void main(String[] args) {
