@@ -72,7 +72,7 @@ public class WiggleSortII {
         int pivot = nums[end];
 
         for (int i = start; i <= end - 1; i++) {
-            if (nums[i] <= pivot) {
+            if (nums[i] < pivot) {
                 swap(nums, i, leftTail);
                 leftTail++;
             }
@@ -90,7 +90,8 @@ public class WiggleSortII {
 
     public static void main(String[] args) {
 //        int[] a = {4,5,5,6};
-        int[] a = {1,2,1,2,1,2,1};
+//        int[] a = {1,2,1,2,1,2,1};
+        int[] a = {5,3,1,2,6,7,8,5,5};
         WiggleSortII test = new WiggleSortII();
         test.wiggleSort(a);
         System.out.print(a);
