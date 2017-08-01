@@ -1,6 +1,13 @@
 /**
  * Created by shuaiwang on 5/14/17.
  */
+
+/**
+ *
+ 对应每一位  记录了第一个比maxVal小且在maxVal 右边的  index
+ 对应每一位  记录了第一个（从右往左）比minVal小且在minVal左边的index
+ *
+ * */
 public class ShortestUnsortedContinuousSubarray {
     public int findUnsortedSubarray(int[] A) {
         int maxVal = Integer.MIN_VALUE;
