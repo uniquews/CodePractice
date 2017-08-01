@@ -31,7 +31,7 @@ public class MaximumAverageSubarray {
                 return true;
             }
             if (i >= k) {
-                minInPreviousSum = Math.min(minInPreviousSum, sum[i - k]);
+                minInPreviousSum = Math.min(minInPreviousSum, sum[i - k + 1]);
             }
         }
         return false;
