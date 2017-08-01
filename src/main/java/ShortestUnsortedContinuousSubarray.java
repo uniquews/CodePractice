@@ -4,8 +4,8 @@
 
 /**
  *
- 对应每一位  记录了第一个比maxVal小且在maxVal 右边的  index
- 对应每一位  记录了第一个（从右往左）比minVal小且在minVal左边的index
+ 对应每一位  check 这位上的数字是不是比之前的maxVal小且在maxVal右边，如果是，记录 index
+ 对应每一位  check 这位上的数字是不是比之前（从右往左）比minVal大且在minVal左边 如果是 记录 index
  *
  * */
 public class ShortestUnsortedContinuousSubarray {
