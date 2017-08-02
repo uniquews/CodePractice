@@ -10,75 +10,59 @@ public class PacificAtlanticWaterFlow {
     public List<int[]> pacificAtlantic(int[][] matrix) {
         List<int[]> result = new ArrayList<>();
 
-        if (matrix == null || matrix.length == 0 || matrix[0] == null) {
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0)
             return result;
-        }
 
-        int[][] map = new int[matrix.length][matrix[0].length];
+        Queue<int[]> pac = new LinkedList<>();
+        Queue<int[]> atl = new LinkedList<>();
 
-        Queue<int[]> pacific = new LinkedList<>();
-        Queue<int[]> atlantic = new LinkedList<>();
-
-        boolean[][] pacificVisited = new boolean[map.length][map[0].length];
-        boolean[][] atlanticVisited = new boolean[map.length][map[0].length];
+        boolean[][] allPointsInPac = new boolean[matrix.length][matrix[0].length];
+        boolean[][] allPointsInAtl = new boolean[matrix.length][matrix[0].length];
 
         for (int i = 0; i < matrix.length; i++) {
-            pacificVisited[i][0] = true;
-            pacific.add(new int[]{i, 0});
+            pac.add(new int[]{i, 0});
+            allPointsInPac[i][0] = true;
 
-            atlantic.add(new int[]{i, matrix[0].length - 1});
-            atlanticVisited[i][matrix[0].length - 1] = true;
+            atl.add(new int[]{i, matrix[0].length - 1});
+            allPointsInAtl[i][matrix[0].length - 1] = true;
         }
 
-        for (int j = 0; j < matrix[0].length; j++) {
-            pacific.add(new int[]{0, j});
-            pacificVisited[0][j] = true;
+        for (int i = 0; i < matrix[0].length; i++) {
+            pac.add(new int[]{0, i});
+            allPointsInPac[0][i] = true;
 
-            atlantic.add(new int[]{matrix.length - 1, j});
-            atlanticVisited[matrix.length - 1][j] = true;
+            atl.add(new int[]{matrix.length - 1, i});
+            allPointsInAtl[matrix.length - 1][i] = true;
         }
 
 
-        bfs(pacific, matrix, pacificVisited);
+        bfs(matrix, pac, allPointsInPac);
+        bfs(matrix, atl, allPointsInAtl);
 
-        bfs(atlantic, matrix, atlanticVisited);
-
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                if (pacificVisited[i][j] && atlanticVisited[i][j]) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (allPointsInPac[i][j] && allPointsInAtl[i][j])
                     result.add(new int[]{i, j});
-                }
             }
         }
         return result;
     }
 
-    private void bfs(Queue<int[]> sea, int[][] matrix, boolean[][] visited) {
-        while (!sea.isEmpty()) {
-            int size = sea.size();
-            while (size != 0) {
-                int[] current = sea.poll();
-                int row = current[0];
-                int col = current[1];
+    private void bfs(int[][] matrix, Queue<int[]> q, boolean[][] points) {
 
-                if (row - 1 >= 0 && matrix[row][col] <= matrix[row - 1][col] && !visited[row - 1][col]) {
-                    sea.add(new int[]{row - 1, col});
-                    visited[row - 1][col] = true;
-                }
+        int[] dx = {0,0,-1,1};
+        int[] dy = {1,-1,0,0};
 
-                if (row + 1 < matrix.length && matrix[row][col] <= matrix[row + 1][col] && !visited[row + 1][col]) {
-                    sea.add(new int[]{row + 1, col});
-                    visited[row + 1][col] = true;
-                }
-
-                if (col - 1 >= 0 && matrix[row][col] <= matrix[row][col - 1] && !visited[row][col - 1]) {
-                    sea.add(new int[]{row, col - 1});
-                    visited[row][col - 1] = true;
-                }
-
-                if (col + 1 < matrix[0].length && matrix[row][col] <= matrix[row][col + 1] && !visited[row][col + 1]) {
-                    sea.add(new int[]{row, col + 1});
-                    visited[row][col + 1] = true;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size > 0) {
+                int[] current = q.poll();
+                points[current[0]][current[1]] = true;
+                for (int i = 0; i < 4; i++) {
+                    if (current[0] + dx[i] >= 0 && current[0] + dx[i] < matrix.length && current[1] + dy[i] >= 0
+                            && current[1] + dy[i] < matrix[0].length && matrix[current[0]][current[1]] <= matrix[current[0] + dx[i]][current[1] + dy[i]] && !points[current[0] + dx[i]][current[1] + dy[i]]) {
+                        q.add(new int[]{current[0] + dx[i], current[1] + dy[i]});
+                    }
                 }
                 size--;
             }
