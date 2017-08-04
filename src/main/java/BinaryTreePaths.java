@@ -8,31 +8,22 @@ import java.util.List;
  */
 public class BinaryTreePaths {
     public List<String> binaryTreePaths(TreeNode root) {
-        // Write your code here
         List<String> result = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        divideAndConquor(root, sb, result);
+        if (root == null)
+            return result;
+        dfs(root, result, "");
         return result;
     }
 
-    private void divideAndConquor(TreeNode n, StringBuilder sb, List<String> list) {
-        if (n == null) {
+    private void dfs(TreeNode n, List<String> result, String s) {
+        if (n == null)
             return;
-        }
-
         if (n.left == null && n.right == null) {
-            sb.append(n.val);
-            list.add(sb.toString());
+            s = s + String.valueOf(n.val);
+            result.add(s);
             return;
         }
-
-        StringBuilder sb2 = new StringBuilder(sb);
-        sb2.append(n.val).append("->");
-        divideAndConquor(n.left, sb2, list);
-
-        StringBuilder sb3 = new StringBuilder(sb);
-        sb3.append(n.val).append("->");
-        divideAndConquor(n.right, sb3, list);
-        return;
+        dfs(n.left, result, s + n.val + "->");
+        dfs(n.right, result, s + n.val + "->");
     }
 }
