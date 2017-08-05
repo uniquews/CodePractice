@@ -1,18 +1,26 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 8/3/17.
  */
 public class ShoppingOffers {
-    int money = Integer.MAX_VALUE;
     public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
-        dfs(price, special, needs, 0);
-        return money;
+        Map<String, Integer> memo = new HashMap<>();
+        return dfs(price, special, needs, memo);
     }
 
-    private void dfs(List<Integer> price, List<List<Integer>> special, List<Integer> needs, int cost) {
+    private int dfs(List<Integer> price, List<List<Integer>> special, List<Integer> needs, Map<String, Integer> memo) {
+        String key = "";
+        for (int i = 0; i < needs.size(); i++) {
+            key += needs.get(i) + "#";
+        }
+
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+
+        int currentCost = Integer.MAX_VALUE;
+
         for (int i = 0; i < special.size(); i++) {
             boolean isValidOffer = true;
 
@@ -31,15 +39,18 @@ public class ShoppingOffers {
             }
 
             if (isValidOffer) {
-                dfs(price, special, nextNeeds, cost + offerCost);
+                currentCost = Math.min(currentCost, dfs(price, special, nextNeeds,  memo) + offerCost);
             }
         }
 
+        int individual = 0;
         for (int i = 0; i < needs.size(); i++) {
-            cost += needs.get(i) * price.get(i);
+            individual += needs.get(i) * price.get(i);
         }
 
-        money = Math.min(money, cost);
+        currentCost = Math.min(currentCost, individual);
+        memo.put(key, currentCost);
+        return currentCost;
     }
 
     public static void main(String[] args) {
