@@ -27,17 +27,53 @@ public class CountNumbersWithUniqueDigits {
 
     // With O(1) space
     // Since f(n) only depends ont f(n - 1), so we can use one variables to keep its value
-    public int countNumbersWithUniqueDigits(int n) {
-        if (n == 0)
-            return 1;
-        int result = 10;
-        int choice = 9;
+//    public int countNumbersWithUniqueDigits(int n) {
+//        if (n == 0)
+//            return 1;
+//        int result = 10;
+//        int choice = 9;
+//
+//        for (int i = 2; i <= n; i++) {
+//            choice = choice * (11 - i);
+//            result += choice;
+//        }
+//        return result;
+//    }
 
-        for (int i = 2; i <= n; i++) {
-            choice = choice * (11 - i);
-            result += choice;
-        }
+    private int result = 1;
+    public int countNumbersWithUniqueDigits(int n) {
+        helper(n);
         return result;
     }
 
+    private void helper(int n) {
+        for (int i = 1; i <= n; i++) {
+            boolean[] visited = new boolean[10];
+            for (int j = 1; j <= 9; j++) { //第一层要特殊处理  因为我们不想dealing with leading zero， 比如00123 应该是valid result
+                visited[i] = true;
+                dfs(i - 1, j, visited);                           // 但是如果我们不特殊处理leading zero 00123会因为有两个0而不能进结果集
+                visited[i] = false;
+            }
+        }
+    }
+
+    private void dfs(int numOfDigit, int sum, boolean[] visited) {
+        if (numOfDigit == 0) {
+            result++;
+            return;
+        }
+        for (int i = 0; i <= 9; i++) {
+            if (visited[i] == false) {
+                visited[i] = true;
+                int nextSum = sum * 10 + i;
+                dfs(numOfDigit - 1, nextSum, visited);
+                visited[i] = false;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        CountNumbersWithUniqueDigits test = new CountNumbersWithUniqueDigits();
+        test.countNumbersWithUniqueDigits(2);
+    }
 }
