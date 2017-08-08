@@ -7,25 +7,24 @@ import java.util.List;
  */
 public class OutputContestMatches {
     public String findContestMatch(int n) {
-        List<String> queue = new ArrayList<>();
+        List<String> level = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
-            queue.add(String.valueOf(i));
+            level.add(String.valueOf(i));
         }
 
-        while (n != 1) {
-            List<String> nextQueue = new ArrayList<>();
-            int start = 0, end = queue.size() - 1;
-            while (start <= end) {
-                String tmp = "(" + queue.get(start) + "," + queue.get(end) + ")";
-                nextQueue.add(tmp);
+        while (level.size() != 1) {
+            List<String> nextLevel = new ArrayList<>();
+            int start = 0, end = level.size() - 1;
+            while (start < end) {
+                String tmp = "(" + level.get(start) + "," + level.get(end) + ")";
+                nextLevel.add(tmp);
                 start++;
                 end--;
             }
-            queue.clear();
-            queue = nextQueue;
-            n /= 2;
+            level.clear();
+            level = nextLevel;
         }
-        return queue.get(0);
+        return level.get(0);
     }
 
 

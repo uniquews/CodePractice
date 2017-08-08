@@ -6,64 +6,34 @@ import java.util.Comparator;
  */
 public class LongestUncommonSubsequenceII {
     public int findLUSlength(String[] strs) {
-        Arrays.sort(strs, (o1, o2) -> {
-            if (o1.length() > o2.length()) {
-                return -1;
-            } else if (o1.length() == o2.length()) {
-                return o1.compareTo(o2);
-            } else {
-                return 1;
-            }
-        });
-
+        int result = -1;
         for (int i = 0; i < strs.length; i++) {
-            boolean isBelongingToAnyOther = false;
+            boolean isSubForAnyOtherStr = false;
             for (int j = 0; j < strs.length; j++) {
-                if (i == j) {
+                if (i == j)
                     continue;
-                }
-                if (strs[i].length() <= strs[j].length()) {
-                    // check if s is subsequence of strs[i]
-                    if (isSub(strs[i], strs[j]))
-                        isBelongingToAnyOther = true;
-                } else {
-                    break;
-                }
+                isSubForAnyOtherStr = isSubForAnyOtherStr || isSub(strs[i], strs[j]);
             }
-
-            if (!isBelongingToAnyOther) {
-                return strs[i].length();
-            }
+            if (!isSubForAnyOtherStr)
+                result = Math.max(result, strs[i].length());
         }
-        return -1;
+        return result;
     }
 
-    private boolean isSub(String a, String b) {
-        int result = longestCommonSubsequence(a, b);
-        return result == a.length();
-    }
-
-    public int longestCommonSubsequence(String A, String B) {
-        // write your code here
-        if (A == null || B == null || A.length() == 0 || B.length() == 0) {
-            return 0;
-        }
-
-        int[][] f = new int[A.length() + 1][B.length() + 1];
-
-        f[0][0] = 0;
-
-        for (int i = 1; i <= A.length(); i++) {
-            for (int j = 1; j <= B.length(); j++) {
-                if (A.charAt(i - 1) == B.charAt(j - 1)) {
-                    f[i][j] = f[i - 1][j - 1] + 1; //  LCS(i - 1, j) <= 1 + LCS(i - 1, j - 1)
-                } else {
-                    f[i][j] = Math.max(f[i - 1][j], f[i][j - 1]);
-                }
+    private boolean isSub(String s, String t) {
+        int i = 0, j = 0;
+        while (i < s.length() && j < t.length()) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+                j++;
+            } else {
+                j++;
             }
         }
-
-        return f[A.length()][B.length()];
+        if (i == s.length()) {
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {

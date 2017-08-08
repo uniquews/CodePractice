@@ -10,43 +10,88 @@ import java.util.List;
  * Created by shuaiwang on 1/29/17.
  */
 public class GeneralizedAbbreviation {
+//  public List<String> generateAbbreviations(String word) {
+//    List<String> result = new ArrayList<>();
+//    helper(word, word.toCharArray(), 0, result);
+//    return result;
+//  }
+//
+//  private void helper(String word, char[] current, int index, List<String> result) {
+//    String currentAfterCompress = compressString(current);
+//    result.add(currentAfterCompress);
+//
+//    for (int i = index; i < word.length(); i++) {
+//      char tmp = current[i];
+//      current[i] = '1';
+//      helper(word, current, i + 1, result);
+//      current[i] = tmp;
+//    }
+//  }
+//
+//  private String compressString(char[] current) {
+//    StringBuilder sb = new StringBuilder();
+//    int start = 0;
+//    while (start < current.length) {
+//      if (current[start] == '1') {
+//        int end = start;
+//        int number = 0;
+//        while (end < current.length && current[end] == '1') {
+//          end++;
+//          number++;
+//        }
+//        sb.append(Integer.toString(number));
+//        start = end - 1;
+//      } else {
+//        sb.append(current[start]);
+//      }
+//      start++;
+//    }
+//
+//    return sb.toString();
+//  }
+
   public List<String> generateAbbreviations(String word) {
     List<String> result = new ArrayList<>();
-    helper(word, word.toCharArray(), 0, result);
-    return result;
+    result.add(word);
+    helper(result, word, 0);
+    List<String> strs = new ArrayList<>();
+    for (int i = 0; i < result.size(); i++) {
+      strs.add(convert(result.get(i)));
+    }
+    return strs;
   }
 
-  private void helper(String word, char[] current, int index, List<String> result) {
-    String currentAfterCompress = compressString(current);
-    result.add(currentAfterCompress);
+  private void helper(List<String> result, String word, int index) {
+    if (index == word.length()) {
+      return;
+    }
 
-    for (int i = index; i < word.length(); i++) {
-      char tmp = current[i];
-      current[i] = '1';
-      helper(word, current, i + 1, result);
-      current[i] = tmp;
+    char[] tmp = word.toCharArray();
+    for (int i = index; i < tmp.length; i++) {
+      char c = tmp[i];
+      tmp[i] = '1';
+      String next = new String(tmp);
+      result.add(next);
+      helper(result, next, i + 1);
+      tmp[i] = c;
     }
   }
 
-  private String compressString(char[] current) {
+  private String convert(String s) {
     StringBuilder sb = new StringBuilder();
-    int start = 0;
-    while (start < current.length) {
-      if (current[start] == '1') {
-        int end = start;
-        int number = 0;
-        while (end < current.length && current[end] == '1') {
+    for (int i = 0; i < s.length(); i++) {
+      if (Character.isDigit(s.charAt(i))) {
+        int start = i, end = i;
+        while (end < s.length() && Character.isDigit(s.charAt(end))) {
           end++;
-          number++;
         }
-        sb.append(Integer.toString(number));
-        start = end - 1;
+        String num = String.valueOf(end - start);
+        sb.append(num);
+        i = end - 1;
       } else {
-        sb.append(current[start]);
+        sb.append(s.charAt(i));
       }
-      start++;
     }
-
     return sb.toString();
   }
 }

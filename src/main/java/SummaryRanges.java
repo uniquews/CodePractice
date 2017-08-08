@@ -7,23 +7,20 @@ import java.util.List;
 public class SummaryRanges {
     public List<String> summaryRanges(int[] nums) {
         List<String> result = new ArrayList<>();
-        if (nums == null || nums.length == 0) {
+        if (nums == null || nums.length == 0)
             return result;
-        }
+
         for (int i = 0; i < nums.length; i++) {
-            int j = i + 1;
-            while (j < nums.length && nums[j] == nums[j - 1] + 1) {
+            int j = i;
+            while (j + 1 < nums.length && nums[j + 1] == nums[j] + 1) {
                 j++;
             }
-
-            if (j - 1 == i) {
+            if (j == i) {
                 result.add(String.valueOf(nums[i]));
             } else {
-                StringBuilder sb = new StringBuilder();
-                sb.append(nums[i]).append("->").append(nums[j - 1]);
-                result.add(sb.toString());
-                i = j - 1;
+                result.add(String.valueOf(nums[i]) + String.valueOf("->") + String.valueOf(nums[j]));
             }
+            i = j;
         }
         return result;
     }

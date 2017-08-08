@@ -3,45 +3,36 @@
  */
 public class LongestIncreasingPathInAMatrix {
     public int longestIncreasingPath(int[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0] == null) {
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0)
             return 0;
-        }
 
-        int[][] result = new int[matrix.length][matrix[0].length];
-        int len = 1;
+        int[][] visited = new int[matrix.length][matrix[0].length];
 
+        int result = 1;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                len = Math.max(dfs(matrix, result, i ,j), len);
+                result = Math.max(result, dfs(matrix, i, j, visited));
             }
         }
-        return len;
+        return result;
     }
 
-    private int dfs(int[][] matrix, int[][] result, int row, int col) {
-
-        if (result[row][col] != 0) {
-            return result[row][col];
+    private int dfs(int[][] matrix, int i, int j, int[][] visited) {
+        if (visited[i][j] != 0) {
+            return visited[i][j];
         }
 
-        int longestIncreasingLen = 1;
-        if (row - 1 >= 0 && matrix[row][col] < matrix[row - 1][col]) {
-            longestIncreasingLen = Math.max(longestIncreasingLen, dfs(matrix, result, row - 1, col) + 1);
-        }
+        int current = 1;
+        int[] dx = {0,0,-1,1};
+        int[] dy = {1,-1,0,0};
 
-        if (row + 1 <= matrix.length - 1 && matrix[row][col] < matrix[row + 1][col]) {
-            longestIncreasingLen = Math.max(longestIncreasingLen,  dfs(matrix, result, row + 1, col) + 1);
+        for (int k = 0; k < 4; k++) {
+            if (i + dx[k] >= 0 && i + dx[k] < matrix.length && j + dy[k] >= 0 && j + dy[k] < matrix[0].length
+                    && matrix[i][j] < matrix[i + dx[k]][j + dy[k]]) {
+                current = Math.max(current, 1 + dfs(matrix, i + dx[k], j + dy[k], visited));
+            }
         }
-
-        if (col - 1 >= 0 && matrix[row][col] < matrix[row][col - 1]) {
-            longestIncreasingLen = Math.max(longestIncreasingLen, dfs(matrix, result, row, col - 1) + 1);
-        }
-
-        if (col + 1 <= matrix[0].length - 1 && matrix[row][col] < matrix[row][col + 1]) {
-            longestIncreasingLen = Math.max(longestIncreasingLen, dfs(matrix, result, row, col + 1) + 1);
-        }
-
-        result[row][col] = longestIncreasingLen;
-        return longestIncreasingLen;
+        visited[i][j] = current;
+        return current;
     }
 }

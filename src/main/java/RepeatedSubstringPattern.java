@@ -3,30 +3,54 @@
  */
 public class RepeatedSubstringPattern {
 
+//    public boolean repeatedSubstringPattern(String s) {
+//        if (s == null || s.length() == 0)
+//            return false;
+//
+//        int[] next = new int[s.length()];
+//
+//        int k = 0, j = 1;
+//        while (j < s.length()) {
+//            if (k == 0 || s.charAt(k) == s.charAt(j)) {
+//                if (s.charAt(k) == s.charAt(j))
+//                    next[j] = k + 1;
+//                else
+//                    next[j] = k ;
+//                k++;
+//                j++;
+//            } else {
+//                k = next[k - 1];
+//            }
+//        }
+//
+//        int repeatLen = s.length() - next[s.length() - 1];
+//        return s.length() % repeatLen == 0 && next[s.length() - 1] != 0 ? true : false;
+//    }
+
+
     public boolean repeatedSubstringPattern(String s) {
-        if (s == null || s.length() == 0)
+        if (s.length() == 1)
             return false;
-
         int[] next = new int[s.length()];
-
-        int k = 0, j = 1;
+        int k = -1, j = 0;
         while (j < s.length()) {
-            if (k == 0 || s.charAt(k) == s.charAt(j)) {
-                if (s.charAt(k) == s.charAt(j))
-                    next[j] = k + 1;
-                else
-                    next[j] = k ;
+            if (k == -1 || s.charAt(j) == s.charAt(k)) {
                 k++;
+                next[j] = k;
                 j++;
             } else {
-                k = next[k - 1];
+                if (k == 0)
+                    k = -1;
+                else
+                    k = next[k - 1];
             }
         }
-
-        int repeatLen = s.length() - next[s.length() - 1];
-        return s.length() % repeatLen == 0 && next[s.length() - 1] != 0 ? true : false;
+        if (next[s.length() - 1] < s.length() / 2) {
+            return false;
+        }
+        int patternLen = s.length() - next[s.length() - 1];
+        return next[s.length() - 1] % patternLen == 0;
     }
-
     public static void main(String[] args) {
         String s = "abaababaab";
         RepeatedSubstringPattern test = new RepeatedSubstringPattern();
