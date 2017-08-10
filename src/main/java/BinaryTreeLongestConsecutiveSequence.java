@@ -1,6 +1,8 @@
 import utils.BinaryTreeUtils;
 import utils.TreeNode;
 
+import java.util.Comparator;
+
 /**
  * Created by shuaiwang on 2/4/17.
  */
@@ -70,9 +72,4 @@ public class BinaryTreeLongestConsecutiveSequence {
         return len;
     }
 
-    public static void main(String[] args) {
-        BinaryTreeLongestConsecutiveSequence test = new BinaryTreeLongestConsecutiveSequence();
-//        test.longestConsecutive(BinaryTreeUtils.deserialize("2,#,3,2,#,1"));
-        test.longestConsecutive(BinaryTreeUtils.deserialize("3,2,4,3"));
-    }
 }
