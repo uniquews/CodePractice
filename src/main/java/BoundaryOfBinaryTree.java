@@ -1,82 +1,149 @@
 import utils.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 5/6/17.
  */
 public class BoundaryOfBinaryTree {
+//    public List<Integer> boundaryOfBinaryTree(TreeNode root) {
+//        if (root == null) {
+//            return new ArrayList<>();
+//        }
+//        if (root.left == null && root.right == null)
+//            return new ArrayList<>(Arrays.asList(root.val));
+//
+//        List<Integer> result = new ArrayList<>();
+//        result.add(root.val);
+//
+//        List<Integer> allLeaves = new ArrayList<>();
+//        findAllLeaves(root, allLeaves);
+//
+//        List<Integer> leftBound = new ArrayList<>();
+//        findLeftBoundary(root.left, leftBound);
+//
+//        List<Integer> rightBound = new ArrayList<>();
+//        findRightBoundary(root.right, rightBound);
+//
+//        result.addAll(leftBound);
+//        result.addAll(allLeaves);
+//        result.addAll(rightBound);
+//        return result;
+//    }
+//
+//    private void findAllLeaves(TreeNode n, List<Integer> allLeaves) {
+//        if (n == null) {
+//            return;
+//        }
+//
+//        if (n.left == null && n.right == null) {
+//            allLeaves.add(n.val);
+//        }
+//
+//        findAllLeaves(n.left, allLeaves);
+//        findAllLeaves(n.right, allLeaves);
+//    }
+//
+//    private void findLeftBoundary(TreeNode n, List<Integer> leftBound) {
+//        if (n == null) {
+//            return;
+//        }
+//
+//        if (n.left == null && n.right == null) {
+//            return;
+//        }
+//
+//        leftBound.add(n.val);
+//        if (n.left != null) {
+//            findLeftBoundary(n.left, leftBound);
+//        } else {
+//            findLeftBoundary(n.right, leftBound);
+//        }
+//    }
+//
+//    private void findRightBoundary(TreeNode n, List<Integer> rightBound) {
+//        if (n == null) {
+//            return;
+//        }
+//
+//        if (n.left == null && n.right == null) {
+//            return;
+//        }
+//
+//        rightBound.add(0, n.val);
+//        if (n.right != null) {
+//            findRightBoundary(n.right, rightBound);
+//        } else {
+//            findRightBoundary(n.left, rightBound);
+//        }
+//    }
+
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
+        List<Integer> leftBound = new LinkedList<>();
+        List<Integer> leafBound = new LinkedList<>();
+        List<Integer> rightBound = new LinkedList<>();
+        List<Integer> result = new LinkedList<>();
+
+        if (root == null)
+            return result;
+
+        if (root.left == null && root.right == null) {
+            result.add(root.val);
+            return result;
+
         }
-        if (root.left == null && root.right == null)
-            return new ArrayList<>(Arrays.asList(root.val));
 
-        List<Integer> result = new ArrayList<>();
-        result.add(root.val);
 
-        List<Integer> allLeaves = new ArrayList<>();
-        findAllLeaves(root, allLeaves);
-
-        List<Integer> leftBound = new ArrayList<>();
-        findLeftBoundary(root.left, leftBound);
-
-        List<Integer> rightBound = new ArrayList<>();
-        findRightBoundary(root.right, rightBound);
+        leftBound.add(root.val);
+        getLeftBound(root.left, leftBound);
+        getLeafBound(root, leafBound);
+        getRightBound(root.right, rightBound);
 
         result.addAll(leftBound);
-        result.addAll(allLeaves);
+        result.addAll(leafBound);
         result.addAll(rightBound);
         return result;
     }
 
-    private void findAllLeaves(TreeNode n, List<Integer> allLeaves) {
-        if (n == null) {
+    private void getLeftBound(TreeNode n, List<Integer> leftBound) {
+        if (n == null)
             return;
-        }
 
-        if (n.left == null && n.right == null) {
-            allLeaves.add(n.val);
-        }
-
-        findAllLeaves(n.left, allLeaves);
-        findAllLeaves(n.right, allLeaves);
-    }
-
-    private void findLeftBoundary(TreeNode n, List<Integer> leftBound) {
-        if (n == null) {
+        if (n.left == null && n.right == null)
             return;
-        }
-
-        if (n.left == null && n.right == null) {
-            return;
-        }
 
         leftBound.add(n.val);
         if (n.left != null) {
-            findLeftBoundary(n.left, leftBound);
+            getLeftBound(n.left, leftBound);
         } else {
-            findLeftBoundary(n.right, leftBound);
+            getLeftBound(n.right, leftBound);
         }
     }
 
-    private void findRightBoundary(TreeNode n, List<Integer> rightBound) {
+    private void getLeafBound(TreeNode n, List<Integer> leafBound) {
+        if (n == null)
+            return;
+        if (n.left == null && n.right == null) {
+            leafBound.add(n.val);
+            return;
+        }
+        getLeafBound(n.left, leafBound);
+        getLeafBound(n.right, leafBound);
+    }
+
+    private void getRightBound(TreeNode n, List<Integer> rightBound) {
         if (n == null) {
             return;
         }
 
-        if (n.left == null && n.right == null) {
+        if (n.left == null && n.right == null)
             return;
-        }
 
         rightBound.add(0, n.val);
         if (n.right != null) {
-            findRightBoundary(n.right, rightBound);
+            getRightBound(n.right, rightBound);
         } else {
-            findRightBoundary(n.left, rightBound);
+            getRightBound(n.left, rightBound);
         }
     }
 
