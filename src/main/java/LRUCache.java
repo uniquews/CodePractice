@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 
 /**
  * Created by shuaiwang on 10/24/16.
@@ -94,41 +95,119 @@ import java.util.LinkedHashSet;
 
 
     //做完LFU之后，想用LinededHashSet实现一遍
+//public class LRUCache {
+//
+//    private HashMap<Integer, Integer> values;
+//    private LinkedHashSet<Integer> linkedHashSet;
+//    private int size;
+//    public LRUCache(int capacity) {
+//        size = capacity;
+//        values = new HashMap<>(size);
+//        linkedHashSet = new LinkedHashSet<>();
+//    }
+//
+//    public int get(int key) {
+//        if (!values.containsKey(key)) {
+//            return -1;
+//        }
+//
+//        linkedHashSet.remove(key);
+//        linkedHashSet.add(key);
+//        return values.get(key);
+//    }
+//
+//    public void put(int key, int value) {
+//        if (values.containsKey(key)) {
+//            values.put(key, value);
+//            get(key);
+//            return;
+//        }
+//
+//        if (values.size() == size) {
+//            int leastRecentUsedKey = linkedHashSet.iterator().next();
+//            values.remove(leastRecentUsedKey);
+//            linkedHashSet.remove(leastRecentUsedKey);
+//        }
+//
+//        values.put(key, value);
+//        linkedHashSet.add(key);
+//    }
+
+
 public class LRUCache {
 
-    private HashMap<Integer, Integer> values;
-    private LinkedHashSet<Integer> linkedHashSet;
-    private int size;
+
+    class Node {
+        public int key;
+        public int val;
+        public Node prev;
+        public Node next;
+        public Node(int k, int v) {
+            key = k;
+            val = v;
+        }
+    }
+
+    public Node head;
+    public Node tail;
+    public Map<Integer, Node> map;
+    public int size;
     public LRUCache(int capacity) {
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+        map = new HashMap<>();
         size = capacity;
-        values = new HashMap<>(size);
-        linkedHashSet = new LinkedHashSet<>();
     }
 
     public int get(int key) {
-        if (!values.containsKey(key)) {
+        if (!map.containsKey(key))
             return -1;
-        }
+        Node current = map.get(key);
+        int result = current.val;
+        current.prev.next = current.next;
+        current.next.prev = current.prev;
 
-        linkedHashSet.remove(key);
-        linkedHashSet.add(key);
-        return values.get(key);
+        current.next = null;
+        current.prev = null;
+
+        moveToTail(current);
+        return result;
+    }
+
+    private void moveToTail(Node current) {
+        current.prev = tail.prev;
+        current.next = tail;
+        tail.prev = current;
+        current.prev.next = current;
     }
 
     public void put(int key, int value) {
-        if (values.containsKey(key)) {
-            values.put(key, value);
+        if (map.containsKey(key)) {
+            map.get(key).val = value;
             get(key);
             return;
         }
 
-        if (values.size() == size) {
-            int leastRecentUsedKey = linkedHashSet.iterator().next();
-            values.remove(leastRecentUsedKey);
-            linkedHashSet.remove(leastRecentUsedKey);
-        }
+        if (map.keySet().size() == size) {
+            Node out = head.next;
+            head.next = out.next;
+            out.next.prev = out.prev;
+            out.next = null;
+            out.prev = null;
 
-        values.put(key, value);
-        linkedHashSet.add(key);
+            map.remove(out.key);
+        }
+        Node n = new Node(key, value);
+        map.put(key, n);
+        moveToTail(n);
     }
 }
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
