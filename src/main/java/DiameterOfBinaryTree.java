@@ -4,45 +4,21 @@ import utils.TreeNode;
  * Created by shuaiwang on 5/7/17.
  */
 public class DiameterOfBinaryTree {
-    class ReturnType {
-        public int leftLen;
-        public int rightLen;
-        public int maxLen;
-
-        public ReturnType(int l, int r, int m) {
-            leftLen = l;
-            rightLen = r;
-            maxLen = m;
-        }
-
-    }
+    private int result;
     public int diameterOfBinaryTree(TreeNode root) {
+        helper(root);
+        return result;
+    }
+
+    private int helper(TreeNode root) {
         if (root == null)
             return 0;
-        return dfs(root).maxLen - 1;
-    }
 
-    private ReturnType dfs(TreeNode n) {
-        if (n == null) {
-            return null;
-        }
+        int leftNode = helper(root.left);
+        int rightNode = helper(root.right);
 
-        ReturnType leftNode = dfs(n.left);
-        ReturnType rightNode = dfs(n.right);
-
-        int tmpLeft = 0;
-        int tmpRight = 0;
-
-        if (leftNode != null)
-            tmpLeft = Math.max(leftNode.leftLen, leftNode.rightLen);
-        if (rightNode != null)
-            tmpRight = Math.max(rightNode.leftLen, rightNode.rightLen);
-        ReturnType current = new ReturnType(0,0,0);
-        current.leftLen = tmpLeft + 1;
-        current.rightLen = tmpRight + 1;
-        current.maxLen = Math.max(Math.max(leftNode == null ? 0 : leftNode.maxLen,
-                rightNode == null ? 0 : rightNode.maxLen),
-                tmpLeft + tmpRight + 1);
+        int current = Math.max(leftNode, rightNode) + 1;
+        result = Math.max(result, leftNode + rightNode);
         return current;
     }
 
