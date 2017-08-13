@@ -31,20 +31,17 @@ public class ClosestBinarySearchTreeValueII {
         }
     }
 
-
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
-        BSTIterator iter = new BSTIterator(root);
-        LinkedList<Integer> queue = new LinkedList<>();
-        while (iter.hasNext()) {
-            int current = iter.next();
-            if (queue.isEmpty() || queue.size() < k || (queue.size() == k &&
-                    Math.abs(queue.peek() - target) > Math.abs(current - target))) {
-                if (queue.size() == k) {
-                    queue.poll();
-                }
-                queue.add(current);
+        BSTIterator it = new BSTIterator(root);
+        LinkedList<Integer> q = new LinkedList<>();
+        while (it.hasNext()) {
+            int current = it.next();
+            if (q.isEmpty() || q.size() < k || Math.abs(q.peek() - target) < Math.abs(current - target)) {
+                if (q.size() == k)
+                    q.poll();
+                q.add(current);
             }
         }
-        return queue;
+        return q;
     }
 }

@@ -7,23 +7,26 @@ import java.util.Queue;
  */
 public class HitCounter {
     /** Initialize your data structure here. */
-    private Queue<Integer> list;
+    Queue<Integer> q;
     public HitCounter() {
-        list = new LinkedList<>();
+        q = new LinkedList<>();
     }
 
     /** Record a hit.
      @param timestamp - The current timestamp (in seconds granularity). */
     public void hit(int timestamp) {
-        list.add(timestamp);
+        while (!q.isEmpty() && q.peek() < timestamp - 300) {
+            q.poll();
+        }
+        q.add(timestamp);
     }
 
     /** Return the number of hits in the past 5 minutes.
      @param timestamp - The current timestamp (in seconds granularity). */
     public int getHits(int timestamp) {
-        while(!list.isEmpty() && timestamp - list.peek() >= 300) {
-            list.poll();
+        while (!q.isEmpty() && q.peek() <= timestamp - 300) {
+            q.poll();
         }
-        return list.size();
+        return q.size();
     }
 }

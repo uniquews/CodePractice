@@ -11,26 +11,23 @@ import java.util.Random;
 public class LinkedListRandomNode {
     /** @param head The linked list's head.
     Note that the head is guaranteed to be not null, so it contains at least one node. */
-    private ListNode head;
+    Random rand;
+    ListNode node;
     public LinkedListRandomNode(ListNode head) {
-        this.head = head;
+        node = head;
+        rand = new Random();
     }
 
     /** Returns a random node's value. */
     public int getRandom() {
-        ListNode current = head;
-        int result = current.val;
-        current = current.next;
-        for (int i = 2; current != null; i++) {
-            if (generateRandom(i) == i - 1) {
+        int result = node.val;
+        ListNode current = node;
+        for (int i = 1; current != null; i++) {
+            if (rand.nextInt(i) == i - 1) {
                 result = current.val;
             }
+            current = current.next;
         }
         return result;
-    }
-
-    private int generateRandom(int bound) {
-        Random random = new Random();
-        return random.nextInt(bound);
     }
 }
