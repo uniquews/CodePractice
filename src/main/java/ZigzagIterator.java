@@ -5,31 +5,31 @@ import java.util.*;
  */
 public class ZigzagIterator {
     // Best leetcode solution
-    LinkedList<Iterator<Integer>>  list;
-    public ZigzagIterator(ArrayList<ArrayList<Integer>> vecs) {
-        // initialize your data structure here.
-        list = new LinkedList<>();
-        for (int i = 0; i < vecs.size(); i++) {
-            if (vecs.get(i) != null && vecs.get(i).iterator().hasNext()) {
-                list.add(vecs.get(i).iterator());
-            }
-        }
-    }
-
-    public int next() {
-        // Write your code here
-        Iterator<Integer> current = list.poll();
-        int result = current.next();
-        if (current.hasNext()) {
-            list.add(current);
-        }
-        return result;
-    }
-
-    public boolean hasNext() {
-        // Write your code here
-        return !list.isEmpty();
-    }
+//    LinkedList<Iterator<Integer>>  list;
+//    public ZigzagIterator(ArrayList<ArrayList<Integer>> vecs) {
+//        // initialize your data structure here.
+//        list = new LinkedList<>();
+//        for (int i = 0; i < vecs.size(); i++) {
+//            if (vecs.get(i) != null && vecs.get(i).iterator().hasNext()) {
+//                list.add(vecs.get(i).iterator());
+//            }
+//        }
+//    }
+//
+//    public int next() {
+//        // Write your code here
+//        Iterator<Integer> current = list.poll();
+//        int result = current.next();
+//        if (current.hasNext()) {
+//            list.add(current);
+//        }
+//        return result;
+//    }
+//
+//    public boolean hasNext() {
+//        // Write your code here
+//        return !list.isEmpty();
+//    }
 
 
 //    LinkedList<Iterator> list;
@@ -168,6 +168,36 @@ public class ZigzagIterator {
 //    public boolean hasNext() {
 //        return currentColumn < maxColumn;
 //    }
+
+
+    public List<List<Integer>> list;
+
+    public Queue<Iterator> q;
+    public ZigzagIterator(List<Integer> v1, List<Integer> v2) {
+        list = new ArrayList<>();
+        list.add(v1);
+        list.add(v2);
+
+        q = new LinkedList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) != null && list.get(i).iterator().hasNext()) {
+                q.add(list.get(i).iterator());
+            }
+        }
+    }
+
+    public int next() {
+        Iterator<Integer> iter = q.poll();
+        Integer result = iter.next();
+        if (iter.hasNext()) {
+            q.add(iter);
+        }
+        return result;
+    }
+
+    public boolean hasNext() {
+        return !q.isEmpty();
+    }
 
     public static void main(String[] args) {
         List<Integer> l1 = new ArrayList<>();
