@@ -7,43 +7,48 @@ import java.util.List;
  * Created by shuaiwang on 4/10/17.
  */
 public class Vector2D implements Iterator<Integer> {
-    private Iterator<List<Integer>> i;
-    private Iterator<Integer> j;
+
+    Iterator<List<Integer>> iter1;
+    Iterator<Integer> iter2;
     public Vector2D(List<List<Integer>> vec2d) {
-        // Initialize your data structure here
-        i = vec2d.iterator();
-        j = null;
-        helper();
+        if (vec2d != null && vec2d.size() != 0) {
+            iter1 = vec2d.iterator();
+            helper();
+        }
+    }
+
+    private void helper() {
+        while (iter2 == null && iter1.hasNext()) {
+            List<Integer> i = iter1.next();
+            if (i != null)
+                iter2 = i.iterator();
+        }
     }
 
     @Override
     public Integer next() {
-        // Write your code here
-        return j.next();
+        Integer result = null;
+        if (!iter2.hasNext()) {
+            iter2 = null;
+            helper();
+        }
+
+        if (iter2 != null) {
+            result = iter2.next();
+        }
+        return result;
     }
 
     @Override
     public boolean hasNext() {
-        // Write your code here
-        if (j == null) {
+        if (iter1 == null) {
             return false;
         }
 
-        if (j.hasNext()) {
-            return true;
-        }
-        j = null;
-        helper();
-        if (j == null) return false;
-        return j.hasNext();
-    }
+        if (iter2 == null && !iter1.hasNext())
+            return false;
 
-    private void helper() {
-        while (j == null && i.hasNext()) {
-            List<Integer> l = i.next();
-            if (l != null)
-                j = l.iterator();
-        }
+        return true;
     }
 
     /**
