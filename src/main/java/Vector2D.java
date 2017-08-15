@@ -18,7 +18,7 @@ public class Vector2D implements Iterator<Integer> {
     }
 
     private void helper() {
-        while (iter2 == null && iter1.hasNext()) {
+        while ((iter2 == null || !iter2.hasNext()) && iter1.hasNext()) {
             List<Integer> i = iter1.next();
             if (i != null)
                 iter2 = i.iterator();
@@ -28,7 +28,7 @@ public class Vector2D implements Iterator<Integer> {
     @Override
     public Integer next() {
         Integer result = null;
-        if (!iter2.hasNext()) {
+        if (iter2 == null || !iter2.hasNext()) {
             iter2 = null;
             helper();
         }
@@ -36,6 +36,7 @@ public class Vector2D implements Iterator<Integer> {
         if (iter2 != null) {
             result = iter2.next();
         }
+        helper();
         return result;
     }
 
@@ -45,7 +46,7 @@ public class Vector2D implements Iterator<Integer> {
             return false;
         }
 
-        if (iter2 == null && !iter1.hasNext())
+        if ((iter2 == null || !iter2.hasNext()) && !iter1.hasNext())
             return false;
 
         return true;
@@ -62,8 +63,10 @@ public class Vector2D implements Iterator<Integer> {
     public static void main(String[] args) {
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> l = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
         l.add(1);
         list.add(l);
+        list.add(l2);
         Vector2D v = new Vector2D(list);
         while (v.hasNext()) {
             System.out.println(v.next());
