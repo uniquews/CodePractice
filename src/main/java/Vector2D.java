@@ -29,7 +29,6 @@ public class Vector2D implements Iterator<Integer> {
     public Integer next() {
         Integer result = null;
         if (iter2 == null || !iter2.hasNext()) {
-            iter2 = null;
             helper();
         }
 
