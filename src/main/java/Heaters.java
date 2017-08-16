@@ -21,18 +21,17 @@ public class Heaters {
 
     public int findRadius(int[] houses, int[] heaters) {
         Arrays.sort(heaters);
-        int radius = 0;
-        for (int house : houses) {
-            int index = Arrays.binarySearch(heaters, house); // 第一个大于等于house的index，所以比较距离的时候要和index - 1比
-            if (index < 0) {
-                index = -(index + 1);
+        int result = Integer.MIN_VALUE;
+        for (int i = 0; i < houses.length; i++) {
+            int index = Arrays.binarySearch(heaters, houses[i]);
+            if (index < 0) { // Note that this guarantees that the return value will be >= 0 if and only if the key is found
+                index = (-1) * (index + 1);
             }
-            int dist1 = index == 0 ? Integer.MAX_VALUE : Math.abs(house - heaters[index - 1]);
-            int dist2 = index == heaters.length ? Integer.MAX_VALUE : Math.abs(house - heaters[index]);
-
-            radius = Math.max(radius, Math.min(dist1, dist2)); // 保证最大的radius 是最后的结果，否则覆盖不到
+            int dist1 = index == 0 ? Integer.MAX_VALUE : Math.abs(houses[i] - heaters[index - 1]); //小于我的
+            int dist2 = index == heaters.length ? Integer.MAX_VALUE : Math.abs(houses[i] - heaters[index]); // 大于等于我的
+            result = Math.max(result, Math.min(dist1, dist2));
         }
-        return radius;
+        return result;
     }
 
     public static void main(String[] args) {
