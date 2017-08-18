@@ -11,20 +11,19 @@ public class Pow {
             return 1.0;
         }
 
-        if (n < 0) {
-            double tmp = myPow(x, (-1) * n / 2);
+        if (n > 0) {
+            double current = myPow(x, n / 2);
             if (n % 2 == 0) {
-                return 1 / tmp * tmp;
+                return current * current;
             } else {
-                System.out.println(x * tmp * tmp);
-                return 1 / (x * tmp * tmp);
+                return current * current * x;
             }
         } else {
-            double tmp = myPow(x, n / 2);
+            double current = myPow(x, (-1) * (n / 2)); //易错，一定要写成(-1) * (n / 2) 而不是(-1) * n / 2; 因为当n = Integer.Min 时，(-1) * n 会溢出 而n / 2肯定不会溢出
             if (n % 2 == 0) {
-                return tmp * tmp;
+                return 1 / (current * current);
             } else {
-                return x * tmp * tmp;
+                return 1 / (current * current * x);
             }
         }
     }
