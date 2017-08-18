@@ -9,49 +9,50 @@ import java.util.List;
  * Created by shuaiwang on 3/23/17.
  */
 public class MeetingRoomsII {
-    class Time {
-        public int t;
-        public boolean isStart;
-        public Time(int tt, boolean start) {
-            t = tt;
-            isStart = start;
+    class Node {
+        int t;
+        boolean isLeft;
+        Node(int t, boolean isLeft) {
+            this.t = t;
+            this.isLeft = isLeft;
         }
     }
+
     public int minMeetingRooms(Interval[] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
         }
-        List<Time> list = new ArrayList<>();
-        for (int i = 0; i < intervals.length; i++) {
-            Time startTime = new Time(intervals[i].start, true);
-            Time endTime = new Time(intervals[i].end, false);
-            list.add(startTime);
-            list.add(endTime);
+        List<Node> l = new ArrayList<>();
+        for (Interval i : intervals) {
+            Node left = new Node(i.start, true);
+            Node right = new Node(i.end, false);
+            l.add(left);
+            l.add(right);
         }
 
-        Collections.sort(list, (o1, o2) -> {
+        Collections.sort(l, (o1, o2) -> {
             if (o1.t < o2.t) {
                 return -1;
             } else if (o1.t > o2.t) {
                 return 1;
             } else {
-                if (o1.isStart && !o2.isStart) { //把end time 排在前面
+                if (o1.isLeft && !o2.isLeft) {
                     return 1;
+                } else {
+                    return -1;
                 }
-                return -1; // 剩下的所有情况都可以排成 o1, o2
             }
         });
 
         int result = 0;
-        int currentRoomNumber = 0;
-        for (Time time : list) {
-            if (time.isStart) {
-                currentRoomNumber++;
+        int count = 0;
+        for (int i = 0; i < l.size(); i++) {
+            if (l.get(i).isLeft) {
+                count++;
+            } else {
+                count--;
             }
-            if (!time.isStart) {
-                currentRoomNumber--;
-            }
-            result = Math.max(result ,currentRoomNumber);
+            result = Math.max(result, count);
         }
         return result;
     }
