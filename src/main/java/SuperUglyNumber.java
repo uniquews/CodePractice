@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 4/18/17.
@@ -43,63 +40,85 @@ import java.util.PriorityQueue;
 
 public class SuperUglyNumber {
 
-    class Num {
-        public int value; // 当前value
-        public int index; // 求下一个value，需要用prime * 所对应的上一个ugly number，这个index存的是上一个ugly number的index
-        public int prime; // factor
+//    class Num {
+//        public int value; // 当前value
+//        public int index; // 求下一个value，需要用prime * 所对应的上一个ugly number，这个index存的是上一个ugly number的index
+//        public int prime; // factor
+//
+//        public Num(int v, int i, int p) {
+//            value = v;
+//            index = i;
+//            prime = p;
+//        }
+//    }
+//    public int nthSuperUglyNumber(int n, int[] primes) {
+//        PriorityQueue<Num> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a.value));
+//        for (int i = 0; i < primes.length; i++) {
+//            Num current = new Num(primes[i], 1, primes[i]); // 1 * 2, 1 * 7, 1 * 13, 1 * 19先放进heap，
+//            heap.add(current);
+//        }
+//
+//        List<Integer> ugly = new ArrayList<>();
+//        ugly.add(1);
+//
+//        while (n > 1) {
+//            Num current = heap.peek();
+//            ugly.add(current.value);
+//
+//            while (!heap.isEmpty() && heap.peek().value == current.value) {
+//                Num sameValue = heap.poll();
+//                Num nextForSameValue = new Num(sameValue.prime * ugly.get(sameValue.index), sameValue.index + 1, sameValue.prime);
+//                heap.add(nextForSameValue);
+//            }
+//            n--;
+//        }
+//        return ugly.get(ugly.size() - 1);
+//    }
 
-        public Num(int v, int i, int p) {
-            value = v;
-            index = i;
+    class Node {
+        public int prime;
+        public int index;
+        public int value;
+        public Node(int p, int i, int v) {
             prime = p;
+            index = i;
+            value = v;
         }
     }
     public int nthSuperUglyNumber(int n, int[] primes) {
-        PriorityQueue<Num> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a.value));
+        Queue<Node> heap = new PriorityQueue<>(new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                return o1.value - o2.value;
+            }
+        });
         for (int i = 0; i < primes.length; i++) {
-            Num current = new Num(primes[i], 1, primes[i]); // 1 * 2, 1 * 7, 1 * 13, 1 * 19先放进heap，
-            heap.add(current);
+            Node node = new Node(primes[i], 1, primes[i]);
+            heap.add(node);
         }
 
         List<Integer> ugly = new ArrayList<>();
         ugly.add(1);
+        n--;
 
-        while (n > 1) {
-            Num current = heap.peek();
+        while (n != 0) {
+            Node current = heap.peek();
             ugly.add(current.value);
 
             while (!heap.isEmpty() && heap.peek().value == current.value) {
-                Num sameValue = heap.poll();
-                Num nextForSameValue = new Num(sameValue.prime * ugly.get(sameValue.index), sameValue.index + 1, sameValue.prime);
-                heap.add(nextForSameValue);
+                heap.add(new Node(heap.peek().prime, heap.peek().index + 1, heap.peek().prime * ugly.get(heap.peek().index)));
+                heap.poll();
             }
             n--;
         }
+
         return ugly.get(ugly.size() - 1);
     }
 
-//    public int nthSuperUglyNumber(int n, int[] primes) {
-//        int[] ugly = new int[n];
-//        int[] idx = new int[primes.length];
-//
-//        ugly[0] = 1;
-//        for (int i = 1; i < n; i++) {
-//            //find next
-//            ugly[i] = Integer.MAX_VALUE;
-//            for (int j = 0; j < primes.length; j++)
-//                ugly[i] = Math.min(ugly[i], primes[j] * ugly[idx[j]]);
-//
-//            //slip duplicate
-//            for (int j = 0; j < primes.length; j++) {
-//                while (primes[j] * ugly[idx[j]] <= ugly[i]) idx[j]++;
-//            }
-//        }
-//
-//        return ugly[n - 1];
-//    }
+
 
     public static void main(String[] args) {
-        int n = 5;
+        int n = 7;
         int[] a = {2,3,5};
         SuperUglyNumber test = new SuperUglyNumber();
         System.out.print(test.nthSuperUglyNumber(n, a));
