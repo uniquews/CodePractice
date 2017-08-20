@@ -14,25 +14,26 @@ public class WiggleSortII {
         fillOutDate(nums, tmp);
     }
 
+    // 思路：前半段的大数和后半段的大叔 放到一起，这样前半段的后半的部分（中位数）被放到了最后，
+    // 后半段的前半部分（中位数）放到了最开始；
+    // 如果我们把小的和小的放到一起，即前半段的前半部分和后半段的前半部分，这样中位数部分都会挤在最后，比如{4,5,5,6}
     private void fillOutDate(int[] nums, int[] tmp) {
-        int left = 0;
-        int right = tmp.length - 1;
+        int first = (tmp.length - 1) / 2;
+        int second = tmp.length - 1;
 
-        int lastEvenIndex = (nums.length % 2 == 0) ? (nums.length - 2) : nums.length - 1;
-        int firstOddIndex = 1;
-
-        while (left < right) {
-            nums[lastEvenIndex] = tmp[left];
-            lastEvenIndex -= 2;
-            left++;
-
-            nums[firstOddIndex] = tmp[right];
-            firstOddIndex += 2;
-            right--;
-        }
-
-        if (left == right) {
-            nums[0] = tmp[left];
+        int i = 0, j = 1;
+        while (i < nums.length) {
+            if (j == nums.length) {
+                nums[i] = tmp[first];
+                i++;
+            } else {
+                nums[i] = tmp[first];
+                nums[j] = tmp[second];
+                first--;
+                second--;
+                i += 2;
+                j += 2;
+            }
         }
     }
 
