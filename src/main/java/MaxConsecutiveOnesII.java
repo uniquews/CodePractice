@@ -44,18 +44,33 @@ public class MaxConsecutiveOnesII {
 //    }
 
     //方法三，如果变成data stream，就要从按照index顺序记录0所在的位置
-    public int findMaxConsecutiveOnes(int[] nums) {
-        int k = 1, left = 0, result = 0; // 允许flip 1个0
-        Queue<Integer> zeros = new LinkedList<>();
-        for (int right = 0; right < nums.length; right++) {
-            if (nums[right] == 0) {
-                zeros.add(right);
-            }
+//    public int findMaxConsecutiveOnes(int[] nums) {
+//        int k = 1, left = 0, result = 0; // 允许flip 1个0
+//        Queue<Integer> zeros = new LinkedList<>();
+//        for (int right = 0; right < nums.length; right++) {
+//            if (nums[right] == 0) {
+//                zeros.add(right);
+//            }
+//
+//            if (zeros.size() > k) {
+//                left = zeros.poll() + 1;
+//            }
+//            result = Math.max(result, right - left + 1);
+//        }
+//        return result;
+//    }
 
-            if (zeros.size() > k) {
-                left = zeros.poll() + 1;
+    public int findMaxConsecutiveOnes(int[] nums) {
+        Queue<Integer> q = new LinkedList<>();
+        int left = 0, result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                q.add(i);
             }
-            result = Math.max(result, right - left + 1);
+            if (q.size() > 1) {
+                left = q.poll() + 1;
+            }
+            result = Math.max(result, i - left + 1);
         }
         return result;
     }
