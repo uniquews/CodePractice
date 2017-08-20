@@ -1,48 +1,47 @@
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * Created by shuaiwang on 3/15/17.
  */
 public class MedianFinder {
     /** initialize your data structure here. */
-    PriorityQueue<Integer> smallNumberHeap;
-    PriorityQueue<Integer> largeNumberHeap;
+    Queue<Integer> minHeap;
+    Queue<Integer> maxHeap;
 
     public MedianFinder() {
-        smallNumberHeap = new PriorityQueue<>((o1, o2) -> o2 - o1);
-        largeNumberHeap = new PriorityQueue<>();
+        minHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>((a, b) -> b - a);
     }
 
     public void addNum(int num) {
-        if (smallNumberHeap.size() == 0) {
-            smallNumberHeap.add(num);
-        } else if (num < smallNumberHeap.peek()) {
-            smallNumberHeap.add(num);
-            if (smallNumberHeap.size() == largeNumberHeap.size() + 2) {
-                largeNumberHeap.add(smallNumberHeap.poll());
-            }
-        } else if (!largeNumberHeap.isEmpty() && num > largeNumberHeap.peek()) {
-            largeNumberHeap.add(num);
-            if (largeNumberHeap.size() == smallNumberHeap.size() + 2) {
-                smallNumberHeap.add(largeNumberHeap.poll());
-            }
+        if (minHeap.isEmpty()) {
+            minHeap.add(num);
+            return;
+        }
+
+        if (num >= minHeap.peek()) {
+            minHeap.add(num);
         } else {
-            smallNumberHeap.add(num);
-            if (smallNumberHeap.size() == largeNumberHeap.size() + 2) {
-                largeNumberHeap.add(smallNumberHeap.poll());
-            }
+            maxHeap.add(num);
+        }
+
+        if (minHeap.size() == maxHeap.size() + 2) {
+            maxHeap.add(minHeap.poll());
+        }
+        if (maxHeap.size() == minHeap.size() + 2)  {
+            minHeap.add(maxHeap.poll());
         }
     }
 
+
     public double findMedian() {
-        if (largeNumberHeap.size() == 0) {
-            return smallNumberHeap.peek() * 1.0;
-        }
-        if (smallNumberHeap.size() == largeNumberHeap.size()) {
-            return 1.0 * (smallNumberHeap.peek() + largeNumberHeap.peek()) / 2;
-        } else {
-            return smallNumberHeap.size() > largeNumberHeap.size() ? 1.0 * smallNumberHeap.peek() : 1.0 * largeNumberHeap.peek();
-        }
+        if (minHeap.size() == maxHeap.size()) {
+            return (minHeap.peek() + maxHeap.peek()) / 2.0;
+        } else if (minHeap.size() > maxHeap.size()) {
+            return 1.0 * minHeap.peek();
+        } else
+            return 1.0 * maxHeap.peek();
     }
 }

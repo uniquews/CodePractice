@@ -1,5 +1,6 @@
 import utils.ListNode;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -85,30 +86,51 @@ public class MergekSortedLists {
 //    };
 
     // leetcode
+//    public ListNode mergeKLists(ListNode[] lists) {
+//        // write your code here
+//        if (lists == null || lists.length == 0) {
+//            return null;
+//        }
+//
+//        Queue<ListNode> heap = new PriorityQueue<>(lists.length, (list1, list2) -> list1.val - list2.val);
+//
+//        for (int i = 0; i < lists.length; i++) {
+//            if (lists[i] != null)
+//                heap.add(lists[i]);
+//        }
+//
+//        ListNode dummy = new ListNode(-1);
+//        ListNode p = dummy;
+//
+//        while (!heap.isEmpty()) {
+//            ListNode cur = heap.poll();
+//            p.next = cur;
+//            p = p.next;
+//
+//            if (cur.next != null) {
+//                heap.add(cur.next);
+//            }
+//        }
+//        return dummy.next;
+//    }
     public ListNode mergeKLists(ListNode[] lists) {
-        // write your code here
-        if (lists == null || lists.length == 0) {
+        if (lists == null || lists == null)
             return null;
-        }
-
-        Queue<ListNode> heap = new PriorityQueue<>(lists.length, (list1, list2) -> list1.val - list2.val);
-
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != null)
-                heap.add(lists[i]);
+        Queue<ListNode> q = new PriorityQueue<>((o1, o2) -> o1.val - o2.val);
+        for (ListNode l : lists) {
+            if (l != null)
+                q.add(l);
         }
 
         ListNode dummy = new ListNode(-1);
-        ListNode p = dummy;
-
-        while (!heap.isEmpty()) {
-            ListNode cur = heap.poll();
-            p.next = cur;
-            p = p.next;
-
-            if (cur.next != null) {
-                heap.add(cur.next);
+        ListNode current = dummy;
+        while (!q.isEmpty()) {
+            ListNode n = q.poll();
+            if (n.next != null) {
+                q.add(n.next);
             }
+            current.next = n;
+            current = current.next;
         }
         return dummy.next;
     }

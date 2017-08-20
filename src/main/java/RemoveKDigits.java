@@ -3,12 +3,14 @@
  */
 public class RemoveKDigits {
     public String removeKdigits(String num, int k) {
-        int left = 0;
-        int right = left + 1;
+        if (num == null || num.length() == 0) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder(num);
+        int left = 0, right = left + 1;
         while (k > 0) {
-            while (right < sb.length() && Character.getNumericValue(sb.charAt(left)) <=
-                    Character.getNumericValue(sb.charAt(right))) {
+            while (right < sb.length()
+                    && Character.getNumericValue(sb.charAt(left)) <= Character.getNumericValue(sb.charAt(right))) {
                 left++;
                 right++;
             }
@@ -19,9 +21,8 @@ public class RemoveKDigits {
             }
             k--;
         }
-
         int start = 0;
-        while (start < sb.length() && sb.charAt(start) == '0') {
+        while (sb.length() > 0 && sb.charAt(start) == '0') {
             sb.deleteCharAt(start);
         }
         if (sb.length() == 0) {

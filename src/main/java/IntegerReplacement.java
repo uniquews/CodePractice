@@ -12,19 +12,27 @@
  */
 
 public class IntegerReplacement {
+
+    /**
+     * 必须要用无符号移位，因为无符号移位在高位会fill zero  而有符号的移位，对于负数会fill 1，因为1是符号位
+     * Integer.MIN 向右无符号移位31次是1  向右有符号移位是-1  这样 （n>>>1） & 1 永远是1，n--
+     *
+     * */
     public int integerReplacement(int n) {
-        int times = 0;
-        long num = n;
-        while (num > 1) {
-            if (num % 2 == 0) {
-                num = num / 2;
-            } else if ((num + 1) % 4 == 0 && num != 3){
-                num++;
+        int count = 0;
+        while (n != 1) {
+            if ((n & 1) == 0) {
+                n >>>= 1; // 不能用n/2 因为 除法是有符号移位
+                count++;
             } else {
-                num--;
+                if (n == 3 || ((n >>> 1) & 1) == 0) { // n>>>1 倒数第二位
+                    n--;
+                } else {
+                    n++;
+                }
+                count++;
             }
-            times++;
         }
-        return times;
+        return count;
     }
 }

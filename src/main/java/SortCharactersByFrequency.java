@@ -45,34 +45,69 @@ public class SortCharactersByFrequency {
 //        return sb.toString();
 //    }
 
+//    public String frequencySort(String s) {
+//        Map<Character, Integer> hashMap = new HashMap<>();
+//        List<Character>[] occur = new List[s.length() + 1];
+//
+//        for (int i = 0; i < s.length(); i++) {
+//            int value = hashMap.getOrDefault(s.charAt(i), 0);
+//            hashMap.put(s.charAt(i), value + 1);
+//        }
+//
+//        for (int i = 0; i < occur.length; i++) {
+//            List l = new ArrayList();
+//            occur[i] = l;
+//        }
+//
+//        for (Character key : hashMap.keySet()) {
+//            occur[hashMap.get(key)].add(key);
+//        }
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        for (int i = occur.length - 1; i >= 0; i--) {
+//            for (Character c : occur[i]) {
+//                int tmp = i;
+//                while (tmp != 0) {
+//                    sb.append(c);
+//                    tmp--;
+//                }
+//
+//            }
+//        }
+//        return sb.toString();
+//    }
+
     public String frequencySort(String s) {
+        if (s == null)
+            return "";
+
         Map<Character, Integer> hashMap = new HashMap<>();
         List<Character>[] occur = new List[s.length() + 1];
 
         for (int i = 0; i < s.length(); i++) {
-            int value = hashMap.getOrDefault(s.charAt(i), 0);
-            hashMap.put(s.charAt(i), value + 1);
+            int t = hashMap.getOrDefault(s.charAt(i), 0);
+            hashMap.put(s.charAt(i), t + 1);
         }
 
-        for (int i = 0; i < occur.length; i++) {
-            List l = new ArrayList();
-            occur[i] = l;
-        }
-
-        for (Character key : hashMap.keySet()) {
-            occur[hashMap.get(key)].add(key);
+        for (char c : hashMap.keySet()) {
+            if (occur[hashMap.get(c)] == null) {
+                occur[hashMap.get(c)] = new ArrayList<>();
+            }
+            occur[hashMap.get(c)].add(c);
         }
 
         StringBuilder sb = new StringBuilder();
-
-        for (int i = occur.length - 1; i >= 0; i--) {
-            for (Character c : occur[i]) {
-                int tmp = i;
-                while (tmp != 0) {
-                    sb.append(c);
-                    tmp--;
+        for (int i = s.length(); i >= 1; i--) {
+            if (occur[i] != null) {
+                List<Character> l = occur[i];
+                for (Character c : l) {
+                    int times = i;
+                    while (times != 0) {
+                        sb.append(c);
+                        times--;
+                    }
                 }
-
             }
         }
         return sb.toString();

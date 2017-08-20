@@ -22,4 +22,10 @@ public class MaximumSubarrayNoLargerThanK {
 
         return result;
     }
+
+    public static void main(String[] args) {
+        int[] nums = {2,2,-1};
+        MaximumSubarrayNoLargerThanK test = new MaximumSubarrayNoLargerThanK();
+        test.maxSubarrayNoLargerThanK(nums, 0);
+    }
 }
