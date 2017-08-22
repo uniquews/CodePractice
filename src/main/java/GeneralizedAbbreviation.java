@@ -50,48 +50,47 @@ public class GeneralizedAbbreviation {
 //    return sb.toString();
 //  }
 
-  public List<String> generateAbbreviations(String word) {
-    List<String> result = new ArrayList<>();
-    result.add(word);
-    helper(result, word, 0);
-    List<String> strs = new ArrayList<>();
-    for (int i = 0; i < result.size(); i++) {
-      strs.add(convert(result.get(i)));
-    }
-    return strs;
-  }
-
-  private void helper(List<String> result, String word, int index) {
-    if (index == word.length()) {
-      return;
+    public List<String> generateAbbreviations(String word) {
+      List<String> result = new ArrayList<>();
+      result.add(word);
+      helper(result, word.toCharArray(), 0);
+      List<String> strs = new ArrayList<>();
+      for (int i = 0; i < result.size(); i++) {
+        strs.add(convert(result.get(i)));
+      }
+      return strs;
     }
 
-    char[] tmp = word.toCharArray();
-    for (int i = index; i < tmp.length; i++) {
-      char c = tmp[i];
-      tmp[i] = '1';
-      String next = new String(tmp);
-      result.add(next);
-      helper(result, next, i + 1);
-      tmp[i] = c;
-    }
-  }
+    private void helper(List<String> result, char[] word, int index) {
+      if (index == word.length) {
+        return;
+      }
 
-  private String convert(String s) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < s.length(); i++) {
-      if (Character.isDigit(s.charAt(i))) {
-        int start = i, end = i;
-        while (end < s.length() && Character.isDigit(s.charAt(end))) {
-          end++;
-        }
-        String num = String.valueOf(end - start);
-        sb.append(num);
-        i = end - 1;
-      } else {
-        sb.append(s.charAt(i));
+      for (int i = index; i < word.length; i++) {
+        char c = word[i];
+        word[i] = '1';
+        String next = new String(word);
+        result.add(next);
+        helper(result, word, i + 1);
+        word[i] = c;
       }
     }
-    return sb.toString();
-  }
+
+    private String convert(String s) {
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < s.length(); i++) {
+        if (Character.isDigit(s.charAt(i))) {
+          int start = i, end = i;
+          while (end < s.length() && Character.isDigit(s.charAt(end))) {
+            end++;
+          }
+          String num = String.valueOf(end - start);
+          sb.append(num);
+          i = end - 1;
+        } else {
+          sb.append(s.charAt(i));
+        }
+      }
+      return sb.toString();
+    }
 }
