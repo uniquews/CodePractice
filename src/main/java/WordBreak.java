@@ -29,35 +29,35 @@ public class WordBreak {
 //    }
 
     public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> dict = new HashSet<>();
-
-        for (String str : wordDict) {
-            dict.add(str);
+        if (s == null || s.length() == 0 || wordDict.size() == 0) {
+            return false;
         }
 
-        boolean [][] f = new boolean[s.length()][s.length()];
+        int maxLength = 0;
+        for (String str : wordDict) {
+            maxLength = Math.max(maxLength, str.length());
+        }
+
+        boolean[][] f = new boolean[s.length()][s.length()];
         for (int i = 1; i <= s.length(); i++) {
             for (int j = 0; j <= s.length() - i; j++) {
-                String cur = s.substring(j, j + i);
-                if (dict.contains(cur)) {
+                String current = s.substring(j, j + i);
+                if (wordDict.contains(current)) {
                     f[j][j + i - 1] = true;
+                    continue;
                 }
+
                 if (i >= 2) {
                     for (int k = 1; k < i; k++) {
-                        f[j][i - 1] = f[j][i - 1] || (f[j][k - 1] && f[k][j + i - 1]);
+                        if (f[j][j + k - 1] && f[j + k][j + i - 1]) {
+                            f[j][j + i - 1] = true;
+                            break;
+                        }
                     }
                 }
             }
         }
         return f[0][s.length() - 1];
-    }
-
-    private int getMaxLength(Set<String> dict) {
-        int maxLength = 0;
-        for (String word : dict) {
-            maxLength = Math.max(maxLength, word.length());
-        }
-        return maxLength;
     }
 
     public static void main(String[] args) {
