@@ -67,7 +67,6 @@ public class WordBreakII {
             if (dict.contains(current)) {
                 String next = s.substring(i);
                 List<String> allCuts = helper(next, dict, map);
-                map.put(next, allCuts);
 
                 for (String str : allCuts) {
                     if (!str.equals(""))
@@ -77,9 +76,8 @@ public class WordBreakII {
                 }
             }
         }
-        if (result.size() != 0) {
-            map.put(s, result);
-        }
+
+        map.put(s, result);
         return result;
     }
 
@@ -88,11 +86,11 @@ public class WordBreakII {
 //        String input = "lintcode";
 //        List<String> s = new ArrayList<>(Arrays.asList("de", "ding", "co", "code", "lint"));
 
-        String input = "aaab";
-        List<String> s = new ArrayList<>(Arrays.asList("b", "aa"));
+//        String input = "aaab";
+//        List<String> s = new ArrayList<>(Arrays.asList("b", "aa"));
 
-//        String input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-//        Set<String> s = new HashSet<>(Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"));
+        String input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        List<String> s = new ArrayList<>(Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"));
 
         List<String> result = test.wordBreak(input, s);
         System.out.print(result);
