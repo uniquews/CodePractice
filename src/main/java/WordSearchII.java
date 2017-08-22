@@ -31,10 +31,8 @@ public class WordSearchII {
                     current.children[word.charAt(i) - 'a'] = next;
                 }
                 current = current.children[word.charAt(i) - 'a'];
-                if (i == word.length() - 1) {
-                    current.hasWord = true;
-                }
             }
+            current.hasWord = true;
         }
 
     }
@@ -51,23 +49,26 @@ public class WordSearchII {
             trie.add(s);
         }
 
+
+        StringBuilder sb = new StringBuilder();
+        boolean[][] visited = new boolean[board.length][board[0].length];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                StringBuilder sb = new StringBuilder();
-                boolean[][] visited = new boolean[board.length][board[0].length];
-                helper(board, sb, i, j, visited, result, trie.root.children[board[i][j] - 'a']);
+                helper(board, sb, i, j, visited, result, trie.root);
             }
         }
         return result;
     }
 
     private void helper(char[][] board, StringBuilder sb, int r, int c, boolean[][] visited, List<String> result, TrieNode current) {
-        if (current == null || visited[r][c]) {
+        if (r < 0 || r == board.length || c < 0 || c == board[0].length || visited[r][c]
+                || current.children[board[r][c] - 'a'] == null) {
             return;
         }
 
         sb.append(board[r][c]);
         visited[r][c] = true;
+        current = current.children[board[r][c] - 'a'];
 
         if (current.hasWord) {
             result.add(sb.toString());
@@ -77,8 +78,7 @@ public class WordSearchII {
         int[] dx = {0,0,-1,1};
         int[] dy = {-1, 1, 0, 0};
         for (int i = 0; i < dx.length; i++) {
-            if (r + dx[i] >= 0 && r + dx[i] < board.length && c + dy[i] >= 0 && c + dy[i] < board[0].length)
-                helper(board, sb, r + dx[i], c + dy[i], visited, result, current.children[board[r + dx[i]][c + dy[i]] - 'a']);
+            helper(board, sb, r + dx[i], c + dy[i], visited, result, current);
         }
         sb.deleteCharAt(sb.length() - 1);
         visited[r][c] = false;
