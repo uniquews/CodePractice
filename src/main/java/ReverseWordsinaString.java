@@ -39,26 +39,30 @@ public class ReverseWordsinaString {
      * 3  最基本的split数组就是当limit = 0的时候，此时会trim掉结尾所有的""
      *
      * */
+
     public String reverseWords(String s) {
-        // write your code
-        String[] array = s.split(" ");
+        if (s == null || s.length() == 0)
+            return s;
+
         StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == "") {
-                sb.append(array[i]).append(" ");
-            }
+        String[] str = s.split(" ");
+        for (int i = str.length - 1; i >= 0; i--) {
+            if (!str[i].equals(""))
+                sb.append(str[i]).append(" ");
         }
-
-        return sb.length() == 0 ? "" : sb.substring(0, sb.length() - 1).toString();
+        if (sb.length() != 0)
+            sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 
     public static void main(String[] args) {
-        String a = "booof";
-        String[] tmp = a.split("o");
-        for (int i = 0; i < tmp.length; i++) {
-            System.out.println(tmp[i]);
-        }
+        String a = " 1";
+//        String[] tmp = a.split("o");
+//        for (int i = 0; i < tmp.length; i++) {
+//            System.out.println(tmp[i]);
+//        }
+        ReverseWordsinaString test = new ReverseWordsinaString();
+        test.reverseWords(a);
 
     }
 }
