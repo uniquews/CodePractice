@@ -49,15 +49,9 @@ public class LongestSubstringwithAtMostKDistinctCharacters {
             }
 
             result = Math.max(result, right - left);
-            if (right < s.length()) {
-                while (map.size() == k) {
-                    map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
-                    if (map.get(s.charAt(left)) == 0) {
-                        map.remove(s.charAt(left));
-                        break;
-                    }
-                    left++;
-                }
+            map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
+            if (map.get(s.charAt(left)) == 0) {
+                map.remove(s.charAt(left));
             }
         }
         return result;
