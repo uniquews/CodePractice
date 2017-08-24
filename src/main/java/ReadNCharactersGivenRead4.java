@@ -52,4 +52,26 @@ public class ReadNCharactersGivenRead4 {
         }
         return numOfCharReadFromFile;
     }
+
+
+    // 模仿2的写法
+//    private char[] buff = new char[4];
+//    public int read(char[] buf, int n) {
+//        if (n == 0)
+//            return 0;
+//        int current = 0;
+//        int numOfCharReadFromFile = 0;
+//        int actualRead = 0;
+//        while (numOfCharReadFromFile < n) {
+//            current = read4(buff);
+//            if (current == 0)
+//                break;
+//
+//            while (numOfCharReadFromFile < n && actualRead < current) {
+//                buf[numOfCharReadFromFile++] = buff[actualRead++];
+//            }
+//            actualRead = 0;
+//        }
+//        return numOfCharReadFromFile;
+//    }
 }
