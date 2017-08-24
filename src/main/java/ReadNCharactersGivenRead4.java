@@ -9,26 +9,47 @@ public class ReadNCharactersGivenRead4 {
     }
 
 
-    private int currentRead = 0;
-    private char[] bufferFor4 = new char[4];
-    private boolean endOfFile = false;
+//    private int currentRead = 0;
+//    private char[] bufferFor4 = new char[4];
+//    private boolean endOfFile = false;
+//
+//    public int read(char[] buf, int n) {
+//        while (currentRead < n) {
+//            int readAtOneTime = read4(bufferFor4);
+//            if (readAtOneTime < 4) {
+//                endOfFile = true;
+//            }
+//
+//            int len = Math.min(readAtOneTime, n - currentRead);
+//            for (int i = 0; i < len; i++) {
+//                buf[currentRead + i] = bufferFor4[i];
+//            }
+//            currentRead += len;
+//            if (endOfFile)
+//                break;
+//
+//        }
+//        return currentRead;
+//    }
 
+    private char[] buff = new char[4];
+    private int numOfCharReadFromFile = 0;
     public int read(char[] buf, int n) {
-        while (currentRead < n) {
-            int readAtOneTime = read4(bufferFor4);
-            if (readAtOneTime < 4) {
-                endOfFile = true;
-            }
-
-            int len = Math.min(readAtOneTime, n - currentRead);
+        if (n == 0)
+            return 0;
+        int current = 0;
+        while (numOfCharReadFromFile < n) {
+            current = read4(buff);
+            int len = Math.min(current, n - numOfCharReadFromFile);
             for (int i = 0; i < len; i++) {
-                buf[currentRead + i] = bufferFor4[i];
+                buf[numOfCharReadFromFile + i] = buff[i];
             }
-            currentRead += len;
-            if (endOfFile)
-                break;
 
+            numOfCharReadFromFile += len; // 容易错
+
+            if (current < 4)
+                break;
         }
-        return currentRead;
+        return numOfCharReadFromFile;
     }
 }
