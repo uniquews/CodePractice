@@ -6,7 +6,7 @@ public class RegularExpressionMatching {
     /*
     *
     * 1.if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
-      2.if p.charAt(i-1) == s.charAt(i) or p.charAt(i-1) == '.':
+      2.if p.charAt(j-1) == s.charAt(i) or p.charAt(i-1) == '.':
                               dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a
                            or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
                            or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
@@ -41,6 +41,10 @@ public class RegularExpressionMatching {
                     if (j >= 2) {
                         f[i][j] = f[i][j] || f[i][j - 2];
                         if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.') {
+                            // s = ab p = d* inorder to let i-1 match j, you have to make sure
+                            // that s.char(i - 1) == p.charAt(j-2) Otherwise in this case,
+                            // we will let a match d*, which gets true without checking if a == b
+                            // however ad* should match d*
                             f[i][j] = f[i][j] || f[i - 1][j];
                         }
                     }
@@ -52,8 +56,8 @@ public class RegularExpressionMatching {
     }
 
     public static void main(String[] args) {
-        String s = "aa";
-        String p = ".*";
+        String s = "abcd";
+        String p = "d*";
         RegularExpressionMatching test = new RegularExpressionMatching();
         test.isMatch(s, p);
     }
