@@ -114,8 +114,8 @@ public class RearrangeStringKDistanceApart {
     }
 
     public static void main(String[] args) {
-        String s = "aaa";
+        String s = "bbba";
         RearrangeStringKDistanceApart test = new RearrangeStringKDistanceApart();
-        test.rearrangeString(s, 1);
+        test.rearrangeString(s, 3);
     }
 }
