@@ -7,31 +7,22 @@ import java.util.List;
 public class GenerateParentheses {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        helper(result, sb, n, 0, 0);
+        dfs(n, 0, 0, "", result);
         return result;
     }
 
-    private void helper(List<String> result, StringBuilder sb, int n, int left, int right) {
-        if (left > n) {
-            return;
-        }
-
-        if (right == left && right == n) {
-            result.add(sb.toString());
+    private void dfs(int n, int left, int right, String s, List<String> result) {
+        if (left == n && right == n) {
+            result.add(s);
             return;
         }
 
         if (left < n) {
-            sb.append("(");
-            helper(result, sb, n, left + 1, right);
-            sb.deleteCharAt(sb.length() - 1);
+            dfs(n, left + 1, right, s + "(", result);
         }
 
         if (right < left) {
-            sb.append(")");
-            helper(result, sb, n, left, right + 1);
-            sb.deleteCharAt(sb.length() - 1);
+            dfs(n, left, right + 1, s + ")", result);
         }
     }
 }
