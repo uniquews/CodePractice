@@ -18,7 +18,7 @@ public class WildcardMatching {
                 if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '?') {
                     f[i][j] = f[i - 1][j - 1];
                 } else if (p.charAt(j - 1) == '*') {
-                    f[i][j] = f[i - 1][j - 1] || f[i - 1][j] || f[i][j - 1];
+                    f[i][j] = f[i - 1][j] || f[i][j - 1]; // (i-1,j): s=aaaa p=a*   (i, j- 1): s=a p=a*
                 }
             }
         }
