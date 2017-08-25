@@ -48,36 +48,67 @@ public class ShortestPalindrome {
 //        return next;
 //    }
 
+//    public String shortestPalindrome(String s) {
+//        String tmp = s + "#" + new StringBuilder(s).reverse().toString();
+//        int[] next = kmp2(tmp);
+//        StringBuilder result = new StringBuilder(s);
+//        String nonPalindormePart = new StringBuilder(s.substring(next[tmp.length() - 1])).reverse().toString();
+//        return result.insert(0, nonPalindormePart).toString();
+//    }
+//
+//    private int[] kmp2(String s) {
+//        int[] next = new int[s.length()];
+//        int k = -1, j = 0;
+//        while (j < s.length()) {
+//            if (k == -1 || s.charAt(j) == s.charAt(k)) {
+//                k++;
+//                next[j] = k;
+//                j++;
+//            } else {
+//                if (k == 0)
+//                    k = -1;
+//                else
+//                    k = next[k - 1];
+//            }
+//        }
+//        return next;
+//    }
+
     public String shortestPalindrome(String s) {
-        String tmp = s + "#" + new StringBuilder(s).reverse().toString();
-        int[] next = kmp2(tmp);
-        StringBuilder result = new StringBuilder(s);
-        String nonPalindormePart = new StringBuilder(s.substring(next[tmp.length() - 1])).reverse().toString();
-        return result.insert(0, nonPalindormePart).toString();
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder(s);
+        sb.append("#").append(new StringBuilder(s).reverse().toString());
+        String tmp = sb.toString();
+        int[] next = new int[tmp.length()];
+        kmp(next, tmp);
+        return new StringBuilder(s.substring(next[tmp.length() - 1])).reverse().toString() + s;
     }
 
-    private int[] kmp2(String s) {
-        int[] next = new int[s.length()];
+    private void kmp(int[] next, String s) {
         int k = -1, j = 0;
         while (j < s.length()) {
-            if (k == -1 || s.charAt(j) == s.charAt(k)) {
+            if (k == -1 || s.charAt(k) == s.charAt(j)) {
                 k++;
                 next[j] = k;
                 j++;
             } else {
-                if (k == 0)
+                if (k == 0) {
                     k = -1;
-                else
+                } else {
                     k = next[k - 1];
+                }
             }
         }
-        return next;
     }
 
     public static void main(String[] args) {
-        String a = "aabaaa";
+//        String a = "aabaaa";
 //        String a = "abcd";
 //        String a = "abcb";
-        new ShortestPalindrome().shortestPalindrome(a);
+        String a = "aacecaaa";
+        ShortestPalindrome test = new ShortestPalindrome();
+        test.shortestPalindrome(a);
     }
 }

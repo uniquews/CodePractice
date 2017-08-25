@@ -28,29 +28,49 @@ public class RepeatedSubstringPattern {
 //    }
 
 
+//    public boolean repeatedSubstringPattern(String s) {
+//        if (s.length() == 1)
+//            return false;
+//        int[] next = new int[s.length()];
+//        int k = -1, j = 0;
+//        while (j < s.length()) {
+//            if (k == -1 || s.charAt(j) == s.charAt(k)) {
+//                k++;
+//                next[j] = k;
+//                j++;
+//            } else {
+//                if (k == 0)
+//                    k = -1;
+//                else
+//                    k = next[k - 1];
+//            }
+//        }
+//        if (next[s.length() - 1] < s.length() / 2) {
+//            return false;
+//        }
+//        int patternLen = s.length() - next[s.length() - 1];
+//        return next[s.length() - 1] % patternLen == 0;
+//    }
+
     public boolean repeatedSubstringPattern(String s) {
-        if (s.length() == 1)
+        if (s == null || s.length() == 0)
             return false;
-        int[] next = new int[s.length()];
-        int k = -1, j = 0;
-        while (j < s.length()) {
-            if (k == -1 || s.charAt(j) == s.charAt(k)) {
-                k++;
-                next[j] = k;
-                j++;
-            } else {
-                if (k == 0)
-                    k = -1;
-                else
-                    k = next[k - 1];
+        for (int len = s.length() / 2; len >= 1; len--) {
+            if (s.length() % len == 0) {
+                int size = s.length() / len;
+                String pattern = s.substring(0, len);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < size; i++) {
+                    sb.append(pattern);
+                }
+                if (sb.toString().equals(s))
+                    return true;
             }
+
         }
-        if (next[s.length() - 1] < s.length() / 2) {
-            return false;
-        }
-        int patternLen = s.length() - next[s.length() - 1];
-        return next[s.length() - 1] % patternLen == 0;
+        return false;
     }
+
     public static void main(String[] args) {
         String s = "abaababaab";
         RepeatedSubstringPattern test = new RepeatedSubstringPattern();
