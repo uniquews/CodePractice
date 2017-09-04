@@ -10,7 +10,7 @@ public class FindtheCelebrity {
                     continue;
                 }
 
-                if (knows(i, j) || !knows(j, i)) { // 如果i认识别人，或者有个人j不是人i,那i肯定不是
+                if (knows(i, j) || !knows(j, i)) {
                     break;
                 }
             }
@@ -23,15 +23,18 @@ public class FindtheCelebrity {
 
     // O(n) solution
 //    public int findCelebrity(int n) {
-//        int candidate = 0;
-//        for(int i = 1; i < n; i++){
-//            if(knows(candidate, i))
-//                candidate = i;
+//        int result = 0;
+//        for (int i = 0; i < n; i++) {
+//            if (i != result && knows(result, i)) {
+//                result = i;
+//            }
 //        }
-//        for(int i = 0; i < n; i++){
-//            if(i != candidate && (knows(candidate, i) || !knows(i, candidate))) return -1;
+//
+//        for (int i = 0; i < n; i++) {
+//            if (i != result && (knows(result, i) || !knows(i, result)))
+//                return -1;
 //        }
-//        return candidate;
+//        return result;
 //    }
 
     boolean knows(int a, int b) {
