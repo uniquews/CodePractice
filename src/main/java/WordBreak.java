@@ -29,35 +29,24 @@ public class WordBreak {
 //    }
 
     public boolean wordBreak(String s, List<String> wordDict) {
-        if (s == null || s.length() == 0 || wordDict.size() == 0) {
-            return false;
-        }
+        boolean[] f = new boolean[s.length() + 1];
 
-        int maxLength = 0;
+        Set<String> set = new HashSet<>();
         for (String str : wordDict) {
-            maxLength = Math.max(maxLength, str.length());
+            set.add(str);
         }
 
-        boolean[][] f = new boolean[s.length()][s.length()];
+        f[0] = true;
         for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j <= s.length() - i; j++) {
-                String current = s.substring(j, j + i);
-                if (wordDict.contains(current)) {
-                    f[j][j + i - 1] = true;
-                    continue;
-                }
-
-                if (i >= 2) {
-                    for (int k = 1; k < i; k++) {
-                        if (f[j][j + k - 1] && f[j + k][j + i - 1]) {
-                            f[j][j + i - 1] = true;
-                            break;
-                        }
-                    }
+            for (int j = i; j >= 1; j--) {
+                String str = s.substring(j - 1, i);
+                if (set.contains(str) && f[j - 1]) {
+                    f[i] = true;
+                    break;
                 }
             }
         }
-        return f[0][s.length() - 1];
+        return f[s.length()];
     }
 
     public static void main(String[] args) {
