@@ -93,34 +93,69 @@ public class NestedIterator implements Iterator<Integer> {
 
 
 
-    Stack<NestedInteger> stk;
-    Integer current;
+//    Stack<NestedInteger> stk;
+//    Integer current;
+//    public NestedIterator(List<NestedInteger> nestedList) {
+//        stk = new Stack<>();
+//        current = null;
+//        for (int i = nestedList.size() - 1; i >= 0; i--) {
+//            stk.push(nestedList.get(i));
+//        }
+//        helper();
+//    }
+//
+//    private void helper() {
+//        if (stk.isEmpty()) {
+//            current = null;
+//            return;
+//        }
+//
+//        while (!stk.isEmpty() && !stk.peek().isInteger()) {
+//            List<NestedInteger> l = stk.pop().getList();
+//            for (int i = l.size() - 1; i >= 0; i--) {
+//                stk.push(l.get(i));
+//            }
+//        }
+//
+//        if (!stk.isEmpty())
+//            current = stk.pop().getInteger();
+//        else
+//            current = null;
+//    }
+//
+//    @Override
+//    public Integer next() {
+//        Integer result = current;
+//        helper();
+//        return result;
+//    }
+//
+//    @Override
+//    public boolean hasNext() {
+//        return !stk.isEmpty() || current != null;
+//    }
+
+    Stack<NestedInteger> stk = new Stack<>();
+    Integer current = null;
     public NestedIterator(List<NestedInteger> nestedList) {
-        stk = new Stack<>();
-        current = null;
-        for (int i = nestedList.size() - 1; i >= 0; i--) {
+        for (int i =  nestedList.size() - 1; i >= 0; i--) {
             stk.push(nestedList.get(i));
         }
         helper();
     }
 
     private void helper() {
-        if (stk.isEmpty()) {
-            current = null;
-            return;
-        }
-
         while (!stk.isEmpty() && !stk.peek().isInteger()) {
             List<NestedInteger> l = stk.pop().getList();
             for (int i = l.size() - 1; i >= 0; i--) {
                 stk.push(l.get(i));
             }
         }
-
-        if (!stk.isEmpty())
-            current = stk.pop().getInteger();
-        else
+        if (stk.isEmpty()) {
             current = null;
+        } else {
+            current = stk.pop().getInteger();
+        }
     }
 
     @Override
