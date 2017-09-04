@@ -6,38 +6,44 @@ import java.util.List;
  */
 public class MissingRanges {
     public List<String> findMissingRanges(int[] nums, int lower, int upper) {
-        List<String> result = new ArrayList<>();
+        List<String> result =  new ArrayList<>();
 
-        int left = lower, current = 0;
-        for (int right = 0; right < nums.length; right++) {
-            current = nums[right];
-            if (left < current) {
-                result.add(buildStr(left, current - 1));
+        long current = lower;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] < current) // [1,1,1] 有重复
+                continue;
+
+            if (nums[i] == current) {
+                current++;
+                continue;
+            } else {
+                if (current == nums[i] - 1) {
+                    String s = String.valueOf(current);
+                    result.add(s);
+                    current = (long)nums[i] + 1;
+                } else {
+                    String s = String.valueOf(current) + "->" + String.valueOf(nums[i] - 1);
+                    result.add(s);
+                    current = (long)nums[i] + 1;
+                }
             }
-            if (current == upper) // corner case: [Integer.MAX_INT]  lower = 0, upper = Integer.MAX_INT
-                return result;
-            left = current + 1;
         }
-
-        result.add(buildStr(left, upper));
+        String s;
+        if (current <= upper) {
+            if (current == upper)
+                s = String.valueOf(current);
+            else
+                s = String.valueOf(current) + "->" + String.valueOf(upper);
+            result.add(s);
+        }
         return result;
-    }
-
-    private String buildStr(int lower, int upper) {
-        StringBuilder sb = new StringBuilder();
-        if (lower == upper) {
-            sb.append(lower);
-        } else {
-            sb.append(lower).append("->").append(upper);
-        }
-        return sb.toString();
     }
 
     public static void main(String[] args) {
         MissingRanges test = new MissingRanges();
-        int[] nums = {Integer.MAX_VALUE};
+        int[] nums = {0,Integer.MAX_VALUE};
         int lower = 0;
-        int upper = 99;
+        int upper = Integer.MAX_VALUE;
         System.out.print(test.findMissingRanges(nums, lower, upper));
     }
 }

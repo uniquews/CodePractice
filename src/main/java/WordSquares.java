@@ -6,128 +6,78 @@ import java.util.List;
  * Created by shuaiwang on 2/26/17.
  */
 public class WordSquares {
-
     class TrieNode {
         public TrieNode[] children = null;
-        public boolean hashWord = false;
-        public String subString;
+        public List<String> startWith = null;
+        public boolean hasWord = false;
 
         public TrieNode() {
             children = new TrieNode[26];
-            subString = new String();
-        }
-
-        public TrieNode(String parent) {
-            children = new TrieNode[26];
-            subString = parent;
+            startWith = new ArrayList<>();
         }
     }
 
     class Trie {
-        public TrieNode root = new TrieNode();
+        public TrieNode root = null;
+        public Trie(String[] words) {
+            root = new TrieNode();
 
-        public void add(String word) {
-            TrieNode current = root;
-            for (int i = 0; i < word.length(); i++) {
-                int ch = word.charAt(i) - 'a';
-                if (current.children[ch] == null) {
-                    TrieNode next = new TrieNode(current.subString);
-                    next.subString = current.subString + word.charAt(i);
-                    current.children[ch] = next;
-                }
-                current = current.children[ch];
-                if (i == word.length() - 1) {
-                    current.hashWord = true;
-                }
-            }
-        }
-
-        public void find(String word, TrieNode current, int index, List<String> list) {
-            if (current.hashWord) {
-                list.add(current.subString);
-                return;
-            }
-
-            if (index >= word.length()) {
-                for (int i = 0; i < current.children.length; i++) {
-                    if (current.children[i] != null) {
-                        find(word, current.children[i], index + 1, list);
+            for (String s : words) {
+                TrieNode current = root;
+                for (int i = 0; i < s.length(); i++) {
+                    if (current.children[s.charAt(i) - 'a'] == null) {
+                        TrieNode next = new TrieNode();
+                        current.children[s.charAt(i) - 'a'] = next;
                     }
+                    current = current.children[s.charAt(i) - 'a'];
+                    current.startWith.add(s);
                 }
-            } else {
-                int ch = word.charAt(index) - 'a';
-                if (current.children[ch] != null) {
-                    find(word, current.children[ch], index + 1, list);
-                }
+                current.hasWord = true;
             }
         }
 
-        public List<String> findStringWithSamePrefix(String prefix) {
-            List<String> list = new ArrayList<>();
-            if (prefix == null || prefix.length() == 0) {
-                return list;
+        public List<String> getStringWithPrefix(String s) {
+            TrieNode current = root;
+            List<String> result = new ArrayList<>();
+            for (int i = 0; i < s.length(); i++) {
+                if (current.children[s.charAt(i) - 'a'] == null) {
+                    return result;
+                }
+                current = current.children[s.charAt(i) - 'a'];
             }
-            find(prefix, root, 0, list);
-            return list;
+            return current.startWith;
         }
     }
-
-    Trie trieTree = new Trie();
-
     public List<List<String>> wordSquares(String[] words) {
         List<List<String>> result = new ArrayList<>();
         List<String> eachResult = new ArrayList<>();
 
-        if (words == null || words.length == 0) {
-            return result;
+        Trie trie = new Trie(words);
+        for (String s : words) {
+            eachResult.add(s);
+            helper(s.length(), result, eachResult, trie);
+            eachResult.remove(eachResult.size() - 1);
         }
-
-        for (int i = 0; i < words.length; i++) {
-            trieTree.add(words[i]);
-        }
-
-        List<String> listOfWords = new ArrayList<>(Arrays.asList(words));
-        dfs(listOfWords, 0, eachResult, result, words[0].length());
-
         return result;
     }
 
-    private void dfs(List<String> words, int index, List<String> eachResult, List<List<String>> result, int len) {
-        if (index == len && validWordSquare(eachResult)) {
+    private void helper(int len, List<List<String>> result, List<String> eachResult, Trie trie) {
+        if (eachResult.size() == len) {
             result.add(new ArrayList<>(eachResult));
             return;
         }
-        for (int i = 0; i < words.size(); i++) {
-            eachResult.add(words.get(i));
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < eachResult.size(); j++) {
-                if (index + 1 < len) {
-                    sb.append(eachResult.get(j).charAt(index + 1));
-                }
-            }
 
-            List<String> wordsWithSamePrefix = trieTree.findStringWithSamePrefix(sb.toString());
-            dfs(wordsWithSamePrefix, index + 1, eachResult, result, len);
+        int size = eachResult.size();
+        StringBuilder sb = new StringBuilder();
+        for (String s : eachResult) {
+            sb.append(s.charAt(size));
+        }
+        List<String> stringWithSamePrefix = trie.getStringWithPrefix(sb.toString());
+        for (String str : stringWithSamePrefix) {
+            eachResult.add(str);
+            helper(len, result, eachResult, trie);
             eachResult.remove(eachResult.size() - 1);
         }
-    }
-
-    private boolean validWordSquare(List<String> words) {
-        for (int i = 0; i < words.size(); i++) {
-            String comp1 = words.get(i);
-            StringBuilder sb = new StringBuilder();
-
-            for (int j = 0; j < words.size(); j++) {
-                if (i < words.get(j).length()) {
-                    sb.append(words.get(j).charAt(i));
-                }
-            }
-
-            if (!comp1.equals(sb.toString())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static void main(String[] args) {

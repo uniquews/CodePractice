@@ -7,46 +7,41 @@ import java.util.Map;
  * Created by shuaiwang on 5/13/17.
  */
 public class IntegertoEnglishWords {
-    private final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+    private static final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
             "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-    private final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty",
+    private static final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty",
             "Seventy", "Eighty", "Ninety"};
-    private final String[] THOUSANDS = {"", "Thousand", "Million", "Billion"};
+    private static final String[] THOUSANDS = {"", "Thousand", "Million", "Billion"};
 
     public String numberToWords(int num) {
-        if (num == 0) {
+        if (num == 0)
             return "Zero";
-        }
-        int i = 0;
-        String word = "";
+        String result = "";
+        int index = 0;
         while (num != 0) {
-            int cur = num % 1000;
-            if (cur != 0) { // 不加这个 1000000 就会变成 "One Million Thousand"
-                word = helper(cur) + THOUSANDS[i] + " " + word;
-            }
+            int current = num % 1000;
+            if (current != 0)
+                result = helper(current).trim() + " " + THOUSANDS[index] + " " + result;
             num /= 1000;
-            i++;
+            index++;
         }
-        return word.trim();
+
+        return result.trim();
     }
 
-    private String helper(int num) {
-        if (num == 0) {
+    private String helper(int current) {
+        if (current == 0)
             return "";
+
+        if (current < 20) {
+            return LESS_THAN_20[current];
         }
 
-        if (num < 20) {
-            return LESS_THAN_20[num] + " ";
+        if (current < 100) {
+            return TENS[current / 10] + " " + LESS_THAN_20[current % 10];
         }
 
-        if (num < 100) {
-            // return TENS[num / 10] + " " + LESS_THAN_20[num % 10] + " "; 不能写成这样
-            // 比如当num = 50 时，上面的写法会返回 Fifty  （跟着两个空格）所以不能这么写的原因是
-            // 当num可以被10整除时，会introduce两个空格
-            return TENS[num / 10] + " " + helper(num % 10);
-        }
-
-        return LESS_THAN_20[num / 100] + " " + "Hundred" + " " + helper(num % 100);
+        return LESS_THAN_20[current / 100] + " Hundred " + helper(current % 100);
     }
 
     public static void main(String[] args) {

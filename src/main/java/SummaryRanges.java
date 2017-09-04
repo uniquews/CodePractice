@@ -24,4 +24,27 @@ public class SummaryRanges {
         }
         return result;
     }
+
+//    public List<String> summaryRanges(int[] nums) {
+//        List<String> result = new ArrayList<>();
+//        if (nums == null || nums.length == 0)
+//            return result;
+//
+//        for (int start = 0; start < nums.length; start++) {
+//            int current = start, right = start + 1;
+//            while (right < nums.length && nums[right] == nums[current] + 1) {
+//                current++;
+//                right++;
+//            }
+//            if (right == start + 1) {
+//                String s = String.valueOf(nums[start]);
+//                result.add(s);
+//            } else {
+//                String s = String.valueOf(nums[start]) + "->" + String.valueOf(nums[right - 1]);
+//                result.add(s);
+//            }
+//            start = right - 1;
+//        }
+//        return result;
+//    }
 }

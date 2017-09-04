@@ -29,25 +29,47 @@ public class EncodeAndDecodeStrings {
 //        return li;
 //    }
 
+//    public String encode(List<String> strs) {
+//        StringBuilder sb = new StringBuilder();
+//        for (String s : strs) {
+//            int size = s.length();
+//            sb.append(size).append("@").append(s);
+//        }
+//        return sb.toString();
+//    }
+//
+//    // Decodes a single string to a list of strings.
+//    public List<String> decode(String s) {
+//        List<String> result = new ArrayList<>();
+//
+//        int i = 0;
+//        while (i < s.length()) {
+//            int at = s.indexOf("@", i);
+//            int size = Integer.valueOf(s.substring(i, at));
+//            String cur = s.substring(at + 1, at + 1 + size);
+//            result.add(cur);
+//            i = at + 1 + size;
+//        }
+//        return result;
+//    }
     public String encode(List<String> strs) {
         StringBuilder sb = new StringBuilder();
         for (String s : strs) {
-            int size = s.length();
-            sb.append(size).append("@").append(s);
+            int len = s.length();
+            sb.append(len).append("@").append(s);
         }
         return sb.toString();
     }
 
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
-        List<String> result = new ArrayList<>();
-
         int i = 0;
+        List<String> result = new ArrayList<>();
         while (i < s.length()) {
             int at = s.indexOf("@", i);
             int size = Integer.valueOf(s.substring(i, at));
-            String cur = s.substring(at + 1, at + 1 + size);
-            result.add(cur);
+            String str = s.substring(at + 1, at + 1 + size);
+            result.add(str);
             i = at + 1 + size;
         }
         return result;

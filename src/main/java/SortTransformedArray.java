@@ -4,153 +4,58 @@ import java.util.Arrays;
  * Created by shuaiwang on 2/1/17.
  */
 public class SortTransformedArray {
-    // naive O(nlogn) way
-//    public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
-//        int[] result = new int[nums.length];
-//
-//        for (int i = 0; i < nums.length; i++) {
-//            result[i] = a * (nums[i]) * nums[i] + b * nums[i] + c;
-//        }
-//        Arrays.sort(result);
-//        return result;
-//    }
-
-    // O(n)
-//    public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
-//        int[] result = new int[nums.length];
-//
-//        if (a == 0) {
-//            if (b > 0) {
-//                for (int i = 0; i < nums.length; i++) {
-//                    result[i] = nums[i] * b + c;
-//                }
-//            } else {
-//                for (int i = 0; i < nums.length; i++) {
-//                    result[i] = nums[nums.length - 1 - i] * b + c;
-//                }
-//            }
-//            return result;
-//        }
-//        double minX = 1.0 * (-1) * b / (2 * a);
-//
-//        // find lower/upper bound
-//        int upperIndex = 0;
-//        int lowerIndex = 0;
-//        while (nums[lowerIndex] < minX) {
-//            lowerIndex++;
-//        }
-//
-//        if (nums[lowerIndex] > minX) {
-//            lowerIndex--;
-//        }
-//        upperIndex = lowerIndex + 1;
-//
-//        int i = 0;
-//        while (lowerIndex >= 0 || upperIndex <= nums.length - 1) {
-//            if (lowerIndex < 0) {
-//                if (a > 0) {
-//                    result[i] = helper(nums[upperIndex], a, b, c);
-//                } else {
-//                    result[nums.length - 1 - i] = helper(nums[upperIndex], a, b, c);
-//                }
-//                upperIndex++;
-//            } else if (upperIndex == nums.length) {
-//                if (a > 0) {
-//                    result[i] = helper(nums[lowerIndex], a, b, c);
-//                } else {
-//                    result[nums.length - 1 - i] = helper(nums[lowerIndex], a, b, c);
-//                }
-//                lowerIndex--;
-//            } else {
-//                if (a > 0) {
-//                    if (Math.abs(1.0 * nums[lowerIndex] - minX) < Math.abs(1.0 * nums[upperIndex] - minX)) {
-//                        result[i] = helper(nums[lowerIndex], a, b, c);
-//                        lowerIndex--;
-//                    } else {
-//                        result[i] = helper(nums[upperIndex], a, b, c);
-//                        upperIndex++;
-//                    }
-//                } else if (a < 0) {
-//                    if (Math.abs(1.0 * nums[lowerIndex] - minX) < Math.abs(1.0 * nums[upperIndex] - minX)) {
-//                        result[nums.length - 1 - i] = helper(nums[lowerIndex], a, b, c);
-//                        lowerIndex--;
-//                    } else {
-//                        result[nums.length - 1 - i] = helper(nums[upperIndex], a, b, c);
-//                        upperIndex++;
-//                    }
-//                }
-//            }
-//            i++;
-//        }
-//        return result;
-//    }
-
     public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
         int[] result = new int[nums.length];
-        int index = a == 0 ? (b > 0 ? 0 : nums.length - 1) : helper(nums, 1.0 * (-1) * b / (2 * a));
+        if (nums == null || nums.length == 0) {
+            return result;
+        }
 
-        if (a >= 0) {
-            int left = index - 1, right = index + 1, i = 0;
-            result[i++] = getValue(nums[index], a, b, c);
-            while (left >= 0 || right < nums.length) {
-                int tmp1 = left >= 0 ? getValue(nums[left], a, b, c) : Integer.MAX_VALUE;
-                int tmp2 = right < nums.length ? getValue(nums[right], a, b, c) : Integer.MAX_VALUE;
-                result[i++] = tmp1 < tmp2 ? tmp1 : tmp2;
-                if (tmp1 < tmp2)
-                    left--;
-                else
-                    right++;
+        if (a == 0) {
+            if (b >= 0) {
+                for (int i = 0; i < result.length; i++) {
+                    result[i] = helper(a, b, c, nums[i]);
+                }
+            } else {
+                int index = result.length - 1;
+                for (int i = 0; i < result.length; i++) {
+                    result[index--] = helper(a, b, c, nums[i]);
+                }
             }
         } else {
-            int left = index - 1, right = index + 1, i = nums.length - 1;
-            result[i--] = getValue(nums[index], a, b, c);
-
-            while (left >= 0 || right < nums.length) {
-                int tmp1 = left >= 0 ? getValue(nums[left], a, b, c) : Integer.MIN_VALUE;
-                int tmp2 = right < nums.length ? getValue(nums[right], a, b, c) : Integer.MIN_VALUE;
-                result[i--] = tmp1 > tmp2 ? tmp1 : tmp2;
-                if (tmp1 > tmp2)
-                    left--;
-                else
-                    right++;
+            if (a > 0) {
+                int left = 0, right = nums.length - 1, index = result.length - 1;
+                while (index >= 0) {
+                    int val1 = helper(a, b, c, nums[left]);
+                    int val2 = helper(a, b, c, nums[right]);
+                    if (val1 <= val2) {
+                        result[index--] = val2;
+                        right--;
+                    } else {
+                        result[index--] = val1;
+                        left++;
+                    }
+                }
+            } else {
+                int left = 0, right = nums.length - 1, index = 0;
+                while (index < nums.length) {
+                    int val1 = helper(a, b, c, nums[left]);
+                    int val2 = helper(a, b, c, nums[right]);
+                    if (val1 <= val2) {
+                        result[index++] = val1;
+                        left++;
+                    } else {
+                        result[index++] = val2;
+                        right--;
+                    }
+                }
             }
         }
         return result;
     }
 
-    private int getValue(int base, int a, int b, int c) {
-        return a * base * base + b * base + c;
+    private int helper(int a, int b, int c, int x) {
+        return x * x * a + b * x + c;
     }
-
-    private int helper(int[] nums, double target) {
-        int start = 0, end = nums.length - 1;
-
-        while (start + 1 < end) {
-            int mid = start + (end - start) / 2;
-            if (nums[mid] == target) {
-                return mid;
-            } else if (nums[mid] < target) {
-                start = mid;
-            } else {
-                end = mid;
-            }
-        }
-
-        if (target < nums[start]) {
-            return start;
-        } else if (target > nums[end]) {
-            return end;
-        } else if (Math.abs(target - nums[start]) < Math.abs(target - nums[end])) {
-            return start;
-        } else {
-            return end;
-        }
-    }
-
-    private int helper(int n, int a, int b, int c) {
-        return a * n * n + b * n + c;
-    }
-
 
 
     public static void main(String[] args) {

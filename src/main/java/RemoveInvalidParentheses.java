@@ -7,33 +7,30 @@ public class RemoveInvalidParentheses {
     public List<String> removeInvalidParentheses(String s) {
         List<String> result = new ArrayList<>();
         Set<String> visited = new HashSet<>();
+        Queue<String> q = new LinkedList<>();
 
-        Queue<String> queue = new LinkedList<>();
-        if (s == null) {
-            return result;
-        }
-
-        boolean foundInLongestLevel = false;
-
-        queue.add(s);
+        q.add(s);
         visited.add(s);
-        while (!queue.isEmpty()) {
-            String cur = queue.poll();
-            if (isValid(cur)) {
-                result.add(cur);
-                foundInLongestLevel = true;
-                continue;
-            }
-
-            if (foundInLongestLevel) continue;
-
-            for (int i = 0; i < cur.length(); i++) {
-                if (cur.charAt(i) != '(' && cur.charAt(i) != ')') continue;
-                String next = cur.substring(0, i) + cur.substring(i + 1);
-                if (!visited.contains(next)) {
-                    visited.add(next);
-                    queue.add(next);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            boolean found = false;
+            while (size > 0) {
+                String current = q.poll();
+                if (isValid(current)) {
+                    result.add(current);
+                    found = true;
                 }
+                for (int i = 0; i < current.length(); i++) {
+                    String next = current.substring(0, i) + current.substring(i + 1);
+                    if (!visited.contains(next)) {
+                        q.add(next);
+                        visited.add(next);
+                    }
+                }
+                size--;
+            }
+            if (found) {
+                break;
             }
         }
         return result;
@@ -42,12 +39,17 @@ public class RemoveInvalidParentheses {
     private boolean isValid(String s) {
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
+            if (Character.isLetter(s.charAt(i))) {
+                continue;
+            }
             if (s.charAt(i) == '(') {
                 count++;
-            } else if (s.charAt(i) == ')'){
+            } else {
                 count--;
             }
-            if (count < 0) return false;
+            if (count < 0) {
+                return false;
+            }
         }
         return count == 0;
     }

@@ -1,55 +1,44 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by shuaiwang on 10/14/16.
  */
 public class ThreeSum {
-    public ArrayList<ArrayList<Integer>> threeSum(int[] numbers) {
-        // write your code here
-        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-        if (numbers == null || numbers.length == 0) {
-            return result;
-        }
-
-        Arrays.sort(numbers);
-        int first = 0;
-        while (first < numbers.length - 2) {
-            ArrayList<Integer> eachResult = new ArrayList<>();
-            eachResult.add(numbers[first]);
-            int minusFirst = 0 - numbers[first];
-            twoSum(numbers, result, eachResult, first + 1, minusFirst);
-            eachResult.remove(eachResult.size() - 1);
-            while (first + 1 < numbers.length - 3 && numbers[first] == numbers[first + 1]) {
-                first++;
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            int n1 = nums[i];
+            twoSum(nums, i + 1, 0 - n1, result);
+            while (i + 1 < nums.length && nums[i] == nums[i + 1]) {
+                i++;
             }
-            first++;
         }
         return result;
     }
 
-    private void twoSum(int[] numbers, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> eachResult, int position, int target) {
-        int first = position;
-        while (first < numbers.length - 1) {
-            eachResult.add(numbers[first]);
-            int second = first + 1;
-            int minusFirst = target - numbers[first];
-            while (second < numbers.length) {
-                eachResult.add(numbers[second]);
-                if (minusFirst == numbers[second]) {
-                    result.add(new ArrayList<>(eachResult));
+    private void twoSum(int[] nums, int index, int target, List<List<Integer>> result) {
+        int i = index, j = nums.length - 1;
+        while (i < j) {
+            if (nums[i] + nums[j] == target) {
+                List<Integer> current = Arrays.asList(0 - target, nums[i], nums[j]);
+                result.add(current);
+                while (i + 1 < j && nums[i] == nums[i + 1]) {
+                    i++;
                 }
-                eachResult.remove(eachResult.size() - 1);
-                while (second + 1 < numbers.length && numbers[second] == numbers[second + 1]) {
-                    second++;
+
+                while (j - 1 > i && nums[j] == nums[j - 1]) {
+                    j--;
                 }
-                second++;
+                i++;
+                j--;
+            } else if (nums[i] + nums[j] < target) {
+                i++;
+            } else {
+                j--;
             }
-            eachResult.remove(eachResult.size() - 1);
-            while (first + 1 < numbers.length - 1 && numbers[first] == numbers[first + 1]) {
-                first++;
-            }
-            first++;
         }
     }
 }
