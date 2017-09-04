@@ -29,36 +29,36 @@ public class ReadNCharactersGivenRead4II {
 //        return ptr;
 //    }
 
-    private int leftOverFromRead4 = 0; //归零表示要从下一个read4的开头开始往buf里写。不为零表示上一个read4的的char还没有读完
-    private int oneTimeFromRead4 = 0;
-    private char[] buff = new char[4];
-
-    /**
-     * @param buf Destination buffer
-     * @param n   Maximum number of characters to read
-     * @return    The number of characters read
-     */
-    public int read(char[] buf, int n) {
-        if (n == 0)
-            return 0;
-
-        int current = 0;
-        while (current < n) {
-            if (leftOverFromRead4 == 0) {
-                oneTimeFromRead4 = read4(buff);
-                if (oneTimeFromRead4 == 0)
-                    break;
-            }
-
-            while (current < n && leftOverFromRead4 < oneTimeFromRead4) {
-                buf[current++] = buff[leftOverFromRead4++];
-            }
-            if (leftOverFromRead4 == oneTimeFromRead4) {
-                leftOverFromRead4 = 0;
-            }
-        }
-        return current;
-    }
+//    private int leftOverFromRead4 = 0; //归零表示要从下一个read4的开头开始往buf里写。不为零表示上一个read4的的char还没有读完
+//    private int oneTimeFromRead4 = 0;
+//    private char[] buff = new char[4];
+//
+//    /**
+//     * @param buf Destination buffer
+//     * @param n   Maximum number of characters to read
+//     * @return    The number of characters read
+//     */
+//    public int read(char[] buf, int n) {
+//        if (n == 0)
+//            return 0;
+//
+//        int current = 0;
+//        while (current < n) {
+//            if (leftOverFromRead4 == 0) {
+//                oneTimeFromRead4 = read4(buff);
+//                if (oneTimeFromRead4 == 0)
+//                    break;
+//            }
+//
+//            while (current < n && leftOverFromRead4 < oneTimeFromRead4) {
+//                buf[current++] = buff[leftOverFromRead4++];
+//            }
+//            if (leftOverFromRead4 == oneTimeFromRead4) {
+//                leftOverFromRead4 = 0;
+//            }
+//        }
+//        return current;
+//    }
 
 //    private char[] bufferFor4 = new char[4];
 //    private boolean endOfFile = false;
@@ -114,4 +114,27 @@ public class ReadNCharactersGivenRead4II {
 //        }
 //        return currentRead;
 //    }
+
+    int oneTimeRead4 = 0;
+    int remain = 0;
+    char[] buffer = new char[4];
+    public int read(char[] buf, int n) {
+        int prt = 0;
+        while (prt < n) {
+            if (remain == 0) {
+                oneTimeRead4 = read4(buffer);
+                if (oneTimeRead4 == 0) {
+                    break;
+                }
+            }
+
+            while (prt < n && remain < oneTimeRead4) {
+                buf[prt++] = buffer[remain++];
+            }
+            if (remain == oneTimeRead4) {
+                remain = 0;
+            }
+        }
+        return prt;
+    }
 }
