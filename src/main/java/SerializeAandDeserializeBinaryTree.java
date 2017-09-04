@@ -59,17 +59,16 @@ public class SerializeAandDeserializeBinaryTree {
 //    }
 
     public String serialize(TreeNode root) {
-        if (root == null)
+        if (root == null) {
             return "";
-        Queue<TreeNode> q = new LinkedList<>();
+        }
         StringBuilder sb = new StringBuilder();
-
+        Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-
         while (!q.isEmpty()) {
             TreeNode current = q.poll();
             if (current == null) {
-                sb.append("null ");
+                sb.append("null").append(" ");
             } else {
                 sb.append(current.val).append(" ");
                 q.add(current.left);
@@ -81,25 +80,24 @@ public class SerializeAandDeserializeBinaryTree {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data.equals(""))
+        if (data.equals("")) {
             return null;
+        }
 
-        String[] nodes = data.split(" ");
-        TreeNode root = new TreeNode(Integer.valueOf(nodes[0]));
-
+        String[] s = data.split(" ");
         Queue<TreeNode> q = new LinkedList<>();
+        TreeNode root = new TreeNode(Integer.valueOf(s[0]));
         q.add(root);
-
-        for (int i = 1; i < nodes.length; i++) {
+        for (int i = 1; i < s.length; i++) {
             TreeNode current = q.poll();
-            if (!nodes[i].equals("null")) {
-                TreeNode leftNode = new TreeNode(Integer.valueOf(nodes[i]));
+            if (!s[i].equals("null")) {
+                TreeNode leftNode = new TreeNode(Integer.valueOf(s[i]));
                 current.left = leftNode;
                 q.add(leftNode);
             }
 
-            if (!nodes[++i].equals("null")) {
-                TreeNode rightNode = new TreeNode(Integer.valueOf(nodes[i]));
+            if (!s[++i].equals("null")) {
+                TreeNode rightNode = new TreeNode(Integer.valueOf(s[i]));
                 current.right = rightNode;
                 q.add(rightNode);
             }
@@ -108,19 +106,26 @@ public class SerializeAandDeserializeBinaryTree {
     }
 
     public static void main(String[] args) {
-        TreeNode a = new TreeNode(1);
-        TreeNode b = new TreeNode(2);
-        TreeNode c = new TreeNode(3);
-        TreeNode d = new TreeNode(4);
-        TreeNode e = new TreeNode(5);
-        c.left = d;
-        c.right = e;
+//        TreeNode a = new TreeNode(1);
+//        TreeNode b = new TreeNode(2);
+//        TreeNode c = new TreeNode(3);
+//        TreeNode d = new TreeNode(4);
+//        TreeNode e = new TreeNode(5);
+//        c.left = d;
+//        c.right = e;
+//
+//        a.left = b;
+//        a.right = c;
+//
+//        SerializeAandDeserializeBinaryTree test = new SerializeAandDeserializeBinaryTree();
+//        TreeNode result = test.deserialize(test.serialize(a));
+//        System.out.println();
 
-        a.left = b;
-        a.right = c;
-
-        SerializeAandDeserializeBinaryTree test = new SerializeAandDeserializeBinaryTree();
-        TreeNode result = test.deserialize(test.serialize(a));
-        System.out.println();
+        String a = "  b";
+        String[] s = a.split(" ");
+        System.out.println(s.length);
+        for (int i = 0; i < s.length; i++) {
+            System.out.println(s[i]);
+        }
     }
 }
