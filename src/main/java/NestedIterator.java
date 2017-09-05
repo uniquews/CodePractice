@@ -136,7 +136,6 @@ public class NestedIterator implements Iterator<Integer> {
 //    }
 
     Stack<NestedInteger> stk = new Stack<>();
-    Integer current = null;
     public NestedIterator(List<NestedInteger> nestedList) {
         for (int i =  nestedList.size() - 1; i >= 0; i--) {
             stk.push(nestedList.get(i));
@@ -151,22 +150,17 @@ public class NestedIterator implements Iterator<Integer> {
                 stk.push(l.get(i));
             }
         }
-        if (stk.isEmpty()) {
-            current = null;
-        } else {
-            current = stk.pop().getInteger();
-        }
     }
 
     @Override
     public Integer next() {
-        Integer result = current;
+        Integer result = stk.pop().getInteger();
         helper();
         return result;
     }
 
     @Override
     public boolean hasNext() {
-        return !stk.isEmpty() || current != null;
+        return !stk.isEmpty();
     }
 }
