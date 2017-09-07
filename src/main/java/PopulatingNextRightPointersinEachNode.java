@@ -5,20 +5,24 @@ import utils.TreeLinkNode;
  */
 public class PopulatingNextRightPointersinEachNode {
     public void connect(TreeLinkNode root) {
-        if (root == null)
+        if (root == null) {
             return;
+        }
 
-        TreeLinkNode cur = root;
-        while (cur != null) {
-            TreeLinkNode first = cur.left;
-            while (cur != null) {
-                if (cur.left != null)
-                    cur.left.next = cur.right;
-                if (cur.next != null && cur.right != null)
-                    cur.right.next = cur.next.left;
-                cur = cur.next;
+        TreeLinkNode p = root;
+        while (p != null) {
+            TreeLinkNode prev = new TreeLinkNode(-1);
+            TreeLinkNode nextP = p.left;
+            while (p != null) {
+                if (p.left != null) {
+                    prev.next = p.left;
+                    prev = prev.next;
+                    prev.next = p.right;
+                    prev = prev.next;
+                }
+                p = p.next;
             }
-            cur = first;
+            p = nextP;
         }
     }
 }
