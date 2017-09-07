@@ -8,29 +8,34 @@ import java.util.Queue;
  */
 public class PopulatingNextRightPointersinEachNodeII {
     public void connect(TreeLinkNode root) {
-        if (root == null)
+        if (root == null) {
             return;
+        }
 
-        Queue<TreeLinkNode> q = new LinkedList<>();
-        q.add(root);
+        TreeLinkNode p = root;
 
-        while (!q.isEmpty()) {
-            int size = q.size();
-            TreeLinkNode head = new TreeLinkNode(-1);
-            for (int i = 0; i < size; i++) {
-                TreeLinkNode node = q.poll();
-                if (node.left != null) {
-                    head.next = node.left;
-                    head = head.next;
-                    q.offer(node.left);
+        while (p != null) {
+            TreeLinkNode nextP = null;
+            TreeLinkNode prev = new TreeLinkNode(-1);
+            while (p != null) {
+                if (p.left != null) {
+                    if (nextP == null) {
+                        nextP = p.left;
+                    }
+                    prev.next = p.left;
+                    prev = prev.next;
                 }
 
-                if (node.right != null) {
-                    head.next = node.right;
-                    head = head.next;
-                    q.offer(node.right);
+                if (p.right != null) {
+                    if (nextP == null) {
+                        nextP = p.right;
+                    }
+                    prev.next = p.right;
+                    prev = prev.next;
                 }
+                p = p.next;
             }
+            p = nextP;
         }
     }
 
