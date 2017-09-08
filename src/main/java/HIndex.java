@@ -76,39 +76,55 @@ public class HIndex {
 //    }
 
     // O(N)
-    public int hIndex(int[] citations) {
-        if (citations == null || citations.length == 0) {
-            return 0;
-        }
-
-        int totalPaper = citations.length;
-        // bucket数组中的Index表示所有可能的hIndex
-        int[] bucket = new int[totalPaper + 1];
-        for (int i = 0; i < citations.length; i++) {
-            if (citations[i] > totalPaper) {
-                bucket[totalPaper] += 1;
-            } else {
-                bucket[citations[i]] += 1;
-            }
-        }
-
-        int sumOfCitation = 0;
-        int result = 0;
-//        for (int i = bucket.length - 1; i > 0; i--) {
-//            sumOfCitation += bucket[i];
-//            if (sumOfCitation >= i) { // 大于当前论文citation的论文数 大于等于 当前论文的citations
-//                result = i;
-//                break;
+//    public int hIndex(int[] citations) {
+//        if (citations == null || citations.length == 0) {
+//            return 0;
+//        }
+//
+//        int totalPaper = citations.length;
+//        // bucket数组中的Index表示所有可能的hIndex
+//        int[] bucket = new int[totalPaper + 1];
+//        for (int i = 0; i < citations.length; i++) {
+//            if (citations[i] > totalPaper) {
+//                bucket[totalPaper] += 1;
+//            } else {
+//                bucket[citations[i]] += 1;
 //            }
 //        }
+//
+//        int sumOfCitation = 0;
+//        int result = 0;
+////        for (int i = bucket.length - 1; i > 0; i--) {
+////            sumOfCitation += bucket[i];
+////            if (sumOfCitation >= i) { // 大于当前论文citation的论文数 大于等于 当前论文的citations
+////                result = i;
+////                break;
+////            }
+////        }
+//
+//        for (int i = 0; i < bucket.length; i++) {
+//            sumOfCitation += bucket[i];
+//            if (sumOfCitation > totalPaper - i) {
+//                result = i;
+//            }
+//        }
+//        return result;
+//    }
 
-        for (int i = 0; i < bucket.length; i++) {
-            sumOfCitation += bucket[i];
-            if (sumOfCitation > totalPaper - i) {
-                result = i;
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        for (int h = citations.length; h >= 0; h--) {
+            if (citations.length - h >= citations[h]) {
+                return h;
             }
         }
-        return result;
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        HIndex test = new HIndex();
+        int[] a = {3, 0, 6, 1, 5};
+        test.hIndex(a);
     }
 
 }
