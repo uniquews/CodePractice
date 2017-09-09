@@ -3,43 +3,41 @@
  */
 public class SplitArrayLargestSum {
     public int splitArray(int[] nums, int m) {
-        long sum = 0;
-        long max = 0;
-        for (int n : nums) {
-            sum += n;
-            max = Math.max(max, n);
+        long sum = 0, max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            max = Math.max(max, nums[i]);
         }
 
         long start = max, end = sum;
         while (start + 1 < end) {
             long mid = start + (end - start) / 2;
-            int cuts = getCuts(nums, mid);
-            if (cuts > m) {
+            int cut = getCut(nums, mid);
+            if (cut > m) {
                 start = mid;
             } else {
                 end = mid;
             }
         }
 
-        if (getCuts(nums, start) <= m) {
+        if (getCut(nums, start) <= m) {
             return (int)start;
         } else {
             return (int)end;
         }
     }
 
-    private int getCuts(int[] nums, long eachCut) {
-        int sum = 0;
-        int count = 1;
+    private int getCut(int[] nums, long len) {
+        int count = 0, cut = 1;
         for (int i = 0; i < nums.length; i++) {
-            if (sum + nums[i] <= eachCut) {
-                sum += nums[i];
+            long next = count + nums[i];
+            if (next > len) {
+                cut++;
+                count = nums[i];
             } else {
-                count++;
-                sum = 0;
-                i--;
+                count += nums[i];
             }
         }
-        return count;
+        return cut;
     }
 }
