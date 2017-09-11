@@ -6,40 +6,42 @@ import java.util.*;
 public class LargestDivisibleSubset {
     public List<Integer> largestDivisibleSubset(int[] nums) {
         // Write your code here
-
         List<Integer> result = new ArrayList<>();
-        if (nums == null || nums.length == 0) {
+        if (nums == null || nums.length == 0)
+            return result;
+
+        int[] f = new int[nums.length];
+        int[] parent = new int[nums.length];
+
+        Arrays.sort(nums);
+        Arrays.fill(f, 1);
+        Arrays.fill(parent, -1);
+        int maxIndex = -1, maxLen = 1;
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] % nums[j] == 0)  {
+                    if (f[i] < f[j] + 1) {
+                        f[i] = f[j] + 1;
+                        parent[i] = j;
+                    }
+                }
+            }
+            if (maxLen < f[i]) {
+                maxLen = f[i];
+                maxIndex= i;
+            }
+        }
+
+        if (maxIndex == -1) {
+            result.add(nums[0]);
             return result;
         }
 
-        Arrays.sort(nums);
-        int maxLen = 1;
-        int maxIndex = 0;
-        int[] dp = new int[nums.length];
-        int[] parent = new int[nums.length];
 
-        Arrays.fill(dp, 1);
-        Arrays.fill(parent, -1);
-        for (int i = 1; i < nums.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (nums[i] % nums[j] == 0 && dp[i] < dp[j] + 1) {
-                    parent[i] = j;
-                    dp[i] = dp[j] + 1;
-                }
-            }
-
-            if (maxLen < dp[i]) {
-                maxIndex = i;
-                maxLen = dp[i];
-            }
+        while (maxIndex != -1) {
+            result.add(0, nums[maxIndex]);
+            maxIndex = parent[maxIndex];
         }
-
-        int i = maxIndex;
-        while (i != -1) {
-            result.add(0, nums[i]);
-            i = parent[i];
-        }
-
         return result;
     }
 
