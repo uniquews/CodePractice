@@ -14,8 +14,8 @@ public class KnightShortestPath {
         Queue<Point> queue = new LinkedList<>();
         queue.add(source);
 
-        HashSet<Integer> visited = new HashSet<>();
-        visited.add(source.x * grid[0].length + source.y);
+        // HashSet<Integer> visited = new HashSet<>();
+        // visited.add(source.x * grid[0].length + source.y);
 
         int index = 0;
 
@@ -34,8 +34,8 @@ public class KnightShortestPath {
 
                     if (row >= 0 && row < grid.length &&
                             column >= 0 && column < grid[0].length &&
-                            !grid[row][column] && !visited.contains(row * grid[0].length + column)) {
-                        visited.add(row * grid[0].length + column);
+                            !grid[row][column]) {
+                        grid[row][column] = true;
                         queue.add(new Point(row, column));
                     }
                 }
