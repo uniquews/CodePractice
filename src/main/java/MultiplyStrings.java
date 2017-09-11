@@ -98,6 +98,38 @@ public class MultiplyStrings {
         return sb.delete(0, index).toString();
     }
 
+//    public String multiply(String num1, String num2) {
+//        int[] pos = new int[num1.length() + num2.length()];
+//
+//
+//        for (int i = 0; i < num1.length(); i++) {
+//            for (int j = 0; j < num2.length(); j++) {
+//                int a = num1.charAt(i) - '0';
+//                int b = num2.charAt(j) - '0';
+//
+//                pos[i + j + 1] += (a * b) % 10;
+//                pos[i + j] += (a * b) / 10;
+//            }
+//        }
+//
+//        StringBuilder sb = new StringBuilder();
+//        int carry = 0;
+//        for (int i = pos.length - 1; i >= 0; i--) {
+//            int nextCarry = (pos[i] + carry) / 10;
+//            pos[i] = (pos[i] + carry) % 10;
+//            carry = nextCarry;
+//            sb.insert(0, pos[i]);
+//        }
+//
+//        int ignore = 0;
+//        while (ignore < sb.length() - 1 && sb.charAt(ignore) == '0') {
+//            ignore++;
+//        }
+//
+//        return sb.delete(0, ignore).toString();
+//
+//    }
+
     public static void main(String[] args) {
         String s = "99";
         MultiplyStrings test = new MultiplyStrings();

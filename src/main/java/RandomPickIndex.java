@@ -13,23 +13,25 @@ import java.util.Random;
  * 正因这个性质，使得本题的解法可以用来解决size is unlimited的情况。 我不需要知道后面还有多少个数
  * */
 public class RandomPickIndex {
-    int[] arr;
-    Random ran;
+    private int[] n;
+    private Random rand;
     public RandomPickIndex(int[] nums) {
-        arr = nums;
-        ran = new Random();
+        n = nums;
+        rand = new Random();
     }
 
     public int pick(int target) {
-        int count = 1, result = -1;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != target) {
-                continue;
-            }
-            if (ran.nextInt(count++) == 0) { // n分之一的概率要不要替换result
-                result = i;
+        int candidate = -1;
+        int count = 1;
+        for (int i = 0; i < n.length; i++) {
+            if (n[i] == target) {
+                int guess = rand.nextInt(count);
+                if (guess == 0) {
+                    candidate = i;
+                }
+                count++;
             }
         }
-        return result;
+        return candidate;
     }
 }

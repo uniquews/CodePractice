@@ -20,6 +20,7 @@ public class LowestCommonAncestorIII {
             return null;
         }
 
+        // 一定要先扫描完整棵树，否则当A是B的子树时，发现root == B 就直接return, foundLeft不会被设置成true
         TreeNode leftResult = helper(root.left, A, B);
         TreeNode rightResult = helper(root.right, A, B);
 

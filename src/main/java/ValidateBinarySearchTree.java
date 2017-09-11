@@ -7,97 +7,53 @@ import utils.TreeNode;
 
 public class ValidateBinarySearchTree {
 
-//    int lastVal = Integer.MIN_VALUE;
-//    boolean isFirstNode = true; // In case there is only one node, which value is Integer.Min;
-//
-//    //Traverse
-//    public boolean isValidBST(TreeNode root) {
-//        if (root == null) {
-//            return true;
-//        }
-//
-//        boolean leftResult = isValidBST(root.left);
-//        if (!leftResult) {
-//            return false;
-//        }
-//
-//        if (!isFirstNode && root.val <= lastVal) {
-//            return false;
-//        }
-//
-//        isFirstNode = false;
-//
-//        lastVal = root.val;
-//
-//        boolean rightResult = isValidBST(root.right);
-//        if (!rightResult) {
-//            return false;
-//        }
-//
-//        return true;
-//    }
-
-
-    // Divide & Conquer
-    private class ResultType
-    {
-        boolean isBst;
-        int minVal;
-        int maxVal;
-
-        ResultType(boolean isBst, int maxVal, int minVal)
-        {
-            this.isBst = isBst;
-            this.maxVal = maxVal;
-            this.minVal = minVal;
+    class ReturnType {
+        public boolean isValid;
+        public int minVal;
+        public int maxVal;
+        public ReturnType() {}
+        public ReturnType(boolean v, int m, int n) {
+            isValid = v;
+            minVal = m;
+            maxVal = n;
         }
     }
-
     public boolean isValidBST(TreeNode root) {
-        ResultType result = helper(root);
-        return result.isBst;
-
+        if (root == null)
+            return true;
+        return helper(root).isValid;
     }
 
-    private ResultType helper(TreeNode n)
-    {
-        if (n == null)
-        {
-            return new ResultType(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    private ReturnType helper(TreeNode n) {
+        if (n == null) {
+            return null;
         }
 
-        ResultType leftResult = helper(n.left);
-        ResultType rightResult = helper(n.right);
-
-        if (leftResult.isBst == false || rightResult.isBst == false)
-        {
-            return new ResultType(false, 0, 0);
+        if (n.left == null && n.right == null) {
+            return new ReturnType(true, n.val, n.val);
         }
 
-        if ((n.left != null && leftResult.maxVal >= n.val) ||
-                n.right != null && rightResult.minVal<= n.val)
-        {
-            return new ResultType(false, 0, 0);
+        ReturnType leftNode = helper(n.left);
+        ReturnType rightNode = helper(n.right);
+
+        ReturnType result = new ReturnType();
+        result.minVal = n.val;
+        result.maxVal = n.val;
+        result.isValid = true;
+
+        if (leftNode != null) {
+            result.minVal = leftNode.minVal;
+            if (n.val <= leftNode.maxVal || !leftNode.isValid) {
+                result.isValid = false;
+            }
         }
 
-        //Math.max(n.val, rightResult.maxVal) is in case that the rightResult is Integer.MIN
-        return new ResultType(true, Math.max(n.val, rightResult.maxVal), Math.min(n.val, leftResult.minVal));
+        if (rightNode != null) {
+            result.maxVal = rightNode.maxVal;
+            if (n.val >= rightNode.minVal || !rightNode.isValid) {
+                result.isValid = false;
+            }
+        }
+        return result;
     }
-
-
-//    public boolean isValidBST(TreeNode root) {
-//        // write your code here
-//        return helper(root, Long.MAX_VALUE, Long.MIN_VALUE);
-//    }
-//
-//    private boolean helper(TreeNode n, long upper, long lower) {
-//        if (n == null)
-//            return true;
-//
-//        boolean leftNode = helper(n.left, n.val, lower);
-//        boolean rightNode = helper(n.right, upper, n.val);
-//
-//        return leftNode && rightNode && n.val < upper && n.val > lower;
-//
-//    }
 }

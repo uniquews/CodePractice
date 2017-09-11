@@ -90,23 +90,60 @@ public class CloneGraph {
 //        return new ArrayList<>(set);
 //    }
 
+//    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+//        if (node == null)
+//            return null;
+//
+//        Queue<UndirectedGraphNode> q = new LinkedList<>();
+//        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+//        q.add(node);
+//        UndirectedGraphNode start = new UndirectedGraphNode(node.label);
+//        map.put(node, start);
+//
+//        while (!q.isEmpty()) {
+//            UndirectedGraphNode current = q.poll();
+//
+//            for (UndirectedGraphNode n : current.neighbors) {
+//                if (!map.containsKey(n)) {
+//                    UndirectedGraphNode copy = new UndirectedGraphNode(n.label);
+//                    map.put(n, copy);
+//                    q.add(n);
+//                }
+//            }
+//        }
+//
+//        Set<UndirectedGraphNode> visited = new HashSet<>();
+//        q.add(node);
+//        visited.add(node);
+//        while (!q.isEmpty()) {
+//            UndirectedGraphNode current = q.poll();
+//            UndirectedGraphNode copy = map.get(current);
+//
+//            for (UndirectedGraphNode n : current.neighbors) {
+//                copy.neighbors.add(map.get(n));
+//                if (!visited.contains(n)) {
+//                    visited.add(n);
+//                    q.add(n);
+//                }
+//            }
+//        }
+//        return start;
+//    }
+
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null)
             return null;
-
-        Queue<UndirectedGraphNode> q = new LinkedList<>();
         Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
-        q.add(node);
-        UndirectedGraphNode start = new UndirectedGraphNode(node.label);
-        map.put(node, start);
+        Queue<UndirectedGraphNode> q = new LinkedList<>();
 
+        q.add(node);
         while (!q.isEmpty()) {
             UndirectedGraphNode current = q.poll();
+            UndirectedGraphNode copy = new UndirectedGraphNode(current.label);
+            map.put(current, copy);
 
             for (UndirectedGraphNode n : current.neighbors) {
                 if (!map.containsKey(n)) {
-                    UndirectedGraphNode copy = new UndirectedGraphNode(n.label);
-                    map.put(n, copy);
                     q.add(n);
                 }
             }
@@ -118,7 +155,6 @@ public class CloneGraph {
         while (!q.isEmpty()) {
             UndirectedGraphNode current = q.poll();
             UndirectedGraphNode copy = map.get(current);
-
             for (UndirectedGraphNode n : current.neighbors) {
                 copy.neighbors.add(map.get(n));
                 if (!visited.contains(n)) {
@@ -127,8 +163,9 @@ public class CloneGraph {
                 }
             }
         }
-        return start;
+        return map.get(node);
     }
+
     public static void main(String[] args) {
         CloneGraph test = new CloneGraph();
         UndirectedGraphNode a = new UndirectedGraphNode(-1);
