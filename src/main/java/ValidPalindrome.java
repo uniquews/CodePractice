@@ -10,15 +10,17 @@ public class ValidPalindrome {
         int start = 0;
         int end = s.length() - 1;
 
-        while (start < end) {
-            while (start < end && isValid(s.charAt(start)))
+        while (start <= end) {
+            while (start <= end && !isValid(s.charAt(start)))
                 start++;
 
-            if (start == end)
-                return true;
-
-            while (start < end && isValid(s.charAt(end)))
+            while (start <= end && !isValid(s.charAt(end)))
                 end--;
+
+            if (start > end) {
+                break;
+            }
+
 
             if (Character.toLowerCase(s.charAt(start)) == Character.toLowerCase(s.charAt(end))) {
                 start++;
