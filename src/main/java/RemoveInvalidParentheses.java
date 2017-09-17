@@ -16,13 +16,14 @@ public class RemoveInvalidParentheses {
 //            boolean found = false;
 //            while (size > 0) {
 //                String current = q.poll();
-//                if (isValid(current)) {
+//                int count = helper(current);
+//                if (count == 0) {
 //                    result.add(current);
 //                    found = true;
 //                }
 //                for (int i = 0; i < current.length(); i++) {
 //                    String next = current.substring(0, i) + current.substring(i + 1);
-//                    if (!visited.contains(next)) {
+//                    if (!visited.contains(next) && helper(current.substring(0, i)) >= 0 ) {
 //                        q.add(next);
 //                        visited.add(next);
 //                    }
@@ -36,7 +37,7 @@ public class RemoveInvalidParentheses {
 //        return result;
 //    }
 //
-//    private boolean isValid(String s) {
+//    private int helper(String s) {
 //        int count = 0;
 //        for (int i = 0; i < s.length(); i++) {
 //            if (Character.isLetter(s.charAt(i))) {
@@ -48,10 +49,10 @@ public class RemoveInvalidParentheses {
 //                count--;
 //            }
 //            if (count < 0) {
-//                return false;
+//                return -1;
 //            }
 //        }
-//        return count == 0;
+//        return count;
 //    }
 
 
@@ -92,33 +93,76 @@ public class RemoveInvalidParentheses {
      *
      *
      * */
+//    public List<String> removeInvalidParentheses(String s) {
+//        List<String> ans = new ArrayList<>();
+//        remove(s, ans, 0, 0, new char[]{'(', ')'});
+//        return ans;
+//    }
+//
+//    public void remove(String s, List<String> ans, int last_i, int last_j,  char[] par) {
+//        for (int stack = 0, i = last_i; i < s.length(); ++i) {
+//            if (s.charAt(i) == par[0]) stack++;
+//            if (s.charAt(i) == par[1]) stack--;
+//            if (stack >= 0) continue;
+//            for (int j = last_j; j <= i; ++j)
+//                if (s.charAt(j) == par[1] && (j == last_j || s.charAt(j - 1) != par[1]))
+//                    remove(s.substring(0, j) + s.substring(j + 1, s.length()), ans, i, j, par);
+//            return;
+//        }
+//        String reversed = new StringBuilder(s).reverse().toString();
+//        if (par[0] == '(') // finished left to right  // 如果此时已经是() 也不会被add， 要等reverse被遍历后才会被add
+//            remove(reversed, ans, 0, 0, new char[]{')', '('});
+//        else // finished right to left
+//            ans.add(reversed);
+//    }
+
     public List<String> removeInvalidParentheses(String s) {
-        List<String> ans = new ArrayList<>();
-        remove(s, ans, 0, 0, new char[]{'(', ')'});
-        return ans;
+        int rmL = 0, rmR = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                rmL++;
+            } else if (s.charAt(i) == ')') {
+                if (rmL != 0) {
+                    rmL--;
+                } else {
+                    rmR++;
+                }
+            }
+        }
+        Set<String> res = new HashSet<>();
+        dfs(s, 0, res, rmL, rmR, 0);
+        return new ArrayList<String>(res);
     }
 
-    public void remove(String s, List<String> ans, int last_i, int last_j,  char[] par) {
-        for (int stack = 0, i = last_i; i < s.length(); ++i) {
-            if (s.charAt(i) == par[0]) stack++;
-            if (s.charAt(i) == par[1]) stack--;
-            if (stack >= 0) continue;
-            for (int j = last_j; j <= i; ++j)
-                if (s.charAt(j) == par[1] && (j == last_j || s.charAt(j - 1) != par[1]))
-                    remove(s.substring(0, j) + s.substring(j + 1, s.length()), ans, i, j, par);
+    public void dfs(String s, int i, Set<String> res, int rmL, int rmR, int open) {
+        if (rmL < 0 || rmR < 0 || open < 0) {
             return;
         }
-        String reversed = new StringBuilder(s).reverse().toString();
-        if (par[0] == '(') // finished left to right  // 如果此时已经是() 也不会被add， 要等reverse被遍历后才会被add
-            remove(reversed, ans, 0, 0, new char[]{')', '('});
-        else // finished right to left
-            ans.add(reversed);
+        if (i == s.length() && i != 0) {
+            if (rmL == 0 && rmR == 0 && open == 0) {
+                res.add(s);
+            }
+            return;
+        }
+
+        for (; i < s.length(); i++) {
+            if (open < 0)
+                break;
+            char c = s.charAt(i);
+            if (c == '(') {
+                dfs(s.substring(0, i) + s.substring(i + 1), i, res, rmL - 1, rmR, open);
+                dfs(s, i + 1, res, rmL, rmR, open + 1);
+            } else if (c == ')') {
+                dfs(s.substring(0, i) + s.substring(i + 1), i, res, rmL, rmR - 1, open);
+                dfs(s, i + 1, res, rmL, rmR, open - 1);
+            }
+        }
     }
 
     public static void main(String[] args) {
 //        String a = "()())()"; // j == last_j || s.charAt(j - 1) != par[1]
 //        String a = "((k()"; // for (int j = last_j; j <= i; ++j)
-        String a = "())";
+        String a = "())()";
         RemoveInvalidParentheses test = new RemoveInvalidParentheses();
         test.removeInvalidParentheses(a);
     }
