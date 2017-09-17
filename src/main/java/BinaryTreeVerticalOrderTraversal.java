@@ -7,82 +7,47 @@ import java.util.*;
  */
 public class BinaryTreeVerticalOrderTraversal {
     class Node {
-        private TreeNode n;
-        private int index;
+        public int offset;
+        public TreeNode n;
 
-        public Node(TreeNode t, int l) {
-            n = t;
-            index = l;
+        public Node(int o, TreeNode node) {
+            offset = o;
+            n = node;
         }
     }
-//    public List<List<Integer>> verticalOrder(TreeNode root) {
-//        if (root == null) {
-//            return new ArrayList<>();
-//        }
-//        Map<Integer, List<Integer>> level = new TreeMap<>();
-//        Queue<Node> queue = new LinkedList<>();
-//
-//        queue.add(new Node(root, 0));
-//        while (!queue.isEmpty()) {
-//            Queue<Node> nextQueue = new LinkedList<>();
-//            while (!queue.isEmpty()) {
-//                Node cur = queue.poll();
-//                if (!level.containsKey(cur.index)) {
-//                    level.put(cur.index, new ArrayList<>(Arrays.asList(cur.n.val)));
-//                } else {
-//                    level.get(cur.index).add(cur.n.val);
-//                }
-//
-//                if (cur.n.left != null) {
-//                    nextQueue.add(new Node(cur.n.left, cur.index - 1));
-//                }
-//                if (cur.n.right != null) {
-//                    nextQueue.add(new Node(cur.n.right, cur.index + 1));
-//                }
-//            }
-//            queue = nextQueue;
-//        }
-//
-//        List<List<Integer>> result = new ArrayList<>();
-//        for (Integer l : level.keySet()) {
-//            result.add(level.get(l));
-//        }
-//
-//        return result;
-//    }
+
 
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        if (root == null)
+        if (root == null) {
             return result;
+        }
 
-        int minLevel = 0, maxLevel = 0;
-        Node n = new Node(root, 0);
+        int minLevel = Integer.MAX_VALUE;
+        int maxLevel = Integer.MIN_VALUE;
+
         Queue<Node> q = new LinkedList<>();
         Map<Integer, List<Integer>> map = new HashMap<>();
-        q.add(n);
+
+        q.add(new Node(0, root));
 
         while (!q.isEmpty()) {
             int size = q.size();
+
             while (size != 0) {
                 Node current = q.poll();
-                int level = current.index;
-                List<Integer> list = map.getOrDefault(level, new ArrayList<>());
-                list.add(current.n.val);
-                map.put(level, list);
+                List<Integer> sameLevel = map.getOrDefault(current.offset, new ArrayList<>());
+                sameLevel.add(current.n.val);
+                map.put(current.offset, sameLevel);
+                minLevel = Math.min(minLevel, current.offset);
+                maxLevel = Math.max(maxLevel, current.offset);
 
                 if (current.n.left != null) {
-                    Node leftNode = new Node(current.n.left, current.index - 1);
-                    q.add(leftNode);
-                    minLevel = Math.min(minLevel, current.index - 1);
+                    q.add(new Node(current.offset - 1, current.n.left));
                 }
-
                 if (current.n.right != null) {
-                    Node rightNode = new Node(current.n.right, current.index + 1);
-                    q.add(rightNode);
-                    maxLevel = Math.max(maxLevel, current.index + 1);
+                    q.add(new Node(current.offset + 1, current.n.right));
                 }
-
                 size--;
             }
         }
