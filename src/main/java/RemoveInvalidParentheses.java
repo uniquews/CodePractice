@@ -130,33 +130,37 @@ public class RemoveInvalidParentheses {
             }
         }
         Set<String> res = new HashSet<>();
-        dfs(s, 0, res, rmL, rmR, 0);
+        dfs(s, 0, res, new StringBuilder(), rmL, rmR, 0);
         return new ArrayList<String>(res);
     }
 
-    public void dfs(String s, int i, Set<String> res, int rmL, int rmR, int open) {
+    public void dfs(String s, int i, Set<String> res, StringBuilder sb, int rmL, int rmR, int open) {
         if (rmL < 0 || rmR < 0 || open < 0) {
             return;
         }
-        if (i == s.length() && i != 0) {
+        if (i == s.length()) {
             if (rmL == 0 && rmR == 0 && open == 0) {
-                res.add(s);
+                res.add(sb.toString());
             }
             return;
         }
 
-        for (; i < s.length(); i++) {
-            if (open < 0)
-                break;
-            char c = s.charAt(i);
-            if (c == '(') {
-                dfs(s.substring(0, i) + s.substring(i + 1), i, res, rmL - 1, rmR, open);
-                dfs(s, i + 1, res, rmL, rmR, open + 1);
-            } else if (c == ')') {
-                dfs(s.substring(0, i) + s.substring(i + 1), i, res, rmL, rmR - 1, open);
-                dfs(s, i + 1, res, rmL, rmR, open - 1);
-            }
+        char c = s.charAt(i);
+        int len = sb.length();
+
+        if (c == '(') {
+            dfs(s, i + 1, res, sb, rmL - 1, rmR, open);		    // not use (
+            dfs(s, i + 1, res, sb.append(c), rmL, rmR, open + 1);       // use (
+
+        } else if (c == ')') {
+            dfs(s, i + 1, res, sb, rmL, rmR - 1, open);	            // not use  )
+            dfs(s, i + 1, res, sb.append(c), rmL, rmR, open - 1);  	    // use )
+
+        } else {
+            dfs(s, i + 1, res, sb.append(c), rmL, rmR, open);
         }
+
+        sb.setLength(len);
     }
 
     public static void main(String[] args) {
