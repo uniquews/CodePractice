@@ -13,10 +13,11 @@ public class DecodeWays {
             if (s.charAt(i - 1) != '0') {
                 f[i] = f[i - 1];
             }
+
             if (i < 2)
                 continue;
-            int lastTwoDigits = Integer.valueOf(s.substring(i - 2, i));
 
+            int lastTwoDigits = Integer.valueOf(s.substring(i - 2, i));
             if (lastTwoDigits >= 10 && lastTwoDigits <= 26) {
                 f[i] += f[i - 2];
             }
