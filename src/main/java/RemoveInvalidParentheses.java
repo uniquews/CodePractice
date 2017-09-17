@@ -109,7 +109,7 @@ public class RemoveInvalidParentheses {
             return;
         }
         String reversed = new StringBuilder(s).reverse().toString();
-        if (par[0] == '(') // finished left to right
+        if (par[0] == '(') // finished left to right  // 如果此时已经是() 也不会被add， 要等reverse被遍历后才会被add
             remove(reversed, ans, 0, 0, new char[]{')', '('});
         else // finished right to left
             ans.add(reversed);
@@ -117,7 +117,8 @@ public class RemoveInvalidParentheses {
 
     public static void main(String[] args) {
 //        String a = "()())()"; // j == last_j || s.charAt(j - 1) != par[1]
-        String a = "((k()"; // for (int j = last_j; j <= i; ++j)
+//        String a = "((k()"; // for (int j = last_j; j <= i; ++j)
+        String a = "())";
         RemoveInvalidParentheses test = new RemoveInvalidParentheses();
         test.removeInvalidParentheses(a);
     }
