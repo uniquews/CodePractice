@@ -58,6 +58,7 @@ public class SerializeAandDeserializeBinaryTree {
 //        return root;
 //    }
 
+    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         if (root == null) {
             return "";
@@ -65,14 +66,22 @@ public class SerializeAandDeserializeBinaryTree {
         StringBuilder sb = new StringBuilder();
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
+        sb.append(root.val).append(" ");
+
         while (!q.isEmpty()) {
-            TreeNode current = q.poll();
-            if (current == null) {
-                sb.append("null").append(" ");
+            TreeNode cur = q.poll();
+            if (cur.left != null) {
+                sb.append(cur.left.val).append(" ");
+                q.add(cur.left);
             } else {
-                sb.append(current.val).append(" ");
-                q.add(current.left);
-                q.add(current.right);
+                sb.append("null").append(" ");
+            }
+
+            if (cur.right != null) {
+                sb.append(cur.right.val).append(" ");
+                q.add(cur.right);
+            } else {
+                sb.append("null").append(" ");
             }
         }
         return sb.toString();
@@ -88,18 +97,21 @@ public class SerializeAandDeserializeBinaryTree {
         Queue<TreeNode> q = new LinkedList<>();
         TreeNode root = new TreeNode(Integer.valueOf(s[0]));
         q.add(root);
+
         for (int i = 1; i < s.length; i++) {
-            TreeNode current = q.poll();
-            if (!s[i].equals("null")) {
-                TreeNode leftNode = new TreeNode(Integer.valueOf(s[i]));
-                current.left = leftNode;
-                q.add(leftNode);
+            TreeNode cur = q.poll();
+            String leftStr = s[i];
+            if (!leftStr.equals("null")) {
+                TreeNode lnode = new TreeNode(Integer.valueOf(leftStr));
+                cur.left = lnode;
+                q.add(lnode);
             }
 
-            if (!s[++i].equals("null")) {
-                TreeNode rightNode = new TreeNode(Integer.valueOf(s[i]));
-                current.right = rightNode;
-                q.add(rightNode);
+            String rightStr = s[++i];
+            if (!rightStr.equals("null")) {
+                TreeNode rnode = new TreeNode(Integer.valueOf(rightStr));
+                cur.right = rnode;
+                q.add(rnode);
             }
         }
         return root;
