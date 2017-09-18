@@ -17,7 +17,7 @@ public class RemoveInvalidParenthesesOneResult {
         ReturnType leftToRight = helper(s, pair);
         char[] pair2 = {')', '('};
 
-        ReturnType rightToLeft = helper(new StringBuilder(s).reverse().toString(), pair2);
+        ReturnType rightToLeft = helper(new StringBuilder(leftToRight.s).reverse().toString(), pair2);
 
         if (leftToRight.count == 0) {
             return leftToRight.s;
@@ -52,7 +52,7 @@ public class RemoveInvalidParenthesesOneResult {
     }
 
     public static void main(String[] args) {
-        String s = "(((";
+        String s = "()())(()";
         RemoveInvalidParenthesesOneResult test = new RemoveInvalidParenthesesOneResult();
         System.out.println(test.remove(s));
     }
