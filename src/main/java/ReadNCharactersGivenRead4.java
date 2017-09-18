@@ -32,25 +32,21 @@ public class ReadNCharactersGivenRead4 {
 //        return currentRead;
 //    }
 
-    private char[] buff = new char[4];
-    private int numOfCharReadFromFile = 0;
     public int read(char[] buf, int n) {
-        if (n == 0)
-            return 0;
-        int current = 0;
-        while (numOfCharReadFromFile < n) {
-            current = read4(buff);
-            int len = Math.min(current, n - numOfCharReadFromFile);
-            for (int i = 0; i < len; i++) {
-                buf[numOfCharReadFromFile + i] = buff[i];
+        char[] buffer = new char[4];
+        int ptr = 0;
+        while (ptr < n) {
+            int offsetInRead4 = 0;
+            int currentRead = read4(buffer);
+            if (currentRead == 0) {
+                return ptr;
             }
 
-            numOfCharReadFromFile += len; // 容易错
-
-            if (current < 4)
-                break;
+            while (ptr < n && offsetInRead4 < currentRead) {
+                buf[ptr++] = buffer[offsetInRead4++];
+            }
         }
-        return numOfCharReadFromFile;
+        return ptr;
     }
 
 
