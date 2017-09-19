@@ -74,9 +74,9 @@ public class _24Game {
     }
 
     public static void main(String[] args) {
-        _24Game test = new _24Game();
-        int[] a = {4,1,8,7};
-
-        System.out.println(test.judgePoint24(a));
+//        _24Game test = new _24Game();
+//        int[] a = {4,1,8,7};
+//
+//        System.out.println(test.judgePoint24(a));
     }
 }
