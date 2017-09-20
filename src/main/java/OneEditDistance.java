@@ -27,35 +27,33 @@ public class OneEditDistance {
 //        return false;
 //    }
     public boolean isOneEditDistance(String s, String t) {
+        if (Math.abs(s.length() - t.length()) >= 2) {
+            return false;
+        }
+
         if (s.length() == t.length()) {
-            for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == t.charAt(i)) {
-                    continue;
-                }
+            return checkSameLen(s, t);
+        } else {
+            return s.length() < t.length() ? checkDiffLen(s, t) : checkDiffLen(t, s);
+        }
+    }
+
+    private boolean checkSameLen(String s, String t) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != t.charAt(i)) {
                 return s.substring(i + 1).equals(t.substring(i + 1));
             }
         }
-
-        if (s.length() == t.length() + 1) {
-            int i = 0;
-            for (; i < t.length(); i++) {
-                if (s.charAt(i) != t.charAt(i)) {
-                    break;
-                }
-            }
-            return t.substring(i).equals(s.substring(i + 1));
-        }
-
-        if (s.length() + 1 == t.length()) {
-            int i = 0;
-            for (; i < s.length(); i++) {
-                if (s.charAt(i) != t.charAt(i)) {
-                    break;
-                }
-            }
-            return s.substring(i).equals(t.substring(i + 1));
-        }
         return false;
+    }
+
+    private boolean checkDiffLen(String s, String t) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != t.charAt(i)) {
+                return s.substring(i).equals(t.substring(i + 1));
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
