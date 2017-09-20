@@ -5,18 +5,20 @@ import java.util.Arrays;
  */
 public class PerfectSquares {
     public int numSquares(int n) {
-        // Write your code here
+        // write your code here
+        int[] f = new int[n + 1];
+        Arrays.fill(f, Integer.MAX_VALUE);
+        f[0] = 0;
 
-        int[] dp = new int[n + 1];
-
-        Arrays.fill(dp, Integer.MAX_VALUE);
-        dp[0] = 0;
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j * j <= i; j++) {
-                dp[i] = Math.min(dp[i], 1 + dp[i - j * j]);
+            for (int k = 0; k * k <= i; k++) {
+                int j = i - k * k;
+                if (f[j] != Integer.MAX_VALUE) {
+                    f[i] = Math.min(f[j] + 1, f[i]);
+                }
             }
         }
-        return dp[n];
+        return f[n];
     }
 
     public static void main(String[] args) {

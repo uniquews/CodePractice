@@ -25,4 +25,20 @@ public class JumpGameII {
 
         return f[A.length - 1];
     }
+
+    // greedy
+//    public int jump(int[] A) {
+//        // write your code here
+//        int curMax = 0, i = 0, jump = 0;
+//        while (curMax < A.length - 1) {
+//            int lastMax = curMax;
+//            for (; i <=lastMax; i++) {
+//                curMax = Math.max(curMax, i + A[i]);
+//            }
+//            jump++;
+//            if (lastMax == curMax)
+//                return -1;
+//        }
+//        return jump;
+//    }
 }

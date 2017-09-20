@@ -9,27 +9,22 @@ public class SortColorsII {
         }
 
         int count = 0;
-        int left = 0;
-        int right = colors.length - 1;
-
+        int start = 0, end = colors.length - 1;
         while (count < k) {
-            int start = left;
-            int end = right;
-            int cur = left;
-
             int minVal = Integer.MAX_VALUE;
             int maxVal = Integer.MIN_VALUE;
 
             for (int i = start; i <= end; i++) {
-                minVal = Math.min(colors[i], minVal);
-                maxVal = Math.max(colors[i], maxVal);
+                minVal = Math.min(minVal, colors[i]);
+                maxVal = Math.max(maxVal, colors[i]);
             }
 
+            int left = start, cur = start, right = end;
             while (cur <= right) {
                 if (colors[cur] == minVal) {
                     swap(colors, cur, left);
-                    cur++;
                     left++;
+                    cur++;
                 } else if (colors[cur] > minVal && colors[cur] < maxVal) {
                     cur++;
                 } else {
@@ -37,7 +32,8 @@ public class SortColorsII {
                     right--;
                 }
             }
-
+            start = left;
+            end = right;
             count += 2;
         }
     }
@@ -46,5 +42,13 @@ public class SortColorsII {
         int tmp = colors[m];
         colors[m] = colors[n];
         colors[n] = tmp;
+    }
+
+    public static void main(String[] args) {
+        int[] a = {2,1,1,2,2};
+        int k = 2;
+        SortColorsII test = new SortColorsII();
+        test.sortColors2(a,k);
+
     }
 }

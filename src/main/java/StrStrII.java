@@ -46,4 +46,11 @@ public class StrStrII {
         return next;
     }
 
+    public static void main(String[] args) {
+        StrStrII test = new StrStrII();
+        String a = "abcdef";
+        String b = "bcd";
+        test.strStr2(a, b);
+    }
+
 }

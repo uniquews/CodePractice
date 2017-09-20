@@ -115,26 +115,27 @@ public class ReadNCharactersGivenRead4II {
 //        return currentRead;
 //    }
 
-    int oneTimeRead4 = 0;
-    int remain = 0;
     char[] buffer = new char[4];
+    int offsetInRead4 = 0;
+    int currentRead = 0;
     public int read(char[] buf, int n) {
-        int prt = 0;
-        while (prt < n) {
-            if (remain == 0) {
-                oneTimeRead4 = read4(buffer);
-                if (oneTimeRead4 == 0) {
-                    break;
+        int ptr = 0;
+        while (ptr < n) {
+            if (offsetInRead4 == 0) {
+                currentRead = read4(buffer);
+                if (currentRead == 0) {
+                    return ptr;
                 }
             }
 
-            while (prt < n && remain < oneTimeRead4) {
-                buf[prt++] = buffer[remain++];
+            while (ptr < n && offsetInRead4 < currentRead) {
+                buf[ptr++] = buffer[offsetInRead4++];
             }
-            if (remain == oneTimeRead4) {
-                remain = 0;
+
+            if (offsetInRead4 == currentRead) {
+                offsetInRead4 = 0;
             }
         }
-        return prt;
+        return ptr;
     }
 }

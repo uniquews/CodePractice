@@ -66,37 +66,37 @@ public class MultiplyStrings {
      * 最后统一进位。
      */
 
-    public String multiply(String num1, String num2) {
-        int[] pos = new int[num1.length() + num2.length()];
-
-        for (int i = 0; i < num1.length(); i++) {
-            for (int j = 0; j < num2.length(); j++) {
-                int n1 = num1.charAt(i) - '0';
-                int n2 = num2.charAt(j) - '0';
-                int p1 = i + j, p2 = i + j + 1; // please remember
-                pos[p1] += n1 * n2 / 10;
-                pos[p2] += (n1 * n2) % 10;
-            }
-        }
-
-        int carry = 0;
-        for (int i = pos.length - 1; i >= 0; i--) {
-            int nextCarry = (pos[i] + carry) / 10;
-            pos[i] = (pos[i] + carry) % 10;
-            carry = nextCarry;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int po : pos) {
-            sb.append(po);
-        }
-
-        int index = 0;
-        // index < pos.length - 1的原因是 0000 这种情况所以的0都会被删除。
-        while (index < pos.length - 1 && sb.charAt(index) == '0') {
-            index++;
-        }
-        return sb.delete(0, index).toString();
-    }
+//    public String multiply(String num1, String num2) {
+//        int[] pos = new int[num1.length() + num2.length()];
+//
+//        for (int i = 0; i < num1.length(); i++) {
+//            for (int j = 0; j < num2.length(); j++) {
+//                int n1 = num1.charAt(i) - '0';
+//                int n2 = num2.charAt(j) - '0';
+//                int p1 = i + j, p2 = i + j + 1; // please remember
+//                pos[p1] += n1 * n2 / 10;
+//                pos[p2] += (n1 * n2) % 10;
+//            }
+//        }
+//
+//        int carry = 0;
+//        for (int i = pos.length - 1; i >= 0; i--) {
+//            int nextCarry = (pos[i] + carry) / 10;
+//            pos[i] = (pos[i] + carry) % 10;
+//            carry = nextCarry;
+//        }
+//        StringBuilder sb = new StringBuilder();
+//        for (int po : pos) {
+//            sb.append(po);
+//        }
+//
+//        int index = 0;
+//        // index < pos.length - 1的原因是 0000 这种情况所以的0都会被删除。
+//        while (index < pos.length - 1 && sb.charAt(index) == '0') {
+//            index++;
+//        }
+//        return sb.delete(0, index).toString();
+//    }
 
 //    public String multiply(String num1, String num2) {
 //        int[] pos = new int[num1.length() + num2.length()];
@@ -129,6 +129,36 @@ public class MultiplyStrings {
 //        return sb.delete(0, ignore).toString();
 //
 //    }
+
+
+    public String multiply(String num1, String num2) {
+        int[] sum = new int[num1.length() + num2.length()];
+
+        for (int i = 0; i < num1.length(); i++) {
+            for (int j = 0; j < num2.length(); j++) {
+                sum[i + j + 1] += (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+            }
+        }
+
+        int carry = 0;
+        for (int i = sum.length - 1; i >= 0; i--) {
+            int tmp = sum[i] + carry;
+            sum[i] = tmp % 10;
+            carry = tmp / 10;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < sum.length; i++) {
+            sb.append(sum[i]);
+        }
+
+        String result = sb.toString();
+        int index = 0;
+        while (result.charAt(index) == '0' && index < result.length() - 1) {
+            index++;
+        }
+        return result.substring(index);
+    }
 
     public static void main(String[] args) {
         String s = "99";

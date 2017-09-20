@@ -14,34 +14,38 @@ public class IntegertoEnglishWords {
     private static final String[] THOUSANDS = {"", "Thousand", "Million", "Billion"};
 
     public String numberToWords(int num) {
-        if (num == 0)
-            return "Zero";
         String result = "";
-        int index = 0;
-        while (num != 0) {
-            int current = num % 1000;
-            if (current != 0)
-                result = helper(current).trim() + " " + THOUSANDS[index] + " " + result;
-            num /= 1000;
-            index++;
+        if (num == 0) {
+            return "Zero";
         }
 
+        int current = num;
+        int index = 0;
+        while (current != 0) {
+            int tmp = current % 1000;
+            if (tmp != 0) { // 防止 One millon thousand 出现
+                result = helper(tmp).trim() + " " + THOUSANDS[index] + " " + result;
+            }
+            current /= 1000;
+            index++;
+        }
         return result.trim();
     }
 
-    private String helper(int current) {
-        if (current == 0)
+    private String helper(int n) {
+        if (n == 0) {
             return "";
-
-        if (current < 20) {
-            return LESS_THAN_20[current];
         }
 
-        if (current < 100) {
-            return TENS[current / 10] + " " + LESS_THAN_20[current % 10];
+        if (n < 20) {
+            return LESS_THAN_20[n];
         }
 
-        return LESS_THAN_20[current / 100] + " Hundred " + helper(current % 100);
+        if (n < 100) {
+            return TENS[n / 10] + " " + helper(n % 10);
+        }
+
+        return LESS_THAN_20[n / 100] + " Hundred " + helper(n % 100);
     }
 
     public static void main(String[] args) {
