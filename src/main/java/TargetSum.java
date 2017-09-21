@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by shuaiwang on 1/23/17.
  */
@@ -24,27 +27,61 @@ public class TargetSum {
 //        dfs(nums, S, index + 1, sum - nums[index]);
 //    }
 
-    private int count = 0;
-    private int[] preSum;
+
+    // subset
+//    private int count = 0;
+//    private int[] preSum;
+//    public int findTargetSumWays(int[] nums, int S) {
+//        preSum = new int[nums.length + 1];
+//        for (int i = 1; i <= nums.length; i++) {
+//            preSum[i] = preSum[i - 1] + nums[i - 1];
+//        }
+//        dfs(nums, S, 0, 0);
+//        return count;
+//    }
+//
+//    private void dfs(int[] nums, int S, int index, int cur) {
+//        int minusAfter = preSum[nums.length] - preSum[index];
+//        if (cur - minusAfter == S) {
+//            count++;
+//        }
+//
+//        for (int i = index; i < nums.length; i++) {
+//            int minus = preSum[i] - preSum[index];
+//            dfs(nums, S, i + 1, cur - minus + nums[i]);
+//        }
+//    }
+
+    // 记忆化搜索
+    private Map<String, Integer> map;
+
     public int findTargetSumWays(int[] nums, int S) {
-        preSum = new int[nums.length + 1];
-        for (int i = 1; i <= nums.length; i++) {
-            preSum[i] = preSum[i - 1] + nums[i - 1];
-        }
-        dfs(nums, S, 0, 0);
-        return count;
+        map = new HashMap<>();
+        return dfs(nums, 0, S);
     }
 
-    private void dfs(int[] nums, int S, int index, int cur) {
-        int minusAfter = preSum[nums.length] - preSum[index];
-        if (cur - minusAfter == S) {
-            count++;
+    private int dfs(int[] nums, int index, int target) {
+        if (index == nums.length) {
+            if (target == 0) {
+                return 1;
+            }
+            return 0;
         }
 
-        for (int i = index; i < nums.length; i++) {
-            int minus = preSum[i] - preSum[index];
-            dfs(nums, S, i + 1, cur - minus + nums[i]);
+        String key = getKey(index, target);
+        if (map.containsKey(key)) {
+            return map.get(key);
         }
+
+        int result = 0;
+        result += dfs(nums, index + 1, target - nums[index]);
+        result += dfs(nums, index + 1, target + nums[index]);
+        map.put(key, result);
+        return result;
+    }
+
+    private String getKey(int index, int target) {
+        return String.valueOf(index) + ":" + String.valueOf(target);
     }
 
 
