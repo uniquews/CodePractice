@@ -9,21 +9,23 @@ import java.util.List;
 public class InsertInterval {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         List<Interval> result = new ArrayList<>();
-        int i = 0;
-        while (i < intervals.size() && intervals.get(i).end < newInterval.start) {
-            result.add(intervals.get(i++));
+
+        int index = 0;
+        while (index < intervals.size() && intervals.get(index).end < newInterval.start) {
+            result.add(intervals.get(index));
+            index++;
         }
 
         result.add(newInterval);
-        while (i < intervals.size() && newInterval.end >= intervals.get(i).start) {
+        while (index < intervals.size() && intervals.get(index).start <= newInterval.end) {
             Interval last = result.get(result.size() - 1);
-            last.start = Math.min(last.start, intervals.get(i).start);
-            last.end = Math.max(last.end, intervals.get(i).end);
-            i++;
+            last.start = Math.min(last.start, intervals.get(index).start);
+            last.end = Math.max(last.end, intervals.get(index).end);
+            index++;
         }
 
-        while (i < intervals.size()) {
-            result.add(intervals.get(i++));
+        for (; index < intervals.size(); index++) {
+            result.add(intervals.get(index));
         }
         return result;
     }
