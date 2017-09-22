@@ -27,23 +27,22 @@ public class ReverseLinkedList {
 //    }
 
     // recursion
+    ListNode newHead;
     public ListNode reverseList(ListNode head) {
-        ListNode dummy = new ListNode(-1);
-        dummy.next = head;
-        if (head == null)
-            return dummy.next;
-        recursion(dummy, head.next, head);
-        return dummy.next;
+        helper(head);
+        return newHead;
     }
 
-    private void recursion(ListNode dummy, ListNode cur, ListNode end) {
-        if (cur == null) {
-            return;
+
+    private ListNode helper(ListNode n) {
+        if (n == null || n.next == null) {
+            newHead = n;
+            return n;
         }
-        ListNode next = cur.next;
-        end.next = next;
-        cur.next = dummy.next;
-        dummy.next = cur;
-        recursion(dummy, next, end);
+
+        ListNode newTail = helper(n.next);
+        n.next = null;
+        newTail.next = n;
+        return n;
     }
 }
