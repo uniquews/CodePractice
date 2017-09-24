@@ -8,65 +8,34 @@ import java.util.Queue;
  */
 public class PopulatingNextRightPointersinEachNodeII {
     public void connect(TreeLinkNode root) {
-        if (root == null) {
-            return;
-        }
+        TreeLinkNode cur = root;
+        TreeLinkNode nextStart = null;
 
-        TreeLinkNode p = root;
-
-        while (p != null) {
-            TreeLinkNode nextP = null;
+        while (cur != null) {
             TreeLinkNode prev = new TreeLinkNode(-1);
-            while (p != null) {
-                if (p.left != null) {
-                    if (nextP == null) {
-                        nextP = p.left;
+            while (cur != null) {
+                if (cur.left != null) {
+                    prev.next = cur.left;
+                    if (nextStart == null) {
+                        nextStart = cur.left;
                     }
-                    prev.next = p.left;
                     prev = prev.next;
                 }
 
-                if (p.right != null) {
-                    if (nextP == null) {
-                        nextP = p.right;
+                if (cur.right != null) {
+                    prev.next = cur.right;
+                    if (nextStart == null) {
+                        nextStart = cur.right;
                     }
-                    prev.next = p.right;
                     prev = prev.next;
                 }
-                p = p.next;
+                cur = cur.next;
             }
-            p = nextP;
+
+            cur = nextStart;
+            nextStart = null;
         }
     }
-
-// O(1) space
-//    public void connect(TreeLinkNode root) {
-//        if (root == null) {
-//            return;
-//        }
-//
-//        TreeLinkNode cur = root;
-//        while (cur != null) {
-//            TreeLinkNode nextLevel = null;
-//            TreeLinkNode prev = new TreeLinkNode(-1);
-//            while (cur != null) {
-//                if (cur.left != null) {
-//                    if (nextLevel == null)
-//                        nextLevel = cur.left;
-//                    prev.next = cur.left;
-//                    prev = prev.next;
-//                }
-//                if (cur.right != null) {
-//                    if (nextLevel == null)
-//                        nextLevel = cur.right;
-//                    prev.next = cur.right;
-//                    prev = prev.next;
-//                }
-//                cur = cur.next;
-//            }
-//            cur = nextLevel;
-//        }
-//    }
 
     public static void main(String[] args) {
         TreeLinkNode a = new TreeLinkNode(1);
