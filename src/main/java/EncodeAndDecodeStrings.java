@@ -52,27 +52,63 @@ public class EncodeAndDecodeStrings {
 //        }
 //        return result;
 //    }
-    public String encode(List<String> strs) {
+//    public String encode(List<String> strs) {
+//        StringBuilder sb = new StringBuilder();
+//        for (String s : strs) {
+//            int len = s.length();
+//            sb.append(len).append("@").append(s);
+//        }
+//        return sb.toString();
+//    }
+//
+//    // Decodes a single string to a list of strings.
+//    public List<String> decode(String s) {
+//        int i = 0;
+//        List<String> result = new ArrayList<>();
+//        while (i < s.length()) {
+//            int at = s.indexOf("@", i);
+//            int size = Integer.valueOf(s.substring(i, at));
+//            String str = s.substring(at + 1, at + 1 + size);
+//            result.add(str);
+//            i = at + 1 + size;
+//        }
+//        return result;
+//    }
+
+    List<String> list = new ArrayList<>();
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) {
+        int index = list.size();
+        list.add(longUrl);
+        return base64(index);
+    }
+
+    private String base64(int n) {
+        char[] chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ*#".toCharArray();
         StringBuilder sb = new StringBuilder();
-        for (String s : strs) {
-            int len = s.length();
-            sb.append(len).append("@").append(s);
+        while (n != 0) {
+            int index = n % 64;
+            sb.append(chars[index]);
+            n /= 64;
         }
         return sb.toString();
     }
 
-    // Decodes a single string to a list of strings.
-    public List<String> decode(String s) {
-        int i = 0;
-        List<String> result = new ArrayList<>();
-        while (i < s.length()) {
-            int at = s.indexOf("@", i);
-            int size = Integer.valueOf(s.substring(i, at));
-            String str = s.substring(at + 1, at + 1 + size);
-            result.add(str);
-            i = at + 1 + size;
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+        return list.get(reBase64(shortUrl));
+    }
+
+    private int reBase64(String s) {
+        String chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ*#";
+        int base = 1;
+        int ans = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int index = chars.indexOf(s.charAt(i));
+            ans += index * base;
+            base *= 64;
         }
-        return result;
+        return ans;
     }
 
     public static void main(String[] args) {
