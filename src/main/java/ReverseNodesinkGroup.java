@@ -5,32 +5,32 @@ import utils.ListNode;
  */
 public class ReverseNodesinkGroup {
     public ListNode reverseKGroup(ListNode head, int k) {
-        // Write your code here
-        int len = getLength(head);
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
-        ListNode prepare = dummy;
 
-        for (int i = 0; i <= len - k; i = i + k) {
-            prepare = reverse(prepare, k);
+        ListNode prepare = dummy;
+        while (prepare.next != null) {
+            prepare = helper(prepare, k);
         }
         return dummy.next;
     }
 
-    private int getLength(ListNode head) {
+    private int getLen(ListNode n, int k) {
         int len = 0;
-        while (head != null) {
-            head = head.next;
+        while (n != null && len < k) {
             len++;
+            n = n.next;
         }
         return len;
     }
 
-    private ListNode reverse(ListNode prepare, int k) {
-
-        ListNode prev = prepare.next;
-        ListNode cur = prepare.next.next;
-
+    private ListNode helper(ListNode n, int k) {
+        if (getLen(n.next, k) < k) {
+            return n.next;
+        }
+        ListNode prepare = n;
+        ListNode prev = n.next;
+        ListNode cur = n.next.next;
         while (k > 1) {
             prev.next = cur.next;
             cur.next = prepare.next;
