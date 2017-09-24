@@ -3,27 +3,32 @@
  */
 public class Pow {
     public double myPow(double x, int n) {
-        if (n == 1) {
-            return x;
-        }
+        return helper(x, (long)n);
+    }
 
+    private double helper(double x, long n) {
         if (n == 0) {
             return 1.0;
         }
 
+        if (n == 1) {
+            return x;
+        }
+
         if (n > 0) {
-            double current = myPow(x, n / 2);
+            double res = helper(x, n / 2);
             if (n % 2 == 0) {
-                return current * current;
+                return res * res;
             } else {
-                return current * current * x;
+                return res * res * x;
             }
         } else {
-            double current = myPow(x, (-1) * (n / 2)); //易错，一定要写成(-1) * (n / 2) 而不是(-1) * n / 2; 因为当n = Integer.Min 时，(-1) * n 会溢出 而n / 2肯定不会溢出
-            if (n % 2 == 0) {
-                return 1 / (current * current);
+            long m = Math.abs(n);
+            double res = helper(x, m / 2);
+            if (m % 2 == 0) {
+                return 1.0 / (res * res);
             } else {
-                return 1 / (current * current * x);
+                return 1.0 / (res * res * x);
             }
         }
     }
