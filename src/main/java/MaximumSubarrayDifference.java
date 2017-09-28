@@ -22,6 +22,7 @@
  */
 public class MaximumSubarrayDifference {
     public int maxDiffSubArrays(int[] nums) {
+        // write your code here
         if (nums == null || nums.length == 0) {
             return 0;
         }
@@ -31,50 +32,58 @@ public class MaximumSubarrayDifference {
         int[] leftMin = new int[nums.length];
         int[] rightMin = new int[nums.length];
 
-        int max = Integer.MIN_VALUE;
-        int minSum = 0;
         int sum = 0;
+        int maxVal = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            max = Math.max(max, sum - minSum);
-            minSum = Math.min(minSum, sum);
-            leftMax[i] = max;
+            int current = nums[i];
+            if (sum >= 0) {
+                current += sum;
+            }
+            sum = current;
+            leftMax[i] = Math.max(maxVal, current);
+            maxVal = Math.max(maxVal, current);
         }
 
-        max = Integer.MIN_VALUE;
-        minSum = 0;
         sum = 0;
+        maxVal = Integer.MIN_VALUE;
         for (int i = nums.length - 1; i >= 0; i--) {
-            sum += nums[i];
-            max = Math.max(max, sum - minSum);
-            minSum = Math.min(minSum, sum);
-            rightMax[i] = max;
+            int current = nums[i];
+            if (sum >= 0) {
+                current += sum;
+            }
+            sum = current;
+            rightMax[i] = Math.max(maxVal, current);
+            maxVal = Math.max(maxVal, current);
         }
 
-        int min = Integer.MAX_VALUE;
-        int maxSum = 0;
         sum = 0;
+        int minVal = Integer.MAX_VALUE;
         for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            min = Math.min(min, sum - maxSum);
-            maxSum = Math.max(maxSum, sum);
-            leftMin[i] = min;
+            int current = nums[i];
+            if (sum <= 0) {
+                current += sum;
+            }
+            sum = current;
+            leftMin[i] = Math.min(minVal, current);
+            minVal = Math.min(minVal, current);
         }
 
-        min = Integer.MAX_VALUE;
-        maxSum = 0;
         sum = 0;
+        minVal = Integer.MAX_VALUE;
         for (int i = nums.length - 1; i >= 0; i--) {
-            sum += nums[i];
-            min = Math.min(min, sum - maxSum);
-            maxSum = Math.max(maxSum, sum);
-            rightMin[i] = min;
+            int current = nums[i];
+            if (sum <= 0) {
+                current += sum;
+            }
+            sum = current;
+            rightMin[i] = Math.min(minVal, current);
+            minVal = Math.min(minVal, current);
         }
 
-        int result = 0;
+        int result = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length - 1; i++) {
             result = Math.max(result, Math.abs(leftMax[i] - rightMin[i + 1]));
-            result = Math.max(result, Math.abs(leftMin[i] - rightMax[i + 1]));
+            result = Math.max(result, Math.abs(rightMax[i + 1] - leftMin[i]));
         }
         return result;
     }
