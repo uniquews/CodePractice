@@ -4,6 +4,7 @@ import java.util.Arrays;
  * Created by shuaiwang on 9/10/17.
  */
 public class LongestArithmeticSubsequence {
+    //nums必须是sorted
 //    public int lenghtOfLongestAP(int[] nums) {
 //        if (nums == null) {
 //            return 0;
@@ -48,6 +49,7 @@ public class LongestArithmeticSubsequence {
 
     /**
      * f[i][j] = f[k][i] + 1 nums[j] - nums[i] == nums[i] - nums[k]
+     * 可以不排序
      * */
     public int lenghtOfLongestAP(int[] nums) {
         if (nums == null || nums.length == 0) {
