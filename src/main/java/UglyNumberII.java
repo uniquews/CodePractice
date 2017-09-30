@@ -15,33 +15,35 @@ import java.util.List;
  */
 public class UglyNumberII {
     public int nthUglyNumber(int n) {
-        // Write your code here
-        int i = 0, j = 0, k = 0;
-        List<Integer> result = new ArrayList<>();
+        // write your code here
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
 
-        result.add(1);
-        while (result.size() < n) {
-            int m2 = result.get(i) * 2;
-            int m3 = result.get(j) * 3;
-            int m5 = result.get(k) * 5;
+        int i = 0;
+        int j = 0;
+        int k = 0;
 
-            int cur = Math.min(m2, Math.min(m3, m5));
-            result.add(cur);
+        int count = 1;
+        int result = 1;
+        while (count < n) {
+            int tmp1 = list.get(i) * 2;
+            int tmp2 = list.get(j) * 3;
+            int tmp3 = list.get(k) * 5;
 
-            if (cur == m2) {
+            result = Math.min(tmp1, Math.min(tmp2, tmp3));
+            if (tmp1 == result) {
                 i++;
             }
-
-            if (cur == m3) {
+            if (tmp2 == result) {
                 j++;
             }
-
-            if (cur == m5) {
+            if (tmp3 == result) {
                 k++;
             }
+            list.add(result);
+            count++;
         }
-
-        return result.get(result.size() - 1);
+        return result;
     }
 
     public static void main(String[] args) {
