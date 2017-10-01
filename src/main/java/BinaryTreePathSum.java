@@ -8,35 +8,51 @@ import java.util.List;
  */
 public class BinaryTreePathSum {
     public List<List<Integer>> binaryTreePathSum(TreeNode root, int target) {
-        // Write your code here
+        // write your code here
         List<List<Integer>> result = new ArrayList<>();
-
         if (root == null) {
             return result;
         }
-
-        List<Integer> path = new ArrayList<>();
-        dfs(root, 0, target, path, result);
+        List<Integer> eachResult = new ArrayList<>();
+        dfs(root, target, eachResult, result);
         return result;
     }
 
-    private void dfs(TreeNode n, int sum, int target, List<Integer> path, List<List<Integer>> result) {
+    private void dfs(TreeNode n, int target, List<Integer> eachResult, List<List<Integer>> result) {
         if (n == null) {
             return;
         }
-        path.add(n.val);
 
+        eachResult.add(n.val);
         if (n.left == null && n.right == null) {
-            if (target - sum == n.val) {
-                result.add(new ArrayList<>(path));
-                path.remove(path.size() - 1);
-                return;
+            if (n.val == target) {
+                result.add(new ArrayList<>(eachResult));
             }
+            eachResult.remove(eachResult.size() - 1); // 什么时候 remove ？
+            return;
         }
 
-        dfs(n.left, sum + n.val, target, path, result);
-        dfs(n.right, sum + n.val, target, path, result);
-        path.remove(path.size() - 1);
+        dfs(n.left, target - n.val, eachResult, result);
+        dfs(n.right, target - n.val, eachResult, result);
+        eachResult.remove(eachResult.size() - 1);
+        return;
     }
 
+
+    public static void main(String[] args) {
+        TreeNode a = new TreeNode(1);
+        TreeNode b = new TreeNode(2);
+        TreeNode c = new TreeNode(2);
+        TreeNode d = new TreeNode(3);
+        TreeNode e = new TreeNode(4);
+
+        a.left = b;
+        a.right = e;
+        b.left = c;
+        b.right = d;
+
+        BinaryTreePathSum test = new BinaryTreePathSum();
+        test.binaryTreePathSum(a, 5);
+
+    }
 }

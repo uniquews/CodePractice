@@ -39,16 +39,16 @@ public class InorderSuccessorInBinarySearchTree {
         return last;
     }
 
-    private void helper(TreeNode root, TreeNode p) {
-        if (root == null) {
+    private void helper(TreeNode n, TreeNode p) {
+        if (n == null) {
             return;
         }
 
-        if (root.val <= p.val) {
-            helper(root.right, p);
-        } else if (root.val > p.val) {
-            last = root;
-            helper(root.left, p);
+        if (n.val <= p.val) {
+            helper(n.right, p);
+        } else {
+            last = n;
+            helper(n.left, p);
         }
     }
 }

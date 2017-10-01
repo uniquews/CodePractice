@@ -12,14 +12,12 @@
 public class TotalHammingDistance {
     public int totalHammingDistance(int[] nums) {
         int result = 0;
-        for (int i = 1; i <= 32; i++) {
-            int numWithOneAtThisBit = 0;
+        for (int i = 0; i < 32; i++) {
+            int numOfOneBit = 0;
             for (int j = 0; j < nums.length; j++) {
-                if (((nums[j] >> i) & 1) == 1) {
-                    numWithOneAtThisBit++;
-                }
+                numOfOneBit += (nums[j] >> i) & 1;
             }
-            result += numWithOneAtThisBit * (nums.length - numWithOneAtThisBit);
+            result += numOfOneBit * (nums.length - numOfOneBit);
         }
         return result;
     }

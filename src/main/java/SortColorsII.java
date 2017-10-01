@@ -8,9 +8,9 @@ public class SortColorsII {
             return;
         }
 
-        int count = 0;
-        int start = 0, end = colors.length - 1;
-        while (count < k) {
+        int start = 0;
+        int end = colors.length - 1;
+        while (start < end) {
             int minVal = Integer.MAX_VALUE;
             int maxVal = Integer.MIN_VALUE;
 
@@ -19,10 +19,12 @@ public class SortColorsII {
                 maxVal = Math.max(maxVal, colors[i]);
             }
 
-            int left = start, cur = start, right = end;
+            int left = start;
+            int cur = start;
+            int right = end;
             while (cur <= right) {
                 if (colors[cur] == minVal) {
-                    swap(colors, cur, left);
+                    swap(colors, left, cur);
                     left++;
                     cur++;
                 } else if (colors[cur] > minVal && colors[cur] < maxVal) {
@@ -34,21 +36,12 @@ public class SortColorsII {
             }
             start = left;
             end = right;
-            count += 2;
         }
     }
 
-    private void swap(int[] colors, int m, int n) {
-        int tmp = colors[m];
-        colors[m] = colors[n];
-        colors[n] = tmp;
-    }
-
-    public static void main(String[] args) {
-        int[] a = {2,1,1,2,2};
-        int k = 2;
-        SortColorsII test = new SortColorsII();
-        test.sortColors2(a,k);
-
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }

@@ -11,44 +11,28 @@ public class Vector2D implements Iterator<Integer> {
     Iterator<List<Integer>> iter1;
     Iterator<Integer> iter2;
     public Vector2D(List<List<Integer>> vec2d) {
-        if (vec2d != null && vec2d.size() != 0) {
+        if (vec2d != null) {
             iter1 = vec2d.iterator();
-            helper();
         }
+        helper();
     }
 
     private void helper() {
         while ((iter2 == null || !iter2.hasNext()) && iter1.hasNext()) {
-            List<Integer> i = iter1.next();
-            if (i != null)
-                iter2 = i.iterator();
+            iter2 = iter1.next().iterator();
         }
     }
 
     @Override
     public Integer next() {
-        Integer result = null;
-        if (iter2 == null || !iter2.hasNext()) {
-            helper();
-        }
-
-        if (iter2 != null) {
-            result = iter2.next();
-        }
+        Integer result = iter2.next();
         helper();
         return result;
     }
 
     @Override
     public boolean hasNext() {
-        if (iter1 == null) {
-            return false;
-        }
-
-        if ((iter2 == null || !iter2.hasNext()) && !iter1.hasNext())
-            return false;
-
-        return true;
+        return iter2 != null && iter2.hasNext();
     }
 
     /**
@@ -63,7 +47,8 @@ public class Vector2D implements Iterator<Integer> {
         List<List<Integer>> list = new ArrayList<>();
         List<Integer> l = new ArrayList<>();
         List<Integer> l2 = new ArrayList<>();
-        l.add(1);
+        l.add(null);
+        l2.add(1);
         list.add(l);
         list.add(l2);
         Vector2D v = new Vector2D(list);

@@ -4,29 +4,29 @@ import utils.TreeNode;
  * Created by shuaiwang on 7/31/16.
  */
 public class LowestCommonAncestor {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode A, TreeNode B) {
-        // write your code here
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
 
-        if (root == null || root == A || root == B) {
+        if (root == p) {
+            return p;
+        }
+
+        if (root == q) {
+            return q;
+        }
+
+        TreeNode leftNode = lowestCommonAncestor(root.left, p, q);
+        TreeNode rightNode = lowestCommonAncestor(root.right, p, q);
+        if (leftNode != null && rightNode != null) {
             return root;
         }
 
-        TreeNode leftLCA = lowestCommonAncestor(root.left, A, B);
-        TreeNode rightLCA = lowestCommonAncestor(root.right, A, B);
-
-        if (leftLCA != null && rightLCA != null) {
-            return root;
+        if (leftNode != null) {
+            return leftNode;
         }
-
-        if (leftLCA != null) {
-            return leftLCA;
-        }
-
-        if (rightLCA != null) {
-            return rightLCA;
-        }
-
-        return null;
+        return rightNode;
     }
 
 

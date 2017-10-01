@@ -1,6 +1,8 @@
 import utils.TreeNode;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by shuaiwang on 7/27/16.
@@ -62,20 +64,43 @@ public class BinaryTreePreorderTraversal {
 //    }
 
     //Divide & Conquer
-    public ArrayList<Integer> preorderTraversal(TreeNode root) {
-        // write your code here
-        ArrayList<Integer> result = new ArrayList<>();
-
+//    public ArrayList<Integer> preorderTraversal(TreeNode root) {
+//        // write your code here
+//        ArrayList<Integer> result = new ArrayList<>();
+//
+//        if (root == null) {
+//            return result;
+//        }
+//
+//        ArrayList<Integer> leftResult = preorderTraversal(root.left);
+//        ArrayList<Integer> rightResult = preorderTraversal(root.right);
+//
+//        result.add(root.val);
+//        result.addAll(leftResult);
+//        result.addAll(rightResult);
+//        return result;
+//    }
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
         if (root == null) {
             return result;
         }
 
-        ArrayList<Integer> leftResult = preorderTraversal(root.left);
-        ArrayList<Integer> rightResult = preorderTraversal(root.right);
+        Stack<TreeNode> stk = new Stack<>();
+        stk.push(root);
+        TreeNode cur = null;
+        while (!stk.isEmpty()) {
+            cur = stk.pop();
+            result.add(cur.val);
+            if (cur.right != null) {
+                stk.push(cur.right);
+            }
 
-        result.add(root.val);
-        result.addAll(leftResult);
-        result.addAll(rightResult);
+            if (cur.left != null) {
+                stk.push(cur.left);
+            }
+        }
+
         return result;
     }
 }

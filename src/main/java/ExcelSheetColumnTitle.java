@@ -10,19 +10,48 @@ public class ExcelSheetColumnTitle {
      * 这道题要把BA变成Z 所以遇到26要insert Z并且在当前位就把26减掉，这样算下一个高位的时候就会少一个26
      *
      * */
+//    public String convertToTitle(int n) {
+//        StringBuilder sb = new StringBuilder();
+//        int num = n;
+//        while (num > 0) {
+//            int current = num % 26;
+//            if (current == 0) {
+//                sb.insert(0, "Z");
+//                num -= 26; // 减去当前的26 后面以为的高位会减1
+//            }
+//            else
+//                sb.insert(0, (char)(current - 1 + 'A')); // 后面的高位减1
+//            num = num / 26;
+//        }
+//        return sb.toString();
+//    }
+
+//    public String convertToTitle(int n) {
+//        StringBuilder sb = new StringBuilder();
+//        while (n > 0) {
+//            int tmp = (n - 1) % 26;
+//            sb.insert(0, (char)(tmp + 'A'));
+//            if (n % 26 == 0) {
+//                n -= 26;
+//            }
+//            n /= 26;
+//        }
+//        return sb.toString();
+//    }
+
     public String convertToTitle(int n) {
         StringBuilder sb = new StringBuilder();
-        int num = n;
-        while (num > 0) {
-            int current = num % 26;
-            if (current == 0) {
-                sb.insert(0, "Z");
-                num -= 26; // 减去当前的26 后面以为的高位会减1
-            }
-            else
-                sb.insert(0, (char)(current - 1 + 'A')); // 后面的高位减1
-            num = num / 26;
+        while (n > 0) {
+            int tmp = (n - 1) % 26;
+            sb.insert(0, (char)(tmp + 'A'));
+            n = (n - 1) / 26;
         }
         return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        int n = 26;
+        ExcelSheetColumnTitle test = new ExcelSheetColumnTitle();
+        test.convertToTitle(n);
     }
 }

@@ -35,7 +35,7 @@ public class WoodCut {
     private int count(int[] L, int length) {
         int numOfCut = 0;
         for (int i = 0; i < L.length; i++) {
-            numOfCut += L[i] / length;
+            numOfCut += L[i] / length; //  equal or more than k pieces with the same length  所以余数我们舍弃
         }
         return numOfCut;
     }

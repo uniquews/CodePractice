@@ -38,45 +38,62 @@ public class PaintHouseII {
 
 
     public int minCostII(int[][] costs) {
-        if (costs == null || costs.length == 0) {
+        if (costs == null || costs.length == 0 || costs[0] == null || costs[0].length == 0)
             return 0;
-        }
-        int[][] f = new int[costs.length][costs[0].length];
+        int k = costs[0].length;
+        int[][] f = new int[costs.length][k];
 
-        int firstMin = Integer.MAX_VALUE;
-        int secondMin = Integer.MAX_VALUE;
-        int prevColor = -1;
+
+        int min1 = Integer.MAX_VALUE;
+        int min2 = Integer.MAX_VALUE;
+
+        int min1Color = -1;
 
         for (int i = 0; i < costs.length; i++) {
-            int nextFirstMin = Integer.MAX_VALUE;
-            int nextSecondMin = Integer.MAX_VALUE;
-            int nextPreColor = -1;
-            for (int j = 0; j < costs[0].length; j++) {
+            int nextMin1 = Integer.MAX_VALUE;
+            int nextMin2 = Integer.MAX_VALUE;
+            int nextMin1Color = -1;
+
+            for (int j = 0; j < k; j++) {
                 if (i == 0) {
                     f[0][j] = costs[0][j];
-                } else {
-                    int last;
-                    if (j == prevColor) {
-                        last = secondMin;
-                    } else {
-                        last = firstMin;
+                    if (f[0][j] < nextMin1) {
+                        nextMin2 = nextMin1;
+                        nextMin1 = f[0][j];
+                        nextMin1Color = j;
+                    } else if (f[0][j] >= nextMin1 && f[0][j] < nextMin2) {
+                        nextMin2 = f[0][j];
                     }
-                    f[i][j] = last + costs[i][j];
+                    continue;
                 }
 
-                if (f[i][j] < nextFirstMin) {
-                    nextSecondMin = nextFirstMin;
-                    nextFirstMin = f[i][j];
-                    nextPreColor = j;
-                } else if (f[i][j] < nextSecondMin) {
-                    nextSecondMin = f[i][j];
+                if (j == min1Color) {
+                    f[i][j] = min2 + costs[i][j];
+                } else {
+                    f[i][j] = min1 + costs[i][j];
+                }
+
+                if (f[i][j] < nextMin1) {
+                    nextMin2 = nextMin1;
+                    nextMin1 = f[i][j];
+                    nextMin1Color = j;
+                } else if (f[i][j] >= nextMin1 && f[i][j] < nextMin2) {
+                    nextMin2 = f[i][j];
                 }
             }
-            firstMin = nextFirstMin;
-            secondMin = nextSecondMin;
-            prevColor = nextPreColor;
-        }
 
-        return f[costs.length - 1][prevColor];
+            min1 = nextMin1;
+            min2 = nextMin2;
+            min1Color = nextMin1Color;
+        }
+        return min1;
     }
+
+    public static void main(String[] args) {
+        // [[1,5,3],[2,9,4]]
+        int[][] costs = {{1,5,3}, {2,9,4}};
+        PaintHouseII test = new PaintHouseII();
+        test.minCostII(costs);
+    }
+
 }

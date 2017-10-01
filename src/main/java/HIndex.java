@@ -17,7 +17,7 @@ public class HIndex {
 //            // position之后的都是citation 大于等于i的papers
 //            // position之前的都是citations小于i的papers
 //            // 有了position之后就可以知道比当前引用i大的paper有多少个，引用次数比i小的paper有多少个
-//            // A scientist has index h if h of his/her N papers have at least h citations each:
+//            // A scientist has index h if h of his/her N papers have at least h cita[3, 0, 6, 1, 5]tions each:
 //            // 从position之后的，至少要有大于等于i的paper，它们的引用次数是大于等于i的。
 //            // the other N − h papers have no more than h citations each.
 //            // 换言之就是可以有大于等于citations.length - i的paper他们的citations是小于i的
@@ -112,10 +112,23 @@ public class HIndex {
 //    }
 
     public int hIndex(int[] citations) {
-        Arrays.sort(citations);
-        for (int h = citations.length; h >= 0; h--) {
-            if (citations.length - h >= citations[h]) {
-                return h;
+        if (citations == null || citations.length == 0) {
+            return 0;
+        }
+
+        int[] f = new int[citations.length + 1];
+        for (int i = 0; i < citations.length; i++) {
+            if (citations[i] >= citations.length) {
+                f[citations.length]++;
+            } else {
+                f[citations[i]]++;
+            }
+        }
+        int sum = 0;
+        for (int i = f.length - 1; i >= 0; i--) {
+            sum += f[i];
+            if (sum >= i) {
+                return i;
             }
         }
         return 0;
@@ -123,7 +136,7 @@ public class HIndex {
 
     public static void main(String[] args) {
         HIndex test = new HIndex();
-        int[] a = {3, 0, 6, 1, 5};
+        int[] a = {0};
         test.hIndex(a);
     }
 

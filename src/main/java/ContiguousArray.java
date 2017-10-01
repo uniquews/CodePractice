@@ -29,24 +29,52 @@ public class ContiguousArray {
 //    }
 
     // 和max subarray average 一个思路，把0初始化成-1就是为了让potential average等于0
+//    public int findMaxLength(int[] nums) {
+//        for (int i = 0; i < nums.length; i++) {
+//            if (nums[i] == 0)
+//                nums[i] = -1;
+//        }
+//
+//        Map<Integer, Integer> map = new HashMap<>();
+//        int sum = 0, result = 0;
+//        map.put(0,0);
+//        for (int i = 1; i <= nums.length; i++) {
+//            sum += nums[i - 1];
+//            if (map.containsKey(sum)) {
+//                result = Math.max(result, i - map.get(sum));
+//            } else {
+//                map.put(sum, i);
+//            }
+//        }
+//        return result;
+//    }
     public int findMaxLength(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0)
+            if (nums[i] == 0) {
                 nums[i] = -1;
+            }
+        }
+
+        int[] preSum = new int[nums.length + 1];
+        for (int i = 1; i < preSum.length; i++) {
+            preSum[i] = preSum[i - 1] + nums[i - 1];
         }
 
         Map<Integer, Integer> map = new HashMap<>();
-        int sum = 0, result = 0;
-        map.put(0,0);
+        map.put(0, 0);
+        int ans = 0;
         for (int i = 1; i <= nums.length; i++) {
-            sum += nums[i - 1];
-            if (map.containsKey(sum)) {
-                result = Math.max(result, i - map.get(sum));
+            if (map.containsKey(preSum[i])) {
+                ans = Math.max(ans, i - map.get(preSum[i]));
             } else {
-                map.put(sum, i);
+                map.put(preSum[i], i);
             }
         }
-        return result;
+        return ans;
     }
 
     public static void main(String[] args) {

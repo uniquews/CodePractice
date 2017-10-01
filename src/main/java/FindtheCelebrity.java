@@ -21,20 +21,22 @@ public class FindtheCelebrity {
         return -1;
     }
 
-    // O(n) solution
 //    public int findCelebrity(int n) {
-//        int result = 0;
-//        for (int i = 0; i < n; i++) {
-//            if (i != result && knows(result, i)) {
-//                result = i;
+//        int candidate = 0;
+//        for (int i = 1; i < n; i++) {
+//            if (knows(candidate, i)) {
+//                candidate = i;
 //            }
 //        }
 //
 //        for (int i = 0; i < n; i++) {
-//            if (i != result && (knows(result, i) || !knows(i, result)))
+//            if (candidate == i)
+//                continue;
+//            if (knows(candidate, i) || !knows(i, candidate)) {
 //                return -1;
+//            }
 //        }
-//        return result;
+//        return candidate;
 //    }
 
     boolean knows(int a, int b) {
