@@ -27,89 +27,64 @@ public class TwoSumIV {
 //        boolean rightNode = dfs(n.right, set, target);
 //        return leftNode || rightNode;
 //    }
-    class BSTIterator {
-        Stack<TreeNode> stk;
-        TreeNode cur;
-        public BSTIterator(TreeNode root) {
-            stk = new Stack<>();
-            cur = root;
-        }
-
-        private TreeNode helper() {
-            while (cur != null) {
-                stk.push(cur);
-                cur = cur.left;
-            }
-
-            TreeNode result = null;
-            if (!stk.isEmpty()) {
-                result = stk.pop();
-                cur = result.right;
-            }
-            return result;
-        }
-
-        /** @return whether we have a next smallest number */
-        public boolean hasNext() {
-            return !stk.isEmpty() || cur != null;
-        }
-
-        /** @return the next smallest number */
-        public int next() {
-            TreeNode result = helper();
-            return result.val;
-        }
+class BSTIterator {
+    Stack<TreeNode> stk;
+    TreeNode cur;
+    boolean direct;
+    public BSTIterator(TreeNode root, boolean direct) {
+        stk = new Stack<>();
+        cur = root;
+        this.direct = direct;
     }
 
-    class BSTIterator2 {
-        Stack<TreeNode> stk;
-        TreeNode cur;
-        public BSTIterator2(TreeNode root) {
-            stk = new Stack<>();
-            cur = root;
-        }
-
-        private TreeNode helper() {
-            while (cur != null) {
-                stk.push(cur);
+    private TreeNode helper() {
+        TreeNode result = null;
+        while (cur != null) {
+            stk.push(cur);
+            if (direct) {
+                cur = cur.left;
+            } else {
                 cur = cur.right;
             }
+        }
 
-            TreeNode result = null;
-            if (!stk.isEmpty()) {
-                result = stk.pop();
+        if (!stk.isEmpty()) {
+            result = stk.pop();
+            if (direct) {
+                cur = result.right;
+            } else {
                 cur = result.left;
             }
-            return result;
         }
-
-        /** @return whether we have a next smallest number */
-        public boolean hasNext() {
-            return !stk.isEmpty() || cur != null;
-        }
-
-        /** @return the next smallest number */
-        public int next() {
-            TreeNode result = helper();
-            return result.val;
-        }
+        return result;
     }
+
+
+    public Integer next() {
+        Integer result = helper().val;
+        return result;
+    }
+
+    public boolean hasNext() {
+        return !stk.isEmpty() || cur != null;
+    }
+}
+
     public boolean findTarget(TreeNode root, int k) {
-        BSTIterator iter1 = new BSTIterator(root);
-        BSTIterator2 iter2 = new BSTIterator2(root);
+        BSTIterator iter1 = new BSTIterator(root, true);
+        BSTIterator iter2 = new BSTIterator(root, false);
+
         if (!iter1.hasNext() || !iter2.hasNext()) {
             return false;
         }
+
         int tmp1 = iter1.next();
         int tmp2 = iter2.next();
 
-        while (iter1.hasNext() && iter2.hasNext()) {
-            if (tmp1 == tmp2 || tmp1 > tmp2) {
-                break;
-            }
+        while (tmp1 < tmp2) {
             if (tmp1 + tmp2 == k) {
                 return true;
-            }else if (tmp1 + tmp2 < k) {
+            } else if (tmp1 + tmp2 < k) {
                 tmp1 = iter1.next();
             } else {
                 tmp2 = iter2.next();
