@@ -4,30 +4,28 @@
 public class SentenceScreenFitting {
     //brute force
 //    public int wordsTyping(String[] sentence, int rows, int cols) {
-//        int count = rows * cols;
-//
+//        int r = 0;
 //        int i = 0;
-//        int j = 0;
-//        int result = 0;
-//        while (j < count) {
-//            int c  = j % cols;
-//            int remain = cols - c;
-//            if (sentence[i].length() < remain) {
-//                j = j + sentence[i].length() + 1;
-//                i++;
-//            } else if (sentence[i].length() == remain) {
-//                j = j + sentence[i].length();
-//                i++;
-//            } else {
-//                j = remain + j;
-//            }
+//        int cur = 0;
+//        int count = 0;
 //
-//            if (i == sentence.length) {
-//                result++;
-//                i = 0;
+//        while (r < rows) {
+//            while (cur + sentence[i].length() <= cols) {
+//                cur += sentence[i].length();
+//                i++;
+//                if (cur < cols) {
+//                    cur++;
+//                }
+//
+//                if (i == sentence.length) {
+//                    count++;
+//                    i = 0;
+//                }
 //            }
+//            cur = 0;
+//            r++;
 //        }
-//        return result;
+//        return count;
 //    }
 
 

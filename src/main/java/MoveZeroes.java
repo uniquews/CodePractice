@@ -24,18 +24,31 @@ public class MoveZeroes {
 //        }
 //    }
 
-    public void moveZeroes(int[] nums) {
-        int index = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                continue;
-            } else {
-                nums[index++] = nums[i];
-            }
-        }
+//    public void moveZeroes(int[] nums) {
+//        int index = 0;
+//        for (int i = 0; i < nums.length; i++) {
+//            if (nums[i] == 0) {
+//                continue;
+//            } else {
+//                nums[index++] = nums[i];
+//            }
+//        }
+//
+//        while (index < nums.length) {
+//            nums[index++] = 0;
+//        }
+//    }
 
-        while (index < nums.length) {
-            nums[index++] = 0;
+    // 最优解：lastNonZero 是第一个0，{0,0,0,1} 只需要一次operation
+    public void moveZeroes(int[] nums) {
+        int lastNonZero = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                if (i != lastNonZero) {
+                    swap(nums, lastNonZero, i);
+                }
+                lastNonZero++;
+            }
         }
     }
 
@@ -44,4 +57,5 @@ public class MoveZeroes {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
+
 }

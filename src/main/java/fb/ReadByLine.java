@@ -1,0 +1,33 @@
+package fb;
+
+public class ReadByLine {
+    private int read4(char[] buf) {
+        return 4;
+    }
+
+    int currentRead = 0;
+    int offsetRead = 0;
+    public int readByLine(char[] buf) {
+        char[] buffer = new char[4];
+        int ptr = 0;
+        while (true) {
+            if (offsetRead == 0) {
+                currentRead = read4(buffer);
+                if (currentRead == 0) {
+                    return ptr;
+                }
+            }
+
+            while (offsetRead < currentRead) {
+                buf[ptr++] = buffer[offsetRead++];
+                if (buffer[offsetRead - 1] == '\n') {
+                    return ptr;
+                }
+            }
+
+            if (offsetRead == currentRead) {
+                offsetRead = 0;
+            }
+        }
+    }
+}

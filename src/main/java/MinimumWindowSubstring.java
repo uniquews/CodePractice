@@ -108,16 +108,63 @@ public class MinimumWindowSubstring {
 //        return startIndex == -1 ? "" : s.substring(startIndex, startIndex + result);
 //    }
 
-    public String minWindow(String s, String t) {
-        if (s == null || t == null || s.length() == 0 || t.length() == 0) {
-            return "";
-        }
+//    public String minWindow(String s, String t) {
+//        if (s == null || t == null || s.length() == 0 || t.length() == 0) {
+//            return "";
+//        }
+//
+//        Map<Character, Integer> occur = new HashMap<>();
+//        Map<Character, Integer> visited = new HashMap<>();
+//        int size = t.length();
+//        int count = 0;
+//        int minWin = s.length();
+//        int start = -1;
+//
+//        for (int i = 0; i < t.length(); i++) {
+//            occur.put(t.charAt(i), occur.getOrDefault(t.charAt(i), 0) + 1);
+//            visited.put(t.charAt(i), 0);
+//        }
+//
+//        int right = 0;
+//        for (int left = 0; left < s.length(); left++) {
+//            while (right < s.length() && count < size) {
+//                char c = s.charAt(right);
+//                if (occur.containsKey(c)) {
+//                    if (visited.get(c) < occur.get(c)) {
+//                        count++;
+//                    }
+//                    visited.put(c, visited.get(c) + 1);
+//                }
+//                right++;
+//            }
+//
+//            if (count == size) {
+//                if (minWin >= right - left) { // minWin如果被初始化为s.length, 这个地方就要用 >=
+//                    minWin = right - left;
+//                    start = left;
+//                }
+//            }
+//
+//            char l = s.charAt(left);
+//            if (occur.containsKey(l)) {
+//                visited.put(l, visited.get(l) - 1);
+//                if (visited.get(l) < occur.get(l)) {
+//                    count--;
+//                }
+//            }
+//        }
+//        if (start == -1)
+//            return "";
+//        return s.substring(start, start + minWin);
+//    }
 
+    public String minWindow(String s, String t) {
         Map<Character, Integer> occur = new HashMap<>();
         Map<Character, Integer> visited = new HashMap<>();
-        int size = t.length();
+
         int count = 0;
-        int minWin = s.length();
+        int right = 0;
+        int minLen = s.length();
         int start = -1;
 
         for (int i = 0; i < t.length(); i++) {
@@ -125,37 +172,36 @@ public class MinimumWindowSubstring {
             visited.put(t.charAt(i), 0);
         }
 
-        int right = 0;
         for (int left = 0; left < s.length(); left++) {
-            while (right < s.length() && count < size) {
-                char c = s.charAt(right);
-                if (occur.containsKey(c)) {
-                    if (visited.get(c) < occur.get(c)) {
+            while (right < s.length() && count < t.length()) {
+                if (occur.containsKey(s.charAt(right))) {
+                    if (occur.get(s.charAt(right)) > visited.get(s.charAt(right))) {
                         count++;
                     }
-                    visited.put(c, visited.get(c) + 1);
+                    visited.put(s.charAt(right), visited.get(s.charAt(right)) + 1);
                 }
                 right++;
             }
 
-            if (count == size) {
-                if (minWin >= right - left) { // minWin如果被初始化为s.length, 这个地方就要用 >=
-                    minWin = right - left;
-                    start = left;
-                }
+
+            if (count == t.length() && minLen >= right - left) {
+                start = left;
+                minLen = right - left;
             }
 
-            char l = s.charAt(left);
-            if (occur.containsKey(l)) {
-                visited.put(l, visited.get(l) - 1);
-                if (visited.get(l) < occur.get(l)) {
+            if (occur.containsKey(s.charAt(left))) {
+                visited.put(s.charAt(left), visited.get(s.charAt(left)) - 1);
+                if (visited.get(s.charAt(left)) < occur.get(s.charAt(left))) {
                     count--;
                 }
             }
         }
-        if (start == -1)
+
+        if (start == -1) {
             return "";
-        return s.substring(start, start + minWin);
+        }
+
+        return s.substring(start, start + minLen);
     }
 
     public static void main(String[] args) {
@@ -165,9 +211,9 @@ public class MinimumWindowSubstring {
          * "cabwefgewcwaefgcf"
          "cae"
          * */
-        String source = "a";
+        String source = "ADOBECODEBANC";
 //        String target = "ABC";
-        String target = "a";
+        String target = "ABC";
         MinimumWindowSubstring test = new MinimumWindowSubstring();
         System.out.print(test.minWindow(source, target));
     }
