@@ -1,10 +1,12 @@
+package fb;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by shuaiwang on 9/10/17.
  */
-public class sumOfTwoNumbersWithOneDigitDifference {
+public class SumOfTwoNumbersWithOneDigitDifference {
 
     public List<int[]> sumOfTwoDigits(int sum) {
         List<int[]> result = new ArrayList<>();
@@ -62,7 +64,7 @@ public class sumOfTwoNumbersWithOneDigitDifference {
 
     public static void main(String[] args) {
         int sum = 9888;
-        sumOfTwoNumbersWithOneDigitDifference test = new sumOfTwoNumbersWithOneDigitDifference();
+        SumOfTwoNumbersWithOneDigitDifference test = new SumOfTwoNumbersWithOneDigitDifference();
         List<int[]> result = test.sumOfTwoDigits(sum);
         for (int i = 0; i < result.size(); i++) {
             System.out.println(result.get(i)[0] + " " + result.get(i)[1]);
