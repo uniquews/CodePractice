@@ -1,9 +1,6 @@
 import utils.Interval;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 3/23/17.
@@ -99,4 +96,22 @@ public class MeetingRoomsII {
         }
         return result;
     }
+
+//    public int minMeetingRooms(Interval[] intervals) {
+//        if (intervals == null || intervals.length == 0) {
+//            return 0;
+//        }
+//        Arrays.sort(intervals, Comparator.comparingInt(a -> a.start));
+//
+//        Queue<Interval> q = new PriorityQueue<>(Comparator.comparingInt(a -> a.end));
+//
+//        q.add(intervals[0]);
+//        for (int i = 1; i < intervals.length; i++) {
+//            if (q.peek().end <= intervals[i].start) {
+//                q.poll();
+//            }
+//            q.add(intervals[i]);
+//        }
+//        return q.size();
+//    }
 }
