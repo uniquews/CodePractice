@@ -7,50 +7,106 @@ import java.util.*;
  * Created by shuaiwang on 2/14/17.
  */
 public class KClosestPoints {
+//    public Point[] kClosest(Point[] points, Point origin, int k) {
+//        // write your code here
+//
+//        Queue<Point> q = new PriorityQueue<>(new Comparator<Point>() {
+//            public int compare(Point a, Point b) {
+//                return getDistance(b, origin) - getDistance(a, origin);
+//            }
+//        });
+//
+//        for (int i = 0; i < points.length; i++) {
+//            q.add(points[i]);
+//            if (q.size() > k) {
+//                q.poll();
+//            }
+//        }
+//
+//        Point[] result = new Point[k];
+//        int index = 0;
+//        Iterator<Point> iter = q.iterator();
+//        while (iter.hasNext()) {
+//            result[index] = iter.next();
+//            index++;
+//        }
+//        Arrays.sort(result, new Comparator<Point>() {
+//            @Override
+//            public int compare(Point o1, Point o2) {
+//                int tmp1 = getDistance(o1, origin);
+//                int tmp2 = getDistance(o2, origin);
+//                if (tmp1 != tmp2) {
+//                    return tmp1 - tmp2;
+//                } else {
+//                    if (o1.x != o2.x) {
+//                        return o1.x - o2.x;
+//                    } else {
+//                        return o1.y - o2.y;
+//                    }
+//                }
+//            }
+//        });
+//        return result;
+//    }
+//
+//    private int getDistance(Point a, Point b) {
+//        return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+//    }
+
     public Point[] kClosest(Point[] points, Point origin, int k) {
         // write your code here
-
-        Queue<Point> q = new PriorityQueue<>(new Comparator<Point>() {
-            public int compare(Point a, Point b) {
-                return getDistance(b, origin) - getDistance(a, origin);
-            }
-        });
-
-        for (int i = 0; i < points.length; i++) {
-            q.add(points[i]);
-            if (q.size() > k) {
-                q.poll();
-            }
+        if (points == null || points.length == 0) {
+            return new Point[0];
         }
+        helper(points, 0, points.length - 1, k, origin);
 
-        Point[] result = new Point[k];
-        int index = 0;
-        Iterator<Point> iter = q.iterator();
-        while (iter.hasNext()) {
-            result[index] = iter.next();
-            index++;
-        }
+        Point[] result = Arrays.copyOf(points, k);
         Arrays.sort(result, new Comparator<Point>() {
-            @Override
             public int compare(Point o1, Point o2) {
                 int tmp1 = getDistance(o1, origin);
                 int tmp2 = getDistance(o2, origin);
-                if (tmp1 != tmp2) {
-                    return tmp1 - tmp2;
-                } else {
-                    if (o1.x != o2.x) {
-                        return o1.x - o2.x;
-                    } else {
-                        return o1.y - o2.y;
-                    }
+                if (tmp2 != tmp1) {
+                    return tmp2 - tmp1;
                 }
+                return o1.x != o2.x ? o2.x - o1.x : o2.y - o1.y;
             }
-        });
+            });
+
         return result;
     }
 
-    private int getDistance(Point a, Point b) {
-        return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+    private void helper(Point[] points, int start, int end, int k, Point origin) {
+        int pos = partition(points, start, end, origin);
+        if (pos + 1 == k) {
+            return;
+        } else if (pos + 1 < k) {
+            helper(points, pos + 1, end, k, origin);
+        } else {
+            helper(points, start, pos - 1, k, origin);
+        }
+    }
+
+    private int partition(Point[] points, int start, int end, Point origin) {
+        int pivot = getDistance(origin, points[end]);
+        int leftTail = start;
+        for (int cur = leftTail; cur < end; cur++) {
+            if (getDistance(origin, points[cur]) <= pivot) {
+                swap(points, leftTail, cur);
+                leftTail++;
+            }
+        }
+        swap(points, leftTail, end);
+        return leftTail;
+    }
+
+    private void swap(Point[] points, int i, int j) {
+        Point tmp = points[i];
+        points[i] = points[j];
+        points[j] = tmp;
+    }
+
+    private int getDistance(Point origin, Point p) {
+        return (origin.x - p.x) * (origin.x - p.x) + (origin.y - p.y) * (origin.y - p.y);
     }
 
 
