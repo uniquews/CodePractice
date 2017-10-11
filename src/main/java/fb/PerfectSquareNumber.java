@@ -46,7 +46,6 @@ public class PerfectSquareNumber {
         return n == 0;
     }
 
-
     public static void main(String[] args) {
         PerfectSquareNumber test = new PerfectSquareNumber();
         int n = 64;

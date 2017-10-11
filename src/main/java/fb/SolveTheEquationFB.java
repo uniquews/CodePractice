@@ -100,6 +100,45 @@ public class SolveTheEquationFB {
         return result;
     }
 
+
+//    public String solveEquation(String equation) {
+//        String[] tmp = equation.split("=");
+//        int[] first = helper(tmp[0]);
+//        int[] second = helper(tmp[1]);
+//
+//        int countX = first[0] - second[0];
+//        int countN = second[1] - first[1];
+//        if (countX == 0) {
+//            if (countN == 0) {
+//                return "Infinite solutions";
+//            } else {
+//                return "No solution";
+//            }
+//        } else {
+//            return "x=" + String.valueOf(countN / countX);
+//        }
+//    }
+//
+//    private int[] helper(String s) {
+//        String[] str = s.split("(?=[-+])");
+//        int countX = 0;
+//        int countN = 0;
+//
+//        for (int i = 0; i < str.length; i++) {
+//            if (str[i].equals("+x") || str[i].equals("x")) {
+//                countX++;
+//            } else if (str[i].equals("-x")) {
+//                countX--;
+//            } else if (str[i].contains("x")) {
+//                int pos = str[i].indexOf("x");
+//                countX += Integer.valueOf(str[i].substring(0, pos));
+//            } else {
+//                countN += Integer.valueOf(str[i]);
+//            }
+//        }
+//        return new int[]{countX, countN};
+//    }
+
     public static void main(String[] args) {
         String a = "5-(3-(2+1)+4)";
         SolveTheEquationFB test = new SolveTheEquationFB();
