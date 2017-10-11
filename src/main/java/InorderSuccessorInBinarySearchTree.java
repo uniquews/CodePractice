@@ -5,31 +5,19 @@ import utils.TreeNode;
  */
 public class InorderSuccessorInBinarySearchTree {
 //    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-//        // write your code here
 //        if (root == null) {
 //            return null;
 //        }
-//
-//        TreeNode result = null;
-//        while (root != null && root.val != p.val) {
-//            if (root.val > p.val) {
-//                result = root;
-//                root = root.left;
+//        TreeNode suc = null;
+//        while (root != null) {
+//            if (root.val <= p.val) {
+//                root = root.right;
 //            } else {
-//                root = root.right; // small and not equal
+//                suc = root;
+//                root = root.left;
 //            }
 //        }
-//
-//        if (root.right == null) {
-//            return result;
-//        }
-//
-//        root = root.right;
-//        while (root.left != null) {
-//            root = root.left;
-//        }
-//
-//        return root;
+//        return suc;
 //
 //    }
 
@@ -52,3 +40,4 @@ public class InorderSuccessorInBinarySearchTree {
         }
     }
 }
+
