@@ -5,52 +5,38 @@ import java.util.Stack;
  */
 public class BasicCalculator {
     public int calculate(String s) {
-        Stack<String> stk = new Stack<>();
-        int index = 0;
-        stk.push("+");
-        while (index <= s.length()) {
-            if (index < s.length() && s.charAt(index) == ' ') {
-                index++;
-                continue;
-            }
-            if (index == s.length() || s.charAt(index) == ')') {
-                int result = 0;
-                while (!stk.isEmpty() && !stk.peek().equals("(")) {
-                    int number = Integer.valueOf(stk.pop());
-                    String operator = stk.pop();
-                    if (operator.equals("+")) {
-                        result += number;
-                    } else {
-                        result -= number;
-                    }
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        int result = 0;
+        int sign = 1;
+        Stack<Integer> stk = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                int j = i;
+                while (j < s.length() && Character.isDigit(s.charAt(j))) {
+                    j++;
                 }
-                if (index < s.length() && s.charAt(index) == ')') {
-                    stk.pop(); // pop (
-                }
-                stk.push(String.valueOf(result));
-                index++;
-            } else {
-                if (s.charAt(index) == '+' || s.charAt(index) == '-' || s.charAt(index) == '(') {
-                    if (s.charAt(index) == '(') {
-                        stk.push(s.substring(index, index + 1));
-                        stk.push("+");
-                    } else {
-                        stk.push(s.substring(index, index + 1));
-                    }
-                    index++;
-                } else {
-                    int start = index;
-                    int end = index;
-                    while (end < s.length() && s.charAt(end) >= '0' && s.charAt(end) <= '9') {
-                        char tmp =s.charAt(end);
-                        end++;
-                    }
-                    stk.push(s.substring(start, end));
-                    index = end;
-                }
+                result += sign * Integer.valueOf(s.substring(i, j));
+                i = j - 1;
+            } else if (s.charAt(i) == '+') {
+                sign = 1;
+            } else if (s.charAt(i) == '-') {
+                sign = -1;
+            } else if (s.charAt(i) == '(') {
+                stk.push(result);
+                stk.push(sign);
+                result = 0;
+                sign = 1;
+            } else if (s.charAt(i) == ')'){ // 还可能是空
+                int si = stk.pop();
+                int prev = stk.pop();
+                result = result * si + prev;
             }
         }
-        return Integer.valueOf(stk.peek());
+        return result;
     }
 
     public static void main(String[] args) {
