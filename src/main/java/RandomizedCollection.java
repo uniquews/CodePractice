@@ -34,15 +34,6 @@ public class RandomizedCollection {
         int index1 = map.get(val).iterator().next();
         int index2 = list.size() - 1;
 
-        if (index1 == index2) {
-            list.remove(index1);
-            map.get(val).remove(index1);
-            if (map.get(val).size() == 0) {
-                map.remove(val);
-            }
-            return true;
-        }
-
         swap(index1, index2);
         list.remove(index2);
 
@@ -50,8 +41,11 @@ public class RandomizedCollection {
         if (map.get(val).size() == 0) {
             map.remove(val);
         }
-        map.get(list.get(index1)).remove(index2);
-        map.get(list.get(index1)).add(index1);
+        if (index1 != index2) {
+            map.get(list.get(index1)).remove(index2);
+            map.get(list.get(index1)).add(index1);
+        }
+
         return true;
     }
 
