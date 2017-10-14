@@ -35,6 +35,22 @@ public class FindPath {
         }
         return null;
     }
+    public MultiTreeNode findPath2(MultiTreeNode A, MultiTreeNode a, MultiTreeNode B) {
+        if (A == null) {
+            return null;
+        }
 
+        if (A == a) {
+            return B;
+        }
+
+        for (int i = 0; i < A.children.size(); i++) {
+            MultiTreeNode tmp = findPath2(A.children.get(i), a, B.children.get(i));
+            if (tmp != null) {
+                return tmp;
+            }
+        }
+        return null;
+    }
 
 }
