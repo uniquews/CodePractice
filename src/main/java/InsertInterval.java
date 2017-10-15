@@ -32,15 +32,65 @@ public class InsertInterval {
 
 
     // follow up do it in place
+//    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+//        int pos = binarySearch(intervals, newInterval);
+//        intervals.add(pos, newInterval);
+//        int index = pos + 1;
+//        while (index < intervals.size() && intervals.get(index).start <= intervals.get(pos).end) {
+//            if (index == pos + 1) {
+//                intervals.get(pos).start = Math.min(intervals.get(pos).start, intervals.get(index).start);
+//            }
+//            intervals.get(pos).end = Math.max(intervals.get(pos).end, intervals.get(index).end);
+//            intervals.remove(index);
+//        }
+//        return intervals;
+//    }
+//
+//    private int binarySearch(List<Interval> list, Interval target) {
+//        if (list == null || list.isEmpty()) {
+//            return 0;
+//        }
+//
+//        int start = 0;
+//        int end = list.size() - 1;
+//        while (start + 1 < end) {
+//            int mid = start + (end - start) / 2;
+//            Interval tmp = list.get(mid);
+//            if (tmp.end == target.start) {
+//                return mid;
+//            } else if (tmp.end < target.start) {
+//                start = mid;
+//            } else {
+//                end = mid;
+//            }
+//        }
+//
+//        if (list.get(start).end >= target.start) {
+//            return start;
+//        } else if (list.get(end).end >= target.start) {
+//            return end;
+//        } else {
+//            return end + 1;
+//        }
+//    }
+
+
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         int pos = binarySearch(intervals, newInterval);
-        intervals.add(pos, newInterval);
-        int index = pos + 1;
-        while (index < intervals.size() && intervals.get(index).start <= intervals.get(pos).end) {
-            if (index == pos + 1) {
-                intervals.get(pos).start = Math.min(intervals.get(pos).start, intervals.get(index).start);
-            }
-            intervals.get(pos).end = Math.max(intervals.get(pos).end, intervals.get(index).end);
+        int index = 0;
+        int pivot = 0;
+        if (pos > 0 && intervals.get(pos - 1).end >= newInterval.start) {
+            intervals.get(pos - 1).end = Math.max(intervals.get(pos - 1).end, newInterval.end);
+            pivot = pos - 1;
+            index = pos;
+        } else {
+            intervals.add(pos, newInterval);
+            pivot = pos;
+            index = pos + 1;
+        }
+
+        while (index < intervals.size() && intervals.get(index).start <= intervals.get(pivot).end) {
+            intervals.get(pivot).end = Math.max(intervals.get(pivot).end, intervals.get(index).end);
             intervals.remove(index);
         }
         return intervals;
@@ -56,20 +106,20 @@ public class InsertInterval {
         while (start + 1 < end) {
             int mid = start + (end - start) / 2;
             Interval tmp = list.get(mid);
-            if (tmp.end == target.start) {
+            if (tmp.start == target.start) {
                 return mid;
-            } else if (tmp.end < target.start) {
+            } else if (tmp.start < target.start) {
                 start = mid;
             } else {
                 end = mid;
             }
         }
 
-        if (list.get(start).end >= target.start) {
+        if (list.get(start).start >= target.start) {
             return start;
-        } else if (list.get(end).end >= target.start) {
+        } else if (target.start > list.get(start).start && target.start <= list.get(end).start) {
             return end;
-        } else {
+        } else  { // target.start >= list.get(end).start
             return end + 1;
         }
     }
