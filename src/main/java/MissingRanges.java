@@ -6,37 +6,39 @@ import java.util.List;
  */
 public class MissingRanges {
     public List<String> findMissingRanges(int[] nums, int lower, int upper) {
-        List<String> result =  new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
         long current = lower;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] < current) // [1,1,1] 有重复
+            if (nums[i] < current) { // 有重读[1,1,1]
                 continue;
+            }
 
             if (nums[i] == current) {
                 current++;
                 continue;
-            } else {
-                if (current == nums[i] - 1) {
-                    String s = String.valueOf(current);
-                    result.add(s);
-                    current = (long)nums[i] + 1;
-                } else {
-                    String s = String.valueOf(current) + "->" + String.valueOf(nums[i] - 1);
-                    result.add(s);
-                    current = (long)nums[i] + 1;
-                }
             }
-        }
-        String s;
-        if (current <= upper) {
-            if (current == upper)
-                s = String.valueOf(current);
-            else
-                s = String.valueOf(current) + "->" + String.valueOf(upper);
+
+            String s = convertToString(current, nums[i] - 1);
             result.add(s);
+            current = (long)nums[i] + 1;
         }
+
+        if (current > upper) {
+            return result;
+        }
+
+        String last = convertToString(current, upper);
+        result.add(last);
         return result;
+    }
+
+    private String convertToString(long start, int end) {
+        if (start == end) {
+            return String.valueOf(start);
+        }
+
+        return String.valueOf(start) + "->" + String.valueOf(end);
     }
 
     public static void main(String[] args) {
