@@ -1,58 +1,49 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.xml.stream.events.Characters;
+import java.util.*;
 
 /**
  * Created by shuaiwang on 3/13/17.
  */
 public class StrobogrammaticNumberII {
+    // bfs
 //    public List<String> findStrobogrammatic(int n) {
-//        HashMap<Character, Character> map = new HashMap<>();
+//        Map<Character, Character> map = new HashMap<>();
 //        map.put('1', '1');
 //        map.put('6', '9');
 //        map.put('8', '8');
 //        map.put('9', '6');
 //        map.put('0', '0');
 //
-//        char[] s = new char[n];
-//        List<String> result = new ArrayList<>();
-//        dfs(map, s, result, 0, n - 1);
-//        return result;
-//    }
+//        List<String> even = Arrays.asList("");
+//        List<String> odd = Arrays.asList("0", "1", "8");
 //
-//    private void dfs(HashMap<Character, Character> map, char[] s, List<String> result, int start, int end) {
-//        if (start > end) {
-//            result.add(new String(s));//
-//            //Calling toString on an array will call the toString method from Object. Which will return you the hashCode
-//            // s.toString is wrong...
-//            return;
+//        List<String> start;
+//        if (n % 2 == 0) {
+//            start = even;
+//        } else {
+//            start = odd;
 //        }
 //
-//        if (start == end) {
-//            for (Map.Entry<Character, Character> entry: map.entrySet()) {
-//                if (entry.getKey() == entry.getValue()) {
-//                    s[start] = entry.getKey();
-//                    s[end] = entry.getValue();
-//                    result.add(new String(s));
+//        while (n >= 2) {
+//            List<String> next = new ArrayList<>();
+//            for (String s : start) {
+//                String tmp = "";
+//                for (Character c : map.keySet()) {
+//                    if ((n == 2 || n == 3) && c == '0') {
+//                        continue;
+//                    }
+//                    tmp = c + s + map.get(c);
+//                    next.add(tmp);
 //                }
 //            }
-//            return;
+//            start = next;
+//            n -= 2;
 //        }
-//
-//        for (Map.Entry<Character, Character> entry: map.entrySet()) {
-//            if (start == 0 && entry.getKey() == '0') {
-//                continue;
-//            }
-//            s[start] = entry.getKey();
-//            s[end] = entry.getValue();
-//
-//            dfs(map, s, result, start + 1, end - 1);
-//        }
+//        return start;
 //    }
 
     public List<String> findStrobogrammatic(int n) {
-        HashMap<Character, Character> map = new HashMap<>();
+        Map<Character, Character> map = new HashMap<>();
         map.put('1', '1');
         map.put('6', '9');
         map.put('8', '8');
@@ -61,20 +52,20 @@ public class StrobogrammaticNumberII {
 
         char[] s = new char[n];
         List<String> result = new ArrayList<>();
-        dfs(result, s, 0, n - 1, map);
+        dfs(map, s, 0, n - 1, result);
         return result;
     }
 
-    private void dfs(List<String> result, char[] s, int left, int right, HashMap<Character, Character> map) {
-        if (left > right) {
+    private void dfs(Map<Character, Character> map, char[] s, int start, int end, List<String> result) {
+        if (start > end) {
             result.add(new String(s));
             return;
         }
 
-        if (left == right) {
+        if (start == end) {
             for (Character c : map.keySet()) {
                 if (c == map.get(c)) {
-                    s[left] = c;
+                    s[start] = c;
                     result.add(new String(s));
                 }
             }
@@ -82,14 +73,13 @@ public class StrobogrammaticNumberII {
         }
 
         for (Character c : map.keySet()) {
-            if (left == 0 && c == '0') {
+            if (start == 0 && c == '0') {
                 continue;
             }
-            s[left] = c;
-            s[right] = map.get(c);
-            dfs(result, s, left + 1, right - 1, map);
+            s[start] = c;
+            s[end] = map.get(c);
+            dfs(map, s, start + 1, end - 1, result);
         }
-        return;
     }
 
     public static void main(String[] args) {
