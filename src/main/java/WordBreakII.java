@@ -4,6 +4,10 @@ import java.util.*;
  * Created by shuaiwang on 2/8/17.
  */
 public class WordBreakII {
+    /**
+     * 时间复杂度分析 https://leetcode.com/problems/word-break-ii/solution/
+     *
+     * */
 //    public List<String> wordBreak(String s, Set<String> wordDict) {
 //        // Write your code here
 //        HashMap<String, List<String>> hashMap = new HashMap<>();
@@ -41,21 +45,61 @@ public class WordBreakII {
 //    }
 
 
-    public List<String> wordBreak(String s, List<String> wordDict) {
-        Set<String> dict = new HashSet<>();
-        for (String str : wordDict) {
-            dict.add(str);
-        }
+//    public List<String> wordBreak(String s, List<String> wordDict) {
+//        Set<String> dict = new HashSet<>();
+//        for (String str : wordDict) {
+//            dict.add(str);
+//        }
+//
+//        HashMap<String, List<String>> hashMap = new HashMap<>();
+//        return helper(s, dict, hashMap);
+//    }
+//
+//    private List<String> helper(String s, Set<String> dict, HashMap<String, List<String>> map) {
+//        List<String> result = new ArrayList<>();
+//        if (s.length() == 0) {
+//            result.add("");
+//            return result;
+//        }
+//
+//        if (map.containsKey(s)) {
+//            return map.get(s);
+//        }
+//
+//        for (int i = 1; i <= s.length(); i++) {
+//            String current = s.substring(0, i);
+//            if (dict.contains(current)) {
+//                String next = s.substring(i);
+//                List<String> allCuts = helper(next, dict, map);
+//
+//                for (String str : allCuts) {
+//                    if (!str.equals(""))
+//                        result.add(current + " " + str);
+//                    else
+//                        result.add(current);
+//                }
+//            }
+//        }
+//
+//        map.put(s, result);
+//        return result;
+//    }
 
-        HashMap<String, List<String>> hashMap = new HashMap<>();
+
+    // 只输出一个结果 O(n^2)
+    public String wordBreak(String s, List<String> wordDict) {
+        Set<String> dict = new HashSet<>();
+
+        dict.addAll(wordDict);
+
+        HashMap<String, String> hashMap = new HashMap<>();
         return helper(s, dict, hashMap);
     }
 
-    private List<String> helper(String s, Set<String> dict, HashMap<String, List<String>> map) {
-        List<String> result = new ArrayList<>();
+    private String helper(String s, Set<String> dict, HashMap<String, String> map) {
+        String result = null;
         if (s.length() == 0) {
-            result.add("");
-            return result;
+            return "";
         }
 
         if (map.containsKey(s)) {
@@ -66,13 +110,11 @@ public class WordBreakII {
             String current = s.substring(0, i);
             if (dict.contains(current)) {
                 String next = s.substring(i);
-                List<String> allCuts = helper(next, dict, map);
+                String oneCut = helper(next, dict, map);
 
-                for (String str : allCuts) {
-                    if (!str.equals(""))
-                        result.add(current + " " + str);
-                    else
-                        result.add(current);
+                if (oneCut != null) {
+                    result = current + " " + oneCut;
+                    break;
                 }
             }
         }
@@ -92,7 +134,7 @@ public class WordBreakII {
         String input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         List<String> s = new ArrayList<>(Arrays.asList("a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"));
 
-        List<String> result = test.wordBreak(input, s);
-        System.out.print(result);
+//        List<String> result = test.wordBreak(input, s);
+//        System.out.print(result);
     }
 }

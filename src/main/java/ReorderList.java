@@ -5,66 +5,43 @@ import utils.ListNode;
  */
 public class ReorderList {
     public void reorderList(ListNode head) {
-        // write your code here
-        if (head == null) {
+        if (head == null || head.next == null) {
             return;
         }
-        ListNode mid = findMiddle(head);
-        ListNode p = reverse(mid.next);
-        mid.next = null;
-        head = merge(head, p);
-    }
 
-    private ListNode findMiddle(ListNode p) {
-        if (p == null || p.next == null) {
-            return p;
-        }
-
-        ListNode slow = p;
-        ListNode fast = p.next;
+        ListNode slow = head;
+        ListNode fast = head.next;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        return slow;
+        ListNode second = reverse(slow.next);
+        slow.next = null;
+        ListNode first = head;
+
+        while (second != null) {
+            ListNode nextSecond = second.next;
+            second.next = first.next;
+            first.next = second;
+            first = first.next.next;
+            second = nextSecond;
+        }
     }
 
-    private ListNode reverse(ListNode p) {
-        ListNode newHead = null;
-        while (p != null) {
-            ListNode tmp = p.next;
-            p.next = newHead;
-            newHead = p;
-            p = tmp;
-        }
-        return newHead;
-    }
+    private ListNode reverse(ListNode head) {
+        ListNode prepare = new ListNode(-1);
+        prepare.next = head;
+        ListNode prev = head;
+        ListNode cur = head.next;
 
-    private ListNode merge(ListNode p, ListNode q) {
-        ListNode dummy = new ListNode(-1);
-        ListNode result = dummy;
-
-        int index = 0;
-        while (p != null && q != null) {
-            if (index % 2 == 0) {
-                result.next = p;
-                p = p.next;
-            } else {
-                result.next = q;
-                q = q.next;
-            }
-            result = result.next;
-            index++;
+        while (cur != null) {
+            prev.next = cur.next;
+            cur.next = prepare.next;
+            prepare.next = cur;
+            cur = prev.next;
         }
-
-        if (p == null) {
-            result.next = q;
-        }
-        if (q == null) {
-            result.next = p;
-        }
-        return dummy.next;
+        return prepare.next;
     }
 }

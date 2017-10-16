@@ -1,6 +1,7 @@
 package utils;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,15 @@ public class MultiTreeNode {
     public int val;
     public List<MultiTreeNode> children;
 
-    MultiTreeNode(int val) {
+    public MultiTreeNode(int val) {
         this.val = val;
+        children = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "MultiTreeNode{" +
+                "val=" + val +
+                '}';
     }
 }

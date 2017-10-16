@@ -56,7 +56,11 @@ public class SparseMatrixFB {
                 List<int[]> ma = matrixA.get(row);
                 List<int[]> mb = matrixB.get(col);
                 List<int[]> mc = matrixC.getOrDefault(row, new ArrayList<>());
-                mc.add(new int[]{col, helper(ma, mb)});
+                int t = helper(ma, mb);
+                if (t == 0) {
+                    continue;
+                }
+                mc.add(new int[]{col, t});
                 matrixC.put(row, mc);
             }
         }

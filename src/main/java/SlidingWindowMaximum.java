@@ -47,40 +47,71 @@ public class SlidingWindowMaximum {
 //        deque.addLast(candidate);
 //    }
 
-    public ArrayList<Integer> maxSlidingWindow(int[] nums, int k) {
-        // write your code here
-        ArrayList<Integer> result = new ArrayList<>();
-        Deque<Integer> deque = new ArrayDeque<Integer>();
+//    public ArrayList<Integer> maxSlidingWindow(int[] nums, int k) {
+//        // write your code here
+//        ArrayList<Integer> result = new ArrayList<>();
+//        Deque<Integer> deque = new ArrayDeque<Integer>();
+//
+//        if (nums == null || nums.length == 0) {
+//            return result;
+//        }
+//
+//        for (int i = 0; i < k; i++) {
+//            insertIntoDeque(nums, deque, i);
+//        }
+//
+//        result.add(deque.peekFirst());
+//
+//        int right = k, left = 0;
+//        while (right < nums.length) {
+//            if (nums[left] == deque.peekFirst()) {
+//                deque.removeFirst();
+//            }
+//            insertIntoDeque(nums, deque, right);
+//            result.add(deque.peekFirst());
+//            left++;
+//            right++;
+//        }
+//
+//        return result;
+//    }
+//
+//    private void insertIntoDeque(int[] nums, Deque<Integer> deque, int i) {
+//        while (!deque.isEmpty() && deque.peekLast() < nums[i]) {
+//            deque.removeLast();
+//        }
+//        deque.addLast(nums[i]);
+//    }
 
+    public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length == 0) {
-            return result;
+            return new int[0];
         }
+
+        int[] result = new int[nums.length - k + 1];
+        int index = 0;
+        LinkedList<Integer> list = new LinkedList<>();
 
         for (int i = 0; i < k; i++) {
-            insertIntoDeque(nums, deque, i);
-        }
-
-        result.add(deque.peekFirst());
-
-        int right = k, left = 0;
-        while (right < nums.length) {
-            if (nums[left] == deque.peekFirst()) {
-                deque.removeFirst();
+            while (!list.isEmpty() && nums[list.peekLast()] <= nums[i]) {
+                list.pollLast();
             }
-            insertIntoDeque(nums, deque, right);
-            result.add(deque.peekFirst());
-            left++;
-            right++;
+            list.offerLast(i);
         }
 
+        result[index++] = nums[list.peekFirst()];
+
+        for (int i = k; i < nums.length; i++) {
+            if (list.peekFirst() == i - k) {
+                list.pollFirst();
+            }
+            while (!list.isEmpty() && nums[list.peekLast()] <= nums[i]) {
+                list.pollLast();
+            }
+            list.offerLast(i);
+            result[index++] = nums[list.peekFirst()];
+        }
         return result;
-    }
-
-    private void insertIntoDeque(int[] nums, Deque<Integer> deque, int i) {
-        while (!deque.isEmpty() && deque.peekLast() < nums[i]) {
-            deque.removeLast();
-        }
-        deque.addLast(nums[i]);
     }
 
     public static void main(String[] args) {

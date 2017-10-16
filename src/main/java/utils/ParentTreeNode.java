@@ -9,7 +9,7 @@ public class ParentTreeNode {
     public ParentTreeNode right;
     public ParentTreeNode parent;
 
-    ParentTreeNode(int x) {
+    public ParentTreeNode(int x) {
         this.val = x;
     }
 }

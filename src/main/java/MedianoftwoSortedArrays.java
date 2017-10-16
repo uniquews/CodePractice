@@ -1,6 +1,14 @@
 /**
  * Created by shuaiwang on 10/6/16.
  */
+
+/**
+ * 第一次扔掉 k / 2
+ * 剩下的 k / 2后  再从中取 k / 2 / 2 = k / 4
+ *
+ * 所以时间复杂度是logK
+ *
+ * */
 public class MedianoftwoSortedArrays {
 //    public double findMedianSortedArrays(int[] A, int[] B) {
 //        // write your code here
@@ -41,42 +49,81 @@ public class MedianoftwoSortedArrays {
 //        }
 //    }
 
+//    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+//        int size = nums1.length + nums2.length;
+//        if (size % 2 == 0) {
+//            return 1.0 * (helper(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, size / 2) + helper(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, size / 2 + 1)) / 2;
+//        } else {
+//            return 1.0 * helper(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, size / 2 + 1);
+//        }
+//    }
+//
+//    private int helper(int[] nums1, int s1, int e1, int[] nums2, int s2, int e2, int k) {
+//        if (s1 > e1) {
+//            return nums2[s2 + k - 1];
+//        }
+//
+//        if (e1 - s1 + 1 > e2 - s2 + 1) {
+//            return helper(nums2, s2, e2, nums1, s1, e1, k);
+//        }
+//
+//        if (k == 1) {
+//            return Math.min(nums1[s1], nums2[s2]);
+//        }
+//
+//        int pos = Math.min(k / 2, e1 - s1 + 1);
+//        int posInB = k - pos;
+//        if (nums1[s1 + pos - 1] == nums2[s2 + posInB - 1]) {
+//            return nums1[s1 + pos - 1];
+//        } else if (nums1[s1 + pos - 1] < nums2[s2 + posInB - 1]) {
+//            return helper(nums1, s1 + pos, e1, nums2, s2, e2, k - pos);
+//        } else {
+//            return helper(nums1, s1, e1, nums2, s2 + posInB, e2, k - posInB);
+//        }
+//    }
+
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int size = nums1.length + nums2.length;
-        if (size % 2 == 0) {
-            return 1.0 * (helper(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, size / 2) + helper(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, size / 2 + 1)) / 2;
+        int m = nums1.length;
+        int n = nums2.length;
+
+        if ((m + n) % 2 == 0) {
+            int tmp1 = findK(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, (m + n) / 2);
+            int tmp2 = findK(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, (m + n) / 2 + 1);
+            return (tmp1 * 1.0 + tmp2 * 1.0) / 2.0;
         } else {
-            return 1.0 * helper(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, size / 2 + 1);
+            int tmp = findK(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, (m + n) / 2 + 1);
+            return tmp * 1.0;
         }
     }
 
-    private int helper(int[] nums1, int s1, int e1, int[] nums2, int s2, int e2, int k) {
-        if (s1 > e1) {
-            return nums2[s2 + k - 1];
+    private int findK(int[] nums1, int s1, int e1, int[] nums2, int s2, int e2, int k) {
+        if (e1 - s1 + 1 > e2 - s2 + 1) {
+            return findK(nums2, s2, e2, nums1, s1, e1, k);
         }
 
-        if (e1 - s1 + 1 > e2 - s2 + 1) {
-            return helper(nums2, s2, e2, nums1, s1, e1, k);
+        if (e1 < s1) {
+            return nums2[s2 + k - 1];
         }
 
         if (k == 1) {
             return Math.min(nums1[s1], nums2[s2]);
         }
 
-        int pos = Math.min(k / 2, e1 - s1 + 1);
+        int pos = Math.min(e1 - s1 + 1, k / 2);
         int posInB = k - pos;
+
         if (nums1[s1 + pos - 1] == nums2[s2 + posInB - 1]) {
             return nums1[s1 + pos - 1];
         } else if (nums1[s1 + pos - 1] < nums2[s2 + posInB - 1]) {
-            return helper(nums1, s1 + pos, e1, nums2, s2, e2, k - pos);
+            return findK(nums1, s1 + pos, e1, nums2, s2, e2, k - pos);
         } else {
-            return helper(nums1, s1, e1, nums2, s2 + posInB, e2, k - posInB);
+            return findK(nums1, s1, e1, nums2, s2 + posInB, e2, k - posInB);
         }
     }
 
     public static void main(String[] args) {
-        int[] A = {2,3};
-        int[] B = {1,4};
+        int[] A = {1,2};
+        int[] B = {3,4};
 
         MedianoftwoSortedArrays test = new MedianoftwoSortedArrays();
         System.out.print(test.findMedianSortedArrays(A, B));

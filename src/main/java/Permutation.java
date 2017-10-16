@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by shuaiwang on 7/26/16.
@@ -63,5 +65,32 @@ public class Permutation {
             visited[i] = 0;
 
         }
+    }
+
+    /**
+     {}
+     {1}
+     {2,1} {1,2}
+     {3,2,1} {2,3,1} {2,1,3} {3,1,2} {1,3,2} {1,2,3}
+     */
+
+    public List<List<Integer>> permute(int[] nums) {
+        LinkedList<List<Integer>> result = new LinkedList<>();
+        result.add(new ArrayList<>());
+
+        for (int len = 0; len < nums.length; len++) {
+            int n = nums[len];
+            int size = result.size();
+            while (size != 0) {
+                List<Integer> cur = result.poll();
+                for (int i = 0; i <= len; i++) {
+                    List<Integer> tmp = new ArrayList<>(cur);
+                    tmp.add(i, n);
+                    result.add(tmp);
+                }
+                size--;
+            }
+        }
+        return result;
     }
 }

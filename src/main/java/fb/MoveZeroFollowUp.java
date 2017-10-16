@@ -1,34 +1,23 @@
 package fb;
 
 public class MoveZeroFollowUp {
-    /**
-     * 不需要维护相对顺序
-     * */
 
-    public void moveZero(int[] nums) {
-        int i = 0;
-        while (i < nums.length && nums[i] != 0) {
-            i++;
-        }
+    // 不需要维护相对顺序但是care后面是什么值
+    public int removeElement(int[] nums, int val) {
+        int left = 0;
+        int right = nums.length - 1;
 
-        int j = nums.length - 1;
-        while (j >= 0 && nums[j] == 0) {
-            j--;
-        }
-
-        while (i < j) {
-            swap(nums, i, j);
-            i++;
-            j--;
-
-            while (i < nums.length && nums[i] != 0) {
-                i++;
-            }
-
-            while (j >= 0 && nums[j] == 0) {
-                j--;
+        while (left <= right) {
+            if (nums[left] == val) {
+                if (nums[right] != val) {
+                    swap(nums, left, right);
+                }
+                right--;
+            } else {
+                left++;
             }
         }
+        return left;
     }
 
     private void swap(int[] nums, int i, int j) {
@@ -37,6 +26,48 @@ public class MoveZeroFollowUp {
         nums[j] = tmp;
     }
 
+    // 不需要保持顺序且不需要维护右边
+
+//    public int removeElement(int[] nums, int val) {
+//        int left = 0;
+//        int right = nums.length - 1;
+//
+//        while (left <= right) {
+//            while (left <= right && nums[left] != val) {
+//                left++;
+//            }
+//
+//            while (left <= right && nums[right] == val) {
+//                right--;
+//            }
+//
+//            if (left < right) {
+//                nums[left] = nums[right];
+//                left++;
+//                right--;
+//            }
+//        }
+//        return left;
+//    }
+
+    // duplicate logic少 更好
+//    public int removeElement(int[] nums, int val) {
+//        int left = 0;
+//        int right = nums.length - 1;
+//
+//        while (left <= right) {
+//            if (nums[left] == val) {
+//                if (nums[right] != val) {
+//                    nums[left] = nums[right];
+//                }
+//                right--;
+//            } else {
+//                left++;
+//            }
+//        }
+//        return left;
+//    }
+
     public static void main(String[] args) {
 //        int[] a = {1,0,2,3,4};
 //        int[] a = {0,0,2,3,4};
@@ -44,7 +75,7 @@ public class MoveZeroFollowUp {
 //        int[] a = {2,3,4,5,0};
         int[] a = {2,3,4,5,6};
         MoveZeroFollowUp test = new MoveZeroFollowUp();
-        test.moveZero(a);
+        System.out.println(test.removeElement(a, 0));
         for (int i : a) {
             System.out.println(i);
         }
