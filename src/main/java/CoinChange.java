@@ -19,36 +19,31 @@ public class CoinChange {
 //        }
 //        return f[amount] == Integer.MAX_VALUE ? -1 : f[amount];
 //    }
-    Map<Integer, Integer> map = new HashMap<>();
+    Map<Integer, Integer> cache = new HashMap<>();
     public int coinChange(int[] coins, int amount) {
-        if (coins == null || coins.length == 0) {
-            return 0;
-        }
-
         if (amount == 0) {
             return 0;
         }
 
-        if (map.containsKey(amount)) {
-            return map.get(amount);
+        if (amount < 0) {
+            return -1;
         }
 
-        int count = Integer.MAX_VALUE;
+        if (cache.containsKey(amount)) {
+            return cache.get(amount);
+        }
+
+        int result = Integer.MAX_VALUE;
         for (int i = 0; i < coins.length; i++) {
-            if (amount - coins[i] >= 0) {
-                int tmp = coinChange(coins, amount - coins[i]);
-                if (tmp == -1) {
-                    continue;
-                }
-                count = Math.min(count, tmp);
+            int next = coinChange(coins, amount - coins[i]);
+            if (next != -1) {
+                result = Math.min(result, next + 1);
             }
         }
-
-        if (count == Integer.MAX_VALUE)
-            map.put(amount, -1);
-        else {
-            map.put(amount, count + 1);
+        if (result == Integer.MAX_VALUE) {
+            result = -1;
         }
-        return map.get(amount);
+        cache.put(amount, result);
+        return result;
     }
 }
