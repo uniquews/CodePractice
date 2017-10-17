@@ -6,7 +6,7 @@ import java.util.*;
 /**
  *
  * 要是问index并且允许重复使用，要在call two sum的时候传i  在two sum里要先放number 在判断target - nums[i]
- *  也不需要 i < nums.length - 2
+ *  也不需要 i < nums.lewngth - 2
  * */
 public class ThreeSumDuplicateIndexUseOnce {
     // 如果有重复值，要求输出所有值一样但是index不一样
