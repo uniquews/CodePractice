@@ -6,25 +6,27 @@ import java.util.*;
  * Created by shuaiwang on 11/13/16.
  */
 public class CloneGraph {
+
+    // clone node then edges
 //    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
 //        if (node == null) {
 //            return null;
 //        }
+//
 //        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
-//        UndirectedGraphNode start = new UndirectedGraphNode(node.label);
-//        map.put(node, start);
-//
 //        Queue<UndirectedGraphNode> q = new LinkedList<>();
-//        q.offer(node);
 //
+//        q.offer(node);
 //        while (!q.isEmpty()) {
 //            UndirectedGraphNode cur = q.poll();
-//            for (UndirectedGraphNode child : cur.neighbors) {
-//                if (!map.containsKey(child)) {
-//                    UndirectedGraphNode copy = new UndirectedGraphNode(child.label);
-//                    map.put(child, copy);
-//                    q.add(child);
+//            UndirectedGraphNode copy = new UndirectedGraphNode(cur.label);
+//            map.put(cur, copy);
+//
+//            for (UndirectedGraphNode n : cur.neighbors) {
+//                if (map.containsKey(n)) {
+//                    continue;
 //                }
+//                q.offer(n);
 //            }
 //        }
 //
@@ -37,27 +39,57 @@ public class CloneGraph {
 //        return map.get(node);
 //    }
 
-    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+    // dfs
+//    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+//        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+//        dfs(node, map);
+//        return map.get(node);
+//    }
+//
+//    private void dfs(UndirectedGraphNode n, Map<UndirectedGraphNode, UndirectedGraphNode> map) {
+//        if (n == null) {
+//            return;
+//        }
+//
+//        if (map.containsKey(n)) {
+//            return;
+//        }
+//        UndirectedGraphNode newElement = new UndirectedGraphNode(n.label);
+//        map.put(n, newElement);
+//        for (UndirectedGraphNode next : n.neighbors) {
+//            dfs(next, map);
+//            map.get(n).neighbors.add(map.get(next));
+//        }
+//        return;
+//    }
+
+
+    // bfs
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode start) {
+        if (start == null) {
+            return null;
+        }
         Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
-        dfs(node, map);
-        return map.get(node);
-    }
+        Queue<UndirectedGraphNode> q = new LinkedList<>();
 
-    private void dfs(UndirectedGraphNode n, Map<UndirectedGraphNode, UndirectedGraphNode> map) {
-        if (n == null) {
-            return;
-        }
+        map.put(start, new UndirectedGraphNode(start.label));
+        q.add(start);
 
-        if (map.containsKey(n)) {
-            return;
+
+        while (!q.isEmpty()) {
+            UndirectedGraphNode cur = q.poll();
+            for (UndirectedGraphNode n : cur.neighbors) {
+                if (map.containsKey(n)) {
+                    map.get(cur).neighbors.add(map.get(n));
+                } else {
+                    UndirectedGraphNode copyOfNeighbor = new UndirectedGraphNode(n.label);
+                    map.get(cur).neighbors.add(copyOfNeighbor);
+                    map.put(n, copyOfNeighbor);
+                    q.add(n);
+                }
+            }
         }
-        UndirectedGraphNode newElement = new UndirectedGraphNode(n.label);
-        map.put(n, newElement);
-        for (UndirectedGraphNode next : n.neighbors) {
-            dfs(next, map);
-            map.get(n).neighbors.add(map.get(next));
-        }
-        return;
+        return map.get(start);
     }
 
     public static void main(String[] args) {
