@@ -105,6 +105,7 @@ public class DecodeString {
     }
 
 
+
     public static void main(String[] args) {
         String s = "3[a2[c]]";
         DecodeString test = new DecodeString();
