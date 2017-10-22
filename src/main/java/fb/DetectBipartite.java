@@ -34,7 +34,7 @@ public class DetectBipartite {
                            Set<Integer> wrong, Queue<Integer> q) {
         for (Integer n : neighbor) {
             if (correct.contains(n)) {
-                return true;
+                continue;
             }
 
             if (wrong.contains(n)) {
