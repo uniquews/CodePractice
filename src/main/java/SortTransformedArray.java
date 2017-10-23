@@ -6,55 +6,42 @@ import java.util.Arrays;
 public class SortTransformedArray {
     public int[] sortTransformedArray(int[] nums, int a, int b, int c) {
         int[] result = new int[nums.length];
-        if (nums == null || nums.length == 0) {
-            return result;
-        }
+        int left = 0;
+        int right = nums.length - 1;
+        if (a >= 0) {
+            int index = nums.length - 1;
+            for (int i = index; i >= 0; i--) {
+                int tmp1 = helper(nums[left], a, b, c);
+                int tmp2 = helper(nums[right], a, b, c);
 
-        if (a == 0) {
-            if (b >= 0) {
-                for (int i = 0; i < result.length; i++) {
-                    result[i] = helper(a, b, c, nums[i]);
-                }
-            } else {
-                int index = result.length - 1;
-                for (int i = 0; i < result.length; i++) {
-                    result[index--] = helper(a, b, c, nums[i]);
+                if (tmp1 >= tmp2) {
+                    result[i] = tmp1;
+                    left++;
+                } else {
+                    result[i] = tmp2;
+                    right--;
                 }
             }
         } else {
-            if (a > 0) {
-                int left = 0, right = nums.length - 1, index = result.length - 1;
-                while (index >= 0) {
-                    int val1 = helper(a, b, c, nums[left]);
-                    int val2 = helper(a, b, c, nums[right]);
-                    if (val1 <= val2) {
-                        result[index--] = val2;
-                        right--;
-                    } else {
-                        result[index--] = val1;
-                        left++;
-                    }
-                }
-            } else {
-                int left = 0, right = nums.length - 1, index = 0;
-                while (index < nums.length) {
-                    int val1 = helper(a, b, c, nums[left]);
-                    int val2 = helper(a, b, c, nums[right]);
-                    if (val1 <= val2) {
-                        result[index++] = val1;
-                        left++;
-                    } else {
-                        result[index++] = val2;
-                        right--;
-                    }
+            int index = 0;
+            for (int i = 0; i < nums.length; i++) {
+                int tmp1 = helper(nums[left], a, b, c);
+                int tmp2 = helper(nums[right], a, b, c);
+
+                if (tmp1 <= tmp2) {
+                    result[i] = tmp1;
+                    left++;
+                } else {
+                    result[i] = tmp2;
+                    right--;
                 }
             }
         }
         return result;
     }
 
-    private int helper(int a, int b, int c, int x) {
-        return x * x * a + b * x + c;
+    private int helper(int n, int a, int b, int c) {
+        return a * n * n + b * n + c;
     }
 
 

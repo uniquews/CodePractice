@@ -68,75 +68,102 @@ public class AddBoldTagInString {
 //        }
 //    }
 
-    class Interval {
-        public int start;
-        public int end;
-        public Interval(int s, int e) {
-            start = s;
-            end = e;
-        }
-    }
+//    class Interval {
+//        public int start;
+//        public int end;
+//        public Interval(int s, int e) {
+//            start = s;
+//            end = e;
+//        }
+//    }
+//
+//    public String addBoldTag(String s, String[] dict) {
+//        List<Interval> l = new ArrayList<>();
+//        for (int i = 0; i < dict.length; i++) {
+//            List<Interval> current = getInterval(s, dict[i]);
+//            if (current.size() == 0) {
+//                continue;
+//            }
+//            l.addAll(current);
+//        }
+//        Collections.sort(l, new Comparator<Interval>() {
+//            @Override
+//            public int compare(Interval o1, Interval o2) {
+//                return o1.start - o2.start;
+//            }
+//        });
+//
+//        List<Interval> afterMerge = mergeInterval(l);
+//        StringBuilder sb = new StringBuilder(s);
+//        for (int i = afterMerge.size() - 1; i >= 0; i--) { //倒着放不会影响前面的Index
+//            int start = afterMerge.get(i).start;
+//            int end = afterMerge.get(i).end;
+//
+//            sb.insert(end, "</b>");
+//            sb.insert(start, "<b>");
+//        }
+//        return sb.toString();
+//    }
+//
+//    private List<Interval> mergeInterval(List<Interval> l) {
+//        List<Interval> result = new ArrayList<>();
+//        if (l == null || l.size() == 0)
+//            return result;
+//
+//        result.add(l.get(0));
+//        int i = 1;
+//        while (i < l.size()) {
+//            if (l.get(i).start > result.get(result.size() - 1).end) {
+//                result.add(l.get(i++));
+//            } else {
+//                result.get(result.size() - 1).end = Math.max(result.get(result.size() - 1).end,
+//                        l.get(i++).end);
+//            }
+//
+//        }
+//        return result;
+//
+//    }
+//
+//    private List<Interval> getInterval(String s, String t) {
+//        List<Interval> result = new ArrayList<>();
+//        int index = 0;
+//        while (index < s.length()) {
+//            int pos = s.indexOf(t, index);
+//            if (pos != -1) {
+//                Interval in = new Interval(pos, pos + t.length()); // exclusive end
+//                result.add(in);
+//            }
+//            index++;
+//        }
+//        return result;
+//    }
 
     public String addBoldTag(String s, String[] dict) {
-        List<Interval> l = new ArrayList<>();
-        for (int i = 0; i < dict.length; i++) {
-            List<Interval> current = getInterval(s, dict[i]);
-            if (current.size() == 0) {
-                continue;
+        boolean[] bold = new boolean[s.length()];
+        for (String sub : dict) {
+            for (int i = 0; i <= s.length() - sub.length(); i++) {
+                if (s.substring(i, i + sub.length()).equals(sub)) {
+                    Arrays.fill(bold, i, i + sub.length(), true);
+                }
             }
-            l.addAll(current);
         }
-        Collections.sort(l, new Comparator<Interval>() {
-            @Override
-            public int compare(Interval o1, Interval o2) {
-                return o1.start - o2.start;
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (bold[i]) {
+                int j = i;
+                sb.append("<b>");
+                while (j < s.length() && bold[j]) {
+                    sb.append(s.charAt(j++));
+                }
+                sb.append("</b>");
+                i = j - 1;
+            } else {
+                sb.append(s.charAt(i));
             }
-        });
-
-        List<Interval> afterMerge = mergeInterval(l);
-        StringBuilder sb = new StringBuilder(s);
-        for (int i = afterMerge.size() - 1; i >= 0; i--) { //倒着放不会影响前面的Index
-            int start = afterMerge.get(i).start;
-            int end = afterMerge.get(i).end;
-
-            sb.insert(end, "</b>");
-            sb.insert(start, "<b>");
         }
         return sb.toString();
-    }
-
-    private List<Interval> mergeInterval(List<Interval> l) {
-        List<Interval> result = new ArrayList<>();
-        if (l == null || l.size() == 0)
-            return result;
-
-        result.add(l.get(0));
-        int i = 1;
-        while (i < l.size()) {
-            if (l.get(i).start > result.get(result.size() - 1).end) {
-                result.add(l.get(i++));
-            } else {
-                result.get(result.size() - 1).end = Math.max(result.get(result.size() - 1).end,
-                        l.get(i++).end);
-            }
-
-        }
-        return result;
-
-    }
-
-    private List<Interval> getInterval(String s, String t) {
-        List<Interval> result = new ArrayList<>();
-        int index = 0;
-        while (index < s.length()) {
-            int pos = s.indexOf(t, index);
-            if (pos != -1) {
-                Interval in = new Interval(pos, pos + t.length()); // exclusive end
-                result.add(in);
-            }
-            index++;
-        }
-        return result;
     }
 
     public static void main(String[] args) {
