@@ -30,6 +30,7 @@ public class FillWater {
                 return true;
             }
         }
+        cache.put(key, false);
         return false;
     }
 
