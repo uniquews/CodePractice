@@ -1,5 +1,7 @@
 import utils.TreeNode;
 
+import java.util.Stack;
+
 /**
  * Created by shuaiwang on 7/28/16.
  */
@@ -21,23 +23,51 @@ public class InorderSuccessorInBinarySearchTree {
 //
 //    }
 
-    private TreeNode last = null;
+//    private TreeNode last = null;
+//    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+//        helper(root, p);
+//        return last;
+//    }
+//
+//    private void helper(TreeNode n, TreeNode p) {
+//        if (n == null) {
+//            return;
+//        }
+//
+//        if (n.val <= p.val) {
+//            helper(n.right, p);
+//        } else {
+//            last = n;
+//            helper(n.left, p);
+//        }
+//    }
+
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        helper(root, p);
-        return last;
+        Stack<TreeNode> stk = new Stack<>();
+        TreeNode cur = root;
+
+        while (!stk.isEmpty() || cur != null) {
+            if (cur == null) {
+                cur = stk.pop();
+                if (cur.val > p.val) {
+                    return cur;
+                }
+                cur = cur.right;
+            } else {
+                stk.push(cur);
+                cur = cur.left;
+            }
+        }
+        return null;
     }
 
-    private void helper(TreeNode n, TreeNode p) {
-        if (n == null) {
-            return;
-        }
+    public static void main(String[] args) {
+        TreeNode a = new TreeNode(2);
+        TreeNode b = new TreeNode(1);
 
-        if (n.val <= p.val) {
-            helper(n.right, p);
-        } else {
-            last = n;
-            helper(n.left, p);
-        }
+        a.left = b;
+        InorderSuccessorInBinarySearchTree test = new InorderSuccessorInBinarySearchTree();
+        test.inorderSuccessor(a, b);
     }
 }
 
