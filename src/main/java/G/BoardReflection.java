@@ -1,8 +1,8 @@
 package G;
 
 public class BoardReflection {
+    //随机生成bumper， 5/25, 4/24 ...
     public boolean canExist(char[][] board, int x, int y, int[] direct) {
-        boolean[][] visited = new boolean[board.length][board[0].length];
 
         int[] next;
         int r = x;
@@ -16,10 +16,6 @@ public class BoardReflection {
                 return true;
             }
 
-            if (visited[r][c]) {
-                return false;
-            }
-            visited[r][c] = true;
             direct = nextDirection(board[r][c], direct);
         }
     }
