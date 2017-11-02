@@ -130,7 +130,7 @@ public class SlidingWindowMedian {
                 /**
                  * [9,7,0,3,9,8,6,5,7,6] 2
                  * */
-                minHeap.add(n); // 如果直接往maxHeap里放  假设maxHeap现在为空，来了一个最大数，会被直接放进maxHeap
+                minHeap.add(n); // 如果直接往maxHeap里放  假设maxHeap现在为空(某个时刻remove就空了)，来了一个最大数，会被直接放进maxHeap
                 count--;
             } else {
                 maxHeap.add(n);
