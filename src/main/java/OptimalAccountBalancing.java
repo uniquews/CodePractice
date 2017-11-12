@@ -90,15 +90,18 @@ public class OptimalAccountBalancing {
                     continue;
                 }
 
-                debts[current] -= money;
-                debts[i] += money;
                 if (money == 0)
                     dfs(debts, i, count);
-                else
+                else {
+                    debts[current] -= money;
+                    debts[i] += money;
+
                     dfs(debts, i, count + 1);
 
-                debts[current] += money;
-                debts[i] -= money;
+                    debts[current] += money;
+                    debts[i] -= money;
+                }
+
             }
         }
 

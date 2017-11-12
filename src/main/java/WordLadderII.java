@@ -87,97 +87,170 @@ public class WordLadderII {
 //        }
 //    }
 
+//    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+//        Set<String> dict = new HashSet<String>();
+//        for (String s : wordList) {
+//            dict.add(s);
+//        }
+//
+//        List<List<String>> result = new ArrayList<>();
+//        List<String> eachResult = new ArrayList<>();
+//
+//        Map<String, List<String>> parent = new HashMap<>();
+//        Queue<String> q = new LinkedList<>();
+//        Set<String> previousLevel = new HashSet<>();
+//        q.add(beginWord);
+//        previousLevel.add(beginWord);
+//        boolean found = false;
+//
+//        while (!q.isEmpty()) {
+//            int size = q.size();
+//            for (int i = 0; i < size; i++) {
+//                String current = q.poll();
+//                for (int j = 0; j < current.length(); j++) {
+//                    for (char c = 'a'; c <= 'z'; c++) {
+//                        char[] arr = current.toCharArray();
+//                        if (arr[j] == c)
+//                            continue;
+//                        arr[j] = c;
+//                        String next = new String(arr);
+//                        if (dict.contains(next)) {
+//                            if (next.equals(endWord)) {
+//                                found = true;
+//                            }
+//                            if (!previousLevel.contains(next)) {
+//                                if (!q.contains(next)) {
+//                                    q.add(next);
+//                                }
+//                                if (parent.containsKey(next)) {
+//                                    parent.get(next).add(current);
+//                                } else {
+//                                    List<String> allParent = new ArrayList<>(Arrays.asList(current));
+//                                    parent.put(next, allParent);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            previousLevel.addAll(q);
+//            if (found)
+//                break;
+//        }
+//
+//        if (!found)
+//            return result;
+//        dfs(beginWord, endWord, parent, eachResult, result);
+//        return result;
+//    }
+//
+//    // [["hit","hot","lot","log","cog"],["hit","hot","dot","dog","cog"]]
+//    private void dfs(String target, String source, Map<String, List<String>> parentMap, List<String> eachResult, List<List<String>> result) {
+//        eachResult.add(source);
+//
+//        if (source.equals(target)) {
+//            Collections.reverse(eachResult);
+//            result.add(new ArrayList<>(eachResult));
+//            Collections.reverse(eachResult);
+//        }
+//
+//        if (!parentMap.containsKey(source)) {
+//            eachResult.remove(eachResult.size() - 1);
+//            return;
+//        }
+//
+//        List<String> allParents = parentMap.get(source);
+//        for (String s : allParents) {
+//            dfs(target, s, parentMap, eachResult, result);
+//        }
+//
+//        eachResult.remove(eachResult.size() - 1);
+//    }
+
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-        Set<String> dict = new HashSet<String>();
-        for (String s : wordList) {
-            dict.add(s);
-        }
-
-        List<List<String>> result = new ArrayList<>();
-        List<String> eachResult = new ArrayList<>();
-
         Map<String, List<String>> parent = new HashMap<>();
-        Queue<String> q = new LinkedList<>();
         Set<String> previousLevel = new HashSet<>();
-        q.add(beginWord);
+        Queue<String> q = new LinkedList<>();
+
+        q.offer(beginWord);
         previousLevel.add(beginWord);
         boolean found = false;
 
-        while (!q.isEmpty()) {
+        Set<String> dict = new HashSet<>();
+        for (String ss : wordList) {
+            dict.add(ss);
+        }
+
+        while (!q.isEmpty() && !found) {
             int size = q.size();
+            Set<String> currentLevel = new HashSet<>();
+
             for (int i = 0; i < size; i++) {
-                String current = q.poll();
-                for (int j = 0; j < current.length(); j++) {
+                String cur = q.poll();
+                for (int j = 0; j < cur.length(); j++) {
                     for (char c = 'a'; c <= 'z'; c++) {
-                        char[] arr = current.toCharArray();
-                        if (arr[j] == c)
+                        if (cur.charAt(j) == c) {
                             continue;
-                        arr[j] = c;
-                        String next = new String(arr);
-                        if (dict.contains(next)) {
-                            if (next.equals(endWord)) {
-                                found = true;
-                            }
-                            if (!previousLevel.contains(next)) {
-                                if (!q.contains(next)) {
-                                    q.add(next);
-                                }
-                                if (parent.containsKey(next)) {
-                                    parent.get(next).add(current);
-                                } else {
-                                    List<String> allParent = new ArrayList<>(Arrays.asList(current));
-                                    parent.put(next, allParent);
-                                }
-                            }
+                        }
+
+                        String next = cur.substring(0, j) + c + cur.substring(j + 1);
+                        if (previousLevel.contains(next) || !dict.contains(next)) {
+                            continue;
+                        }
+
+                        currentLevel.add(next);
+                        List<String> parentList = parent.getOrDefault(next, new ArrayList<>());
+                        parentList.add(cur);
+                        parent.put(next, parentList);
+
+                        if (next.equals(endWord)) {
+                            found = true;
                         }
                     }
                 }
             }
 
-            previousLevel.addAll(q);
-            if (found)
-                break;
+            q.addAll(currentLevel);
+            previousLevel.addAll(currentLevel);
         }
 
-        if (!found)
-            return result;
-        dfs(beginWord, endWord, parent, eachResult, result);
+        if (!found) {
+            return new ArrayList<>();
+        }
+
+        List<List<String>> result = new ArrayList<>();
+        List<String> eachResult = new LinkedList<>();
+
+        dfs(beginWord, endWord, parent, result, eachResult);
         return result;
     }
 
-    // [["hit","hot","lot","log","cog"],["hit","hot","dot","dog","cog"]]
-    private void dfs(String target, String source, Map<String, List<String>> parentMap, List<String> eachResult, List<List<String>> result) {
-        eachResult.add(source);
+    private void dfs(String beginWord, String cur, Map<String, List<String>> parent, List<List<String>> result, List<String> eachResult) {
+        eachResult.add(0, cur);
 
-        if (source.equals(target)) {
-            Collections.reverse(eachResult);
+        if (cur.equals(beginWord)) {
             result.add(new ArrayList<>(eachResult));
-            Collections.reverse(eachResult);
-        }
-
-        if (!parentMap.containsKey(source)) {
-            eachResult.remove(eachResult.size() - 1);
+            eachResult.remove(0);
             return;
         }
 
-        List<String> allParents = parentMap.get(source);
-        for (String s : allParents) {
-            dfs(target, s, parentMap, eachResult, result);
+        for (String p : parent.get(cur)) {
+            dfs(beginWord, p, parent, result, eachResult);
         }
-
-        eachResult.remove(eachResult.size() - 1);
+        eachResult.remove(0);
     }
 
     public static void main(String[] args) {
-//        WordLadderII test = new WordLadderII();
+        WordLadderII test = new WordLadderII();
 //        String start = "qa";
 //        String end = "sq";
 //        Set<String> dict = new HashSet<>(Arrays.asList("si", "go", "se", "cm", "so", "ph", "mt", "db", "mb", "sb", "kr", "ln", "tm", "le", "av", "sm", "ar", "ci", "ca", "br", "ti", "ba", "to", "ra", "fa", "yo", "ow", "sn", "ya", "cr", "po", "fe", "ho", "ma", "re", "or", "rn", "au", "ur", "rh", "sr", "tc", "lt", "lo", "as", "fr", "nb", "yb", "if", "pb", "ge", "th", "pm", "rb", "sh", "co", "ga", "li", "ha", "hz", "no", "bi", "di", "hi", "qa", "pi", "os", "uh", "wm", "an", "me", "mo", "na", "la", "st", "er", "sc", "ne", "mn", "mi", "am", "ex", "pt", "io", "be", "fm", "ta", "tb", "ni", "mr", "pa", "he", "lr", "sq", "ye"));
 //
-////        String start = "hot";
-////        String end = "dog";
-////        Set<String> dict = new HashSet<>(Arrays.asList("hot","cog","dog","tot","hog","hop","pot","dot"));
+        String start = "hit";
+        String end = "cog";
+        List<String> dict = new ArrayList<>(Arrays.asList("hot","dot","dog","lot","log","cog"));
 //
-//        test.findLadders(start, end, dict);
+        test.findLadders(start, end, dict);
     }
 }
