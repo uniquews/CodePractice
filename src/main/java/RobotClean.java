@@ -29,7 +29,7 @@ class Position {
 
 
 class RobotClean {
-    int[][] offset = {{0,1}, {1,0}, {0,-1}, {-1,0}}; //顺时针
+    int[][] offset = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // 顺时针
     Set<Position> visited = new HashSet<>();
 
     public void cleanRoom(Robot robot) {
@@ -37,7 +37,8 @@ class RobotClean {
         visited.add(start);
         robot.clean();
         for (int i = 0; i < 4; i++) {
-
+            moveToNewPos(robot, start, i, visited);
+            robot.turnRight(1);
         }
     }
 
