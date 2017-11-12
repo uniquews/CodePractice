@@ -1,100 +1,67 @@
-class Robot {
-    int x;
-    int y;
-    char face;
+import java.util.HashSet;
+import java.util.Set;
 
-    public Robot(int xx, int yy, char f) {
-        x = xx;
-        y  = yy;
-        face = f;
+class Robot {
+
+    public Robot() {
+
     }
-    public boolean move() {
+
+    public boolean move(Position pos) {
         return true;
     }
-    public void turnLeft() {
+    public void turnLeft(int direction) {
     }
-    public void turnRight() {
+    public void turnRight(int direction) {
     }
     public void clean() {
     }
+}
 
-    public boolean helper(int posX, int posY) {
-        if (posX < x) {
-            // down
-            if (face == 'N') {
-                // right turn twice
-            } else if (face == 'S') {
-                // do nothing
-            } else if (face == 'W') {
-                // turn left
-            } else { // 'E'
-                // turn right
-            }
-        } else if (posX > x) {
-            // up
-            if (face == 'N') {
-                // do nothing
-            } else if (face == 'S') {
-                // right turn twice
-            } else if (face == 'W') {
-                // turn right
-            } else { // 'E'
-                // turn left
-            }
-        } else if (posY < y) {
-            // left
-            if (face == 'N') {
-                // turn left
-            } else if (face == 'S') {
-                // turn right
-            } else if (face == 'W') {
-                // do nothing
-            } else { // 'E'
-                // right turn twice
-            }
-        } else { // posY > Y
-            // right
-            if (face == 'N') {
-                // turn right
-            } else if (face == 'S') {
-                // turn left
-            } else if (face == 'W') {
-                // right turn twice
-            } else { // 'E'
-                // do nothing
-            }
-        }
-        boolean res = move();
-        if (res) {
-            clean();
-        }
-        return res;
+class Position {
+    int x;
+    int y;
+    public Position(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
 
 
 class RobotClean {
-    Robot robot;
-    int[][] direction = {{0,1}, {0, -1}, {1, 0}, {-1, 0}};
-    int[][] map;
-    boolean[][] cleaned;
+    int[][] offset = {{0,1}, {1,0}, {0,-1}, {-1,0}}; //顺时针
+    Set<Position> visited = new HashSet<>();
 
-    public RobotClean(int xx, int yy, int[][] grid, char f) {
-        robot = new Robot(xx, yy, f);
-        map = grid;
-        cleaned = new boolean[map.length][map[0].length];
+    public void cleanRoom(Robot robot) {
+        Position start = new Position(0, 0);
+        visited.add(start);
+        robot.clean();
+        for (int i = 0; i < 4; i++) {
+
+        }
     }
 
-    void work(int m, int n) {
-        for (int i = 0; i < direction.length; i++) {
-            int posX = m + direction[i][0];
-            int posY = n + direction[i][1];
-            if (cleaned[posX][posY] || !robot.helper(posX, posY))
-                continue;
-            cleaned[posX][posY] = true;
-            work(posX, posY);
-            robot.helper(m, n);
+    private void moveToNewPos(Robot robot, Position pos, int direction, Set<Position> visited) {
+        Position newPos = new Position(pos.x + offset[direction][0], pos.y + offset[direction][1]);
+        if (visited.contains(newPos)) {
+            return;
         }
+
+        if (!robot.move(newPos)) {
+            return;
+        }
+
+        visited.add(newPos);
+        robot.clean();
+        robot.turnLeft(direction); // 扭正
+        for (int i = 0; i < 4; i++) {
+            moveToNewPos(robot, newPos, i, visited);
+            robot.turnRight(1); // 1 means 90 degree, after turning 4 times and now it faces north
+        }
+        robot.turnRight(direction);
+        robot.turnRight(2); // 180 turn, look back
+        robot.move(pos);
+        robot.turnRight(2); // 180 turn, look ahead
     }
 }
 
