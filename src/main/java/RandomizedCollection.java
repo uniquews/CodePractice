@@ -34,18 +34,23 @@ public class RandomizedCollection {
         int index1 = map.get(val).iterator().next();
         int index2 = list.size() - 1;
 
+        int num1 = val;
+        int num2 = list.get(list.size() - 1);
+
         swap(index1, index2);
-        list.remove(index2);
 
-        map.get(val).remove(index1);
-        if (map.get(val).size() == 0) {
-            map.remove(val);
-        }
-        if (index1 != index2) {
-            map.get(list.get(index1)).remove(index2);
-            map.get(list.get(index1)).add(index1);
-        }
+        map.get(num1).remove(index1);
+        map.get(num2).remove(index2);
 
+        map.get(num1).add(index2);
+        map.get(num2).add(index1);
+
+        map.get(num1).remove(index2);
+
+        if (map.get(num1).size() == 0) {
+            map.remove(num1);
+        }
+        list.remove(list.size() - 1);
         return true;
     }
 
