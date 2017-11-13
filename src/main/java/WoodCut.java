@@ -4,39 +4,34 @@
 public class WoodCut {
     public int woodCut(int[] L, int k) {
         // write your code here
-        int max = 0;
+        int start = 0;
+        int end = Integer.MIN_VALUE;
+
         for (int i = 0; i < L.length; i++) {
-            max = Math.max(max, L[i]);
+            end = Math.max(end, L[i]);
         }
 
-        // We can't use start = 0 as
-        // you could use L[i] / start in future while there is no valid length for fairly big k.
-        int start = 1;
-        int end = max;
         while (start + 1 < end) {
             int mid = start + (end - start) / 2;
-            if (count(L, mid) >= k) {
+            int num = getCut(L, mid);
+            if (num >= k) {
                 start = mid;
             } else {
                 end = mid;
             }
         }
 
-        if (count(L, end) >= k) {
+        if (getCut(L, end) >= k) {
             return end;
-        } else if (count(L, start) >= k) {
-
-            return start;
-        } else {
-            return 0;
         }
+        return start;
     }
 
-    private int count(int[] L, int length) {
-        int numOfCut = 0;
-        for (int i = 0; i < L.length; i++) {
-            numOfCut += L[i] / length; //  equal or more than k pieces with the same length  所以余数我们舍弃
+    private int getCut(int[] L, int len) {
+        int num = 0;
+        for (int l : L) {
+            num += l / len;
         }
-        return numOfCut;
+        return num;
     }
 }
