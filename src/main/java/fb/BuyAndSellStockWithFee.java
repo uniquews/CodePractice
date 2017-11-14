@@ -25,6 +25,21 @@ public class BuyAndSellStockWithFee {
         return g[a.length - 1];
     }
 
+    // leetcode 是买卖算一次transaction  只有卖的时候交手续费
+//    public int maxProfit(int[] prices, int fee) {
+//        int[] f = new int[prices.length];
+//        int[] g = new int[prices.length];
+//
+//        g[0] = 0;
+//        f[0] = -prices[0];
+//
+//        for (int i = 1; i < prices.length; i++) {
+//            f[i] = Math.max(f[i - 1], g[i - 1] - prices[i]);
+//            g[i] = Math.max(g[i - 1], f[i - 1] +  prices[i] - fee);
+//        }
+//        return g[prices.length - 1];
+//    }
+
     public static void main(String[] args) {
 //        int[] a = {1,100}; // 买和卖都有fee。。。
 //        int fee = 20;
