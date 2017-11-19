@@ -158,50 +158,87 @@ public class MinimumWindowSubstring {
 //        return s.substring(start, start + minWin);
 //    }
 
+//    public String minWindow(String s, String t) {
+//        Map<Character, Integer> occur = new HashMap<>();
+//        Map<Character, Integer> visited = new HashMap<>();
+//
+//        int count = 0;
+//        int right = 0;
+//        int minLen = s.length();
+//        int start = -1;
+//
+//        for (int i = 0; i < t.length(); i++) {
+//            occur.put(t.charAt(i), occur.getOrDefault(t.charAt(i), 0) + 1);
+//            visited.put(t.charAt(i), 0);
+//        }
+//
+//        for (int left = 0; left < s.length(); left++) {
+//            while (right < s.length() && count < t.length()) {
+//                if (occur.containsKey(s.charAt(right))) {
+//                    if (occur.get(s.charAt(right)) > visited.get(s.charAt(right))) {
+//                        count++;
+//                    }
+//                    visited.put(s.charAt(right), visited.get(s.charAt(right)) + 1);
+//                }
+//                right++;
+//            }
+//
+//
+//            if (count == t.length() && minLen >= right - left) {
+//                start = left;
+//                minLen = right - left;
+//            }
+//
+//            if (occur.containsKey(s.charAt(left))) {
+//                visited.put(s.charAt(left), visited.get(s.charAt(left)) - 1);
+//                if (visited.get(s.charAt(left)) < occur.get(s.charAt(left))) {
+//                    count--;
+//                }
+//            }
+//        }
+//
+//        if (start == -1) {
+//            return "";
+//        }
+//
+//        return s.substring(start, start + minLen);
+//    }
+
     public String minWindow(String s, String t) {
-        Map<Character, Integer> occur = new HashMap<>();
-        Map<Character, Integer> visited = new HashMap<>();
-
-        int count = 0;
-        int right = 0;
-        int minLen = s.length();
-        int start = -1;
-
+        int[] map = new int[256];
         for (int i = 0; i < t.length(); i++) {
-            occur.put(t.charAt(i), occur.getOrDefault(t.charAt(i), 0) + 1);
-            visited.put(t.charAt(i), 0);
+            map[t.charAt(i)]++;
         }
 
-        for (int left = 0; left < s.length(); left++) {
-            while (right < s.length() && count < t.length()) {
-                if (occur.containsKey(s.charAt(right))) {
-                    if (occur.get(s.charAt(right)) > visited.get(s.charAt(right))) {
-                        count++;
-                    }
-                    visited.put(s.charAt(right), visited.get(s.charAt(right)) + 1);
+        int start = 0;
+        int end = 0;
+        int minLen = Integer.MAX_VALUE;
+        int minStart = -1;
+        int match = 0;
+
+        while (end < s.length()) {
+            char in = s.charAt(end);
+            if (map[in] > 0) {
+                match++;
+            }
+            map[in]--;
+            end++;
+
+            while (match == t.length()) {
+                if (minLen > end - start) {
+                    minLen = end - start;
+                    minStart = start;
                 }
-                right++;
-            }
 
-
-            if (count == t.length() && minLen >= right - left) {
-                start = left;
-                minLen = right - left;
-            }
-
-            if (occur.containsKey(s.charAt(left))) {
-                visited.put(s.charAt(left), visited.get(s.charAt(left)) - 1);
-                if (visited.get(s.charAt(left)) < occur.get(s.charAt(left))) {
-                    count--;
+                char out = s.charAt(start);
+                if (map[out] >= 0) {
+                    match--;
                 }
+                map[out]++;
+                start++;
             }
         }
-
-        if (start == -1) {
-            return "";
-        }
-
-        return s.substring(start, start + minLen);
+        return minStart == -1 ? "" : s.substring(minStart, minStart + minLen);
     }
 
     public static void main(String[] args) {

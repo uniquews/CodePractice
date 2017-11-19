@@ -7,39 +7,45 @@ import java.util.List;
 public class ExpressionAddOperators {
     public List<String> addOperators(String num, int target) {
         List<String> result = new ArrayList<>();
-        dfs(num, 0, target, result, 0, 0, "");
+
+        if (num == null || num.length() == 0) {
+            return result;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= num.length(); i++) {
+            String start = num.substring(0, i);
+            long cur = Long.valueOf(start);
+            dfs(num, target, cur, cur, i, sb.append(start), result);
+            sb.setLength(0);
+            if (start.equals("0")) {
+                break;
+            }
+        }
         return result;
     }
 
-    private void dfs(String num, int index, int target, List<String> result, long current, long last, String eachResult) {
-        if (index == num.length()) {
-            if (current == target) {
-                result.add(eachResult);
-            }
+    private void dfs(String num, int target, long cur, long last, int index, StringBuilder sb, List<String> result) {
+        if (cur == target && index == num.length()) {
+            result.add(sb.toString());
             return;
         }
 
-        if (index == 0) {
-            if (num.charAt(index) == '0') {
-                dfs(num, index + 1, target, result, current, last, "0");
-            } else {
-                for (int i = index + 1; i <= num.length(); i++) {
-                    long n = Long.valueOf(num.substring(index, i));
-                    dfs(num, i, target, result, n, n, num.substring(index, i));
-                }
-            }
-        } else {
-            if (num.charAt(index) == '0') {
-                dfs(num, index + 1, target, result, current, 0, eachResult + "+0");
-                dfs(num, index + 1, target, result, current, 0, eachResult + "-0");
-                dfs(num, index + 1, target, result, current - last, 0, eachResult + "*0"); // *
-            } else {
-                for (int i = index + 1; i <= num.length(); i++) {
-                    long n = Long.valueOf(num.substring(index, i));
-                    dfs(num, i, target, result, current + n, n, eachResult + "+" + n);
-                    dfs(num, i, target, result, current - n, -n, eachResult + "-" + n);
-                    dfs(num, i, target, result, current - last + last * n, last * n, eachResult + "*" + n);
-                }
+        int len = sb.length();
+        for (int i = index + 1; i <= num.length(); i++) {
+            String str = num.substring(index, i);
+            long tmp = Long.valueOf(str);
+            dfs(num, target, cur + tmp, tmp, i, sb.append("+").append(str), result);
+            sb.setLength(len);
+
+            dfs(num, target, cur - tmp, -tmp, i, sb.append("-").append(str), result);
+            sb.setLength(len);
+
+            dfs(num, target, (cur - last) + last * tmp, last * tmp, i, sb.append("*").append(str), result);
+            sb.setLength(len);
+
+            if (str.equals("0")) {
+                break;
             }
         }
     }
