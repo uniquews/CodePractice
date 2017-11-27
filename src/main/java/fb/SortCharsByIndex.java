@@ -1,5 +1,11 @@
 package fb;
 
+
+/**
+ *
+ * 第三题，输入两个array{3,2,4,1,5,0} {D,C,E, B,F,A} 程序结束后得到 {0,1,2,3,4,5}
+ * {A,B,C,D,E,F}, function没有输出
+ * */
 public class SortCharsByIndex {
     public void sortChar(int[] nums, char[] letters) {
         int index = 0;
