@@ -37,7 +37,7 @@ public class PrimeProduct {
 
     public static void main(String[] args) {
         PrimeProduct test = new PrimeProduct();
-        int[] nums = {2,3,3,7};
+        int[] nums = {2,2,7};
         List<Integer> result = test.getProduct(nums);
         for (int i : result) {
             System.out.println(i);
